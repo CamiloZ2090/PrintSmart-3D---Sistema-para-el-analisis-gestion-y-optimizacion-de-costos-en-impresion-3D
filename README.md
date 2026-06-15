@@ -38,7 +38,7 @@
 
 ---
 
-##  Problema
+##  Situacion Problema
 
 Actualmente, en el emprendimiento PrintSmart 3D, el cálculo de costos se realizaba de forma **empírica**, sin considerar variables clave como:
 
