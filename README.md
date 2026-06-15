@@ -14,7 +14,7 @@
 
 ---
 
-##  Tabla de Contenidos
+##  Tabla de Contenido
 
 - Descripción
 - Problema
