@@ -6,9 +6,6 @@
 
 ![Estado](https://img.shields.io/badge/Estado-En%20Desarrollo-yellow?style=for-the-badge)
 
-
-</div>
-
 <br/>
 
 <img src="1. TRIMESTRE/Items 1/logo.jpeg" alt="PrintSmart 3D Logo" width="200"/>
