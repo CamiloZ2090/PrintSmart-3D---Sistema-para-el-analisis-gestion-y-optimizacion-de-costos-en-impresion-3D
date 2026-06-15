@@ -165,9 +165,3 @@ El sistema cubre las siguientes funcionalidades principales:
 *Proyecto Final — SENA*
 
 </div>
-
-<div align="center">
-
-Hecho por el equipo **PrintSmart 3D** · SENA 2026
-
-</div>
