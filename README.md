@@ -12,12 +12,12 @@
 
 ##  Tabla de Contenidos
 
-- [ Descripción]
-- [ Problema]
-- [ Objetivos]
-- [ Módulos del Sistema]
-- [ Alcance del Proyecto]
-- [ Equipo de Desarrollo]
+- Descripción
+- Problema
+- Objetivos
+- Módulos del Sistema
+- Alcance del Proyecto
+- Equipo de Desarrollo
 
 ---
 
