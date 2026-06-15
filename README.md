@@ -5,7 +5,6 @@
 ### Sistema inteligente para el análisis, gestión y optimización de costos en impresión 3D
 
 ![Estado](https://img.shields.io/badge/Estado-En%20Desarrollo-yellow?style=for-the-badge)
-![SENA](https://img.shields.io/badge/SENA-Proyecto%20Productivo-39A900?style=for-the-badge&logo=academia&logoColor=white)
 
 </div>
 
@@ -13,12 +12,12 @@
 
 ##  Tabla de Contenidos
 
-- [ Descripción](#-descripción)
-- [ Problema](#-problema)
-- [ Objetivos](#-objetivos)
-- [ Módulos del Sistema](#-módulos-del-sistema)
-- [ Alcance del Proyecto](#-alcance-del-proyecto)
-- [ Equipo de Desarrollo](#-equipo-de-desarrollo)
+- [ Descripción]
+- [ Problema]
+- [ Objetivos]
+- [ Módulos del Sistema]
+- [ Alcance del Proyecto]
+- [ Equipo de Desarrollo]
 
 ---
 
