@@ -104,7 +104,7 @@ El sistema está compuesto por **5 módulos principales**:
 </details>
 
 <details>
-<summary><strong>🛒 Módulo 3 — Pedidos</strong></summary>
+<summary><strong> Módulo 3 — Pedidos</strong></summary>
 
 | Funcionalidad | Descripción |
 |---------------|-------------|
