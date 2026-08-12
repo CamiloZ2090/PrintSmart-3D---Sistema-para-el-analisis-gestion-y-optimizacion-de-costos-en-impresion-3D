@@ -1,0 +1,65 @@
+/* =============================================
+   VARIABLES GLOBALES
+   Aquí defines los colores y tamaños del sitio.
+   Cambiar un valor aquí lo cambia EN TODO EL SITIO.
+============================================= */
+:root {
+  /* Paleta de morados */
+  --purple-900: #3B0764;
+  --purple-800: #4C1D95;
+  --purple-700: #5B21B6; /* Color principal */
+  --purple-600: #7C3AED;
+  --purple-500: #8B5CF6;
+  --purple-400: #A78BFA;
+  --purple-100: #EDE9FE;
+  --purple-50:  #F5F3FF;
+
+  /* Colores de estado */
+  --success:  #22C55E;
+  --warning:  #F59E0B;
+  --danger:   #EF4444;
+
+  /* Textos */
+  --text-dark:  #1F2937;
+  --text-mid:   #374151;
+  --text-muted: #9CA3AF;
+
+  /* Fondo y bordes */
+  --bg:     #F8F9FA;
+  --border: #F0F0F5;
+  --white:  #ffffff;
+
+  /* Medidas del layout */
+  --sidebar-ancho:  210px;
+  --topbar-alto:     56px;
+  --radio:           12px;
+
+  /* Fuente */
+  --fuente: 'Inter', sans-serif;
+}
+
+/* Reset básico */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--fuente);
+  background: var(--bg);
+  color: var(--text-dark);
+}
+
+/* Clases de utilidad rápida */
+.fw-500 { font-weight: 500; }
+.fw-600 { font-weight: 600; }
+.fw-700 { font-weight: 700; }
+.fw-800 { font-weight: 800; }
+.texto-morado  { color: var(--purple-700); }
+.texto-muted   { color: var(--text-muted); }
+.texto-muted-xs { color: var(--text-muted); font-size: 11.5px; }
+.link-morado   { color: var(--purple-600); text-decoration: none; font-weight: 600; }
+.link-morado:hover { text-decoration: underline; }
+.divisor       { height: 1px; background: var(--border); margin: 16px 0; border: none; }
+.estado-online { font-size: 12px; color: var(--success); }
