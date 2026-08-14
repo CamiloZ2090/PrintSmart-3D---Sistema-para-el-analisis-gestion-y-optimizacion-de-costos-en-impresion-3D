@@ -1,8 +1,7 @@
-// LOGIN.JS — Landing page + Modal de acceso
+
+// LOGIN.JS — Landing + Modal + Recuperación
 // PrintSmart 3D · ML Mecanizados SAS
 
-// ── Roles disponibles ──
-// Cambia a true cuando configures cada panel
 const rolesDisponibles = {
   Admin:    true,
   Operador: false,
@@ -11,103 +10,82 @@ const rolesDisponibles = {
 
 const datosRol = {
   Admin: {
-    desc:         "Acceso total: usuarios, configuración, reportes financieros y control de toda la operación.",
+    desc: "Acceso total: usuarios, configuración, reportes financieros y control de toda la operación.",
     descBloqueado: null
   },
   Operador: {
-    desc:         "Gestión de cola de impresión, inventario de materiales y mantenimiento técnico.",
+    desc: "Gestión de cola de impresión, inventario de materiales y mantenimiento técnico.",
     descBloqueado: "El panel de Operario está en desarrollo. Estará disponible pronto."
   },
   Cliente: {
-    desc:         "Registra tu cuenta para hacer pedidos, ver cotizaciones y seguimiento en tiempo real.",
+    desc: "Registra tu cuenta para hacer pedidos, ver cotizaciones y seguimiento en tiempo real.",
     descBloqueado: null
   }
 };
 
-// Variable de estado
-let rolModalActual    = "Admin";
-let productoActual    = null;
+let rolModalActual      = "Admin";
+let productoActual      = null;
+let codigoRecuperacion  = null;
 
-// NAVBAR — efecto scroll
+// NAVBAR — scroll + link activo
 window.addEventListener("scroll", () => {
   const nav = document.getElementById("lnav");
-  if (!nav) return;
-  nav.classList.toggle("scrolled", window.scrollY > 50);
+  if (nav) nav.classList.toggle("scrolled", window.scrollY > 50);
 });
-
-// NAVBAR — link activo según sección visible
 
 window.addEventListener("scroll", () => {
   const secciones = document.querySelectorAll("section[id]");
   let actual = "";
-
   secciones.forEach(sec => {
-    if (window.scrollY >= sec.offsetTop - 120) {
-      actual = sec.getAttribute("id");
-    }
+    if (window.scrollY >= sec.offsetTop - 120) actual = sec.getAttribute("id");
   });
-
   document.querySelectorAll(".lnav-links a").forEach(a => {
     a.classList.remove("lnav-active");
-    if (a.getAttribute("href") === "#" + actual) {
-      a.classList.add("lnav-active");
-    }
+    if (a.getAttribute("href") === "#" + actual) a.classList.add("lnav-active");
   });
 });
 
-// ANIMACIONES FADE-UP — Intersection Observer
-
+// DOM LISTO
 document.addEventListener("DOMContentLoaded", () => {
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("visible");
-      }
-    });
+  // Fade-up observer
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add("visible"); });
   }, { threshold: 0.12 });
+  document.querySelectorAll(".fade-up").forEach(el => obs.observe(el));
 
-  document.querySelectorAll(".fade-up").forEach(el => observer.observe(el));
-
-  // Tab Admin activo por defecto al cargar
+  // Tab Admin activo por defecto
   const tabAdmin = document.getElementById("tab-Admin");
   if (tabAdmin) tabAdmin.classList.add("activo");
+
+  // Inyectar HTML de recuperación en el modal
+  _inyectarRecuperacion();
 });
 
-// MODAL — ABRIR
+// MODAL — ABRIR / CERRAR
 function abrirModal(rol) {
   const ov = document.getElementById("modalOv");
   if (!ov) return;
-
   ov.classList.add("abierto");
   document.body.style.overflow = "hidden";
-
-  // Seleccionar tab del rol recibido
   const tabEl = document.getElementById("tab-" + rol);
   selectModalRol(rol, tabEl);
 }
 
-// MODAL — CERRAR
 function cerrarModal() {
   const ov = document.getElementById("modalOv");
   if (!ov) return;
-
   ov.classList.remove("abierto");
   document.body.style.overflow = "";
   productoActual = null;
-
-  // Restaurar vistas
   _mostrarSeccion("secLogin");
+  _restaurarTabsYRol();
   limpiarFormularios();
 }
 
-// Cierra solo si se hizo click en el fondo oscuro
 function cerrarModalClick(event) {
-  if (event.target === document.getElementById("modalOv")) {
-    cerrarModal();
-  }
+  if (event.target === document.getElementById("modalOv")) cerrarModal();
 }
 
-// Cerrar con tecla ESC
 document.addEventListener("keydown", e => {
   if (e.key === "Escape") cerrarModal();
 });
@@ -116,7 +94,6 @@ document.addEventListener("keydown", e => {
 function selectModalRol(rol, tabEl) {
   rolModalActual = rol;
 
-  // Actualizar tabs visuales
   document.querySelectorAll(".mtab").forEach(t => t.classList.remove("activo"));
   if (tabEl) tabEl.classList.add("activo");
 
@@ -125,222 +102,351 @@ function selectModalRol(rol, tabEl) {
   const rolTxt  = document.getElementById("mRolTexto");
   const titulo  = document.getElementById("mTitulo");
   const subtit  = document.getElementById("mSubtitulo");
-  const errLogin = document.getElementById("mErr");
+  const errLog  = document.getElementById("mErr");
 
-  // Ocultar errores previos
-  if (errLogin) errLogin.style.display = "none";
+  if (errLog) errLog.style.display = "none";
 
   if (rol === "Cliente") {
-    // ── Vista de registro ──
     _mostrarSeccion("secRegistro");
-
-    titulo.textContent  = "Crear cuenta de Cliente";
-    subtit.textContent  = "Accede a todo el catálogo y realiza pedidos";
-
+    titulo.textContent = "Crear cuenta de Cliente";
+    subtit.textContent = "Accede al catálogo y realiza tus pedidos";
     rolBox.classList.remove("bloqueado");
     rolIco.className = "bi bi-person-plus";
     rolTxt.textContent = datosRol.Cliente.desc;
 
   } else if (!rolesDisponibles[rol]) {
-    // ── Rol bloqueado ──
     _mostrarSeccion("secLogin");
-
-    titulo.textContent  = "PrintSmart 3D";
-    subtit.textContent  = "Selecciona tu perfil de acceso";
-
+    titulo.textContent = "PrintSmart 3D";
+    subtit.textContent = "Selecciona tu perfil de acceso";
     rolBox.classList.add("bloqueado");
     rolIco.className = "bi bi-lock-fill";
     rolTxt.textContent = datosRol[rol].descBloqueado;
-
     const btn = document.getElementById("btnLogin");
-    if (btn) {
-      btn.disabled = true;
-      btn.innerHTML = '<i class="bi bi-lock-fill"></i> Acceso No Disponible';
-    }
+    if (btn) { btn.disabled = true; btn.innerHTML = '<i class="bi bi-lock-fill"></i> Acceso No Disponible'; }
 
   } else {
-    // ── Login normal (Admin) ──
     _mostrarSeccion("secLogin");
-
-    titulo.textContent  = "PrintSmart 3D";
-    subtit.textContent  = "Selecciona tu perfil de acceso";
-
+    titulo.textContent = "PrintSmart 3D";
+    subtit.textContent = "Selecciona tu perfil de acceso";
     rolBox.classList.remove("bloqueado");
     rolIco.className = "bi bi-info-circle";
     rolTxt.textContent = datosRol[rol].desc;
-
     const btn = document.getElementById("btnLogin");
-    if (btn) {
-      btn.disabled = false;
-      btn.innerHTML = 'Iniciar Sesión &nbsp;<i class="bi bi-arrow-right"></i>';
-    }
+    if (btn) { btn.disabled = false; btn.innerHTML = 'Iniciar Sesión &nbsp;<i class="bi bi-arrow-right"></i>'; }
   }
 }
 
-// MODAL — TOGGLE CONTRASEÑA (Login)
+// TOGGLE CONTRASEÑAS
 function togglePassLogin() {
-  const input = document.getElementById("mPass");
-  const ico   = document.getElementById("mOjoLogin");
-  if (!input) return;
-  input.type  = input.type === "password" ? "text" : "password";
-  ico.className = input.type === "password" ? "bi bi-eye" : "bi bi-eye-slash";
+  const i = document.getElementById("mPass");
+  const ico = document.getElementById("mOjoLogin");
+  if (!i) return;
+  i.type = i.type === "password" ? "text" : "password";
+  ico.className = i.type === "password" ? "bi bi-eye" : "bi bi-eye-slash";
 }
 
-// MODAL — TOGGLE CONTRASEÑA (Registro)
 function togglePassReg() {
-  const input = document.getElementById("rPass");
-  const ico   = document.getElementById("mOjoReg");
-  if (!input) return;
-  input.type  = input.type === "password" ? "text" : "password";
-  ico.className = input.type === "password" ? "bi bi-eye" : "bi bi-eye-slash";
+  const i = document.getElementById("rPass");
+  const ico = document.getElementById("mOjoReg");
+  if (!i) return;
+  i.type = i.type === "password" ? "text" : "password";
+  ico.className = i.type === "password" ? "bi bi-eye" : "bi bi-eye-slash";
 }
 
-// MODAL — INICIAR SESIÓN (Admin / Operario)
+// INICIAR SESIÓN (Admin / Operario)
 function iniciarSesionModal() {
-  const email    = document.getElementById("mEmail")?.value.trim();
-  const pass     = document.getElementById("mPass")?.value.trim();
-  const mErr     = document.getElementById("mErr");
-  const btnLogin = document.getElementById("btnLogin");
+  const email = document.getElementById("mEmail")?.value.trim();
+  const pass  = document.getElementById("mPass")?.value.trim();
+  const mErr  = document.getElementById("mErr");
+  const btn   = document.getElementById("btnLogin");
 
-  // Verificar si el rol está disponible
   if (!rolesDisponibles[rolModalActual]) {
-    _mostrarError(mErr, "🔒 Este rol aún no está configurado.");
+    _mostrarError(mErr, "Este rol aún no está configurado.");
     return;
   }
-
-  // Validar campos
   if (!email || !pass) {
-    _mostrarError(mErr, "⚠️ Por favor completa el correo y la contraseña.");
+    _mostrarError(mErr, "Completa el correo y la contraseña.");
     return;
   }
 
   mErr.style.display = "none";
-
-  // Loading en el botón
-  btnLogin.disabled = true;
-  btnLogin.innerHTML = '<i class="bi bi-arrow-repeat spin-icon"></i>&nbsp; Ingresando...';
+  btn.disabled = true;
+  btn.innerHTML = '<i class="bi bi-arrow-repeat spin-icon"></i>&nbsp; Ingresando...';
 
   setTimeout(() => {
+    // Guardar sesión
     sessionStorage.setItem("rolActual", rolModalActual);
-    window.location.href = "admin.html";
+    sessionStorage.setItem("clienteEmail", email);
+
+    // Nombre desde el email
+    const partes = email.split("@")[0].split(/[._]/);
+    const nombre = partes.map(p => p.charAt(0).toUpperCase() + p.slice(1)).join(" ");
+    sessionStorage.setItem("clienteNombre", nombre);
+
+    // Redirigir según rol
+    if (rolModalActual === "Cliente") {
+      window.location.href = "cliente.html";
+    } else {
+      window.location.href = "admin.html";
+    }
   }, 900);
 }
 
-// MODAL — REGISTRAR CLIENTE
-
+// REGISTRAR CLIENTE
 function registrarCliente() {
-  const nombre   = document.getElementById("rNombre")?.value.trim();
-  const email    = document.getElementById("rEmail")?.value.trim();
-  const pass     = document.getElementById("rPass")?.value.trim();
-  const terminos = document.getElementById("terminos")?.checked;
-  const mErrReg  = document.getElementById("mErrReg");
+  const nombre  = document.getElementById("rNombre")?.value.trim();
+  const email   = document.getElementById("rEmail")?.value.trim();
+  const pass    = document.getElementById("rPass")?.value.trim();
+  const term    = document.getElementById("terminos")?.checked;
+  const mErrReg = document.getElementById("mErrReg");
 
-  // Validaciones
-  if (!nombre) {
-    _mostrarError(mErrReg, "⚠️ Ingresa tu nombre completo.");
-    return;
-  }
-  if (!email || !email.includes("@")) {
-    _mostrarError(mErrReg, "⚠️ Ingresa un correo electrónico válido.");
-    return;
-  }
-  if (!pass || pass.length < 6) {
-    _mostrarError(mErrReg, "⚠️ La contraseña debe tener al menos 6 caracteres.");
-    return;
-  }
-  if (!terminos) {
-    _mostrarError(mErrReg, "⚠️ Debes aceptar los términos y condiciones.");
-    return;
-  }
+  if (!nombre)              { _mostrarError(mErrReg, "⚠️ Ingresa tu nombre completo."); return; }
+  if (!email?.includes("@"))  { _mostrarError(mErrReg, "⚠️ Ingresa un correo válido."); return; }
+  if (!pass || pass.length < 6) { _mostrarError(mErrReg, "⚠️ La contraseña debe tener al menos 6 caracteres."); return; }
+  if (!term)                { _mostrarError(mErrReg, "⚠️ Acepta los términos y condiciones."); return; }
 
   mErrReg.style.display = "none";
 
-  // Mostrar pantalla de éxito
+  // Guardar en sessionStorage
+  sessionStorage.setItem("clienteNombre", nombre);
+  sessionStorage.setItem("clienteEmail", email);
+  sessionStorage.setItem("rolActual", "Cliente");
+
   _mostrarSeccion("secExito");
-  mostrarToast("✅ ¡Bienvenido a PrintSmart 3D!", "success");
+  mostrarToast("✅ ¡Bienvenido, " + nombre.split(" ")[0] + "!", "success");
+
+  // Redirigir al portal del cliente
+  setTimeout(() => { window.location.href = "cliente.html"; }, 2000);
 }
 
-// CATÁLOGO — Mostrar interés en un producto
+// RECUPERACIÓN — Paso 1: pedir email
+function mostrarRecuperacion() {
+  // Ocultar tabs y caja de rol
+  document.querySelector(".modal-tabs").style.display = "none";
+  document.getElementById("mRolBox").style.display   = "none";
 
+  _mostrarSeccion("secRecuperar");
+
+  document.getElementById("mTitulo").textContent  = "Recuperar contraseña";
+  document.getElementById("mSubtitulo").textContent = "Te enviaremos un código a tu correo";
+}
+
+// RECUPERACIÓN — Paso 2: enviar código
+function enviarCodigoRecuperacion() {
+  const emailRec = document.getElementById("emailRecuperar")?.value.trim();
+  const errRec   = document.getElementById("mErrRec");
+
+  if (!emailRec?.includes("@")) {
+    _mostrarError(errRec, "Ingresa un correo válido.");
+    return;
+  }
+
+  // Código de 6 dígitos simulado
+  codigoRecuperacion = Math.floor(100000 + Math.random() * 900000).toString();
+  errRec.style.display = "none";
+
+  mostrarToast("📧 Código enviado a " + emailRec, "info");
+  setTimeout(() => mostrarToast("Código de prueba: " + codigoRecuperacion, "success"), 1200);
+
+  // Pasar al paso 2
+  document.getElementById("rec-paso1").style.display = "none";
+  document.getElementById("rec-paso2").style.display = "block";
+}
+
+// RECUPERACIÓN — Paso 3: verificar código
+function verificarCodigo() {
+  const codigo  = document.getElementById("codigoIngresado")?.value.trim();
+  const pass1   = document.getElementById("nuevaPass")?.value.trim();
+  const pass2   = document.getElementById("confirmarPass")?.value.trim();
+  const errRec2 = document.getElementById("mErrRec2");
+
+  if (codigo !== codigoRecuperacion) {
+    _mostrarError(errRec2, "El código es incorrecto. Revisa el toast.");
+    return;
+  }
+  if (!pass1 || pass1.length < 6) {
+    _mostrarError(errRec2, "La contraseña debe tener al menos 6 caracteres.");
+    return;
+  }
+  if (pass1 !== pass2) {
+    _mostrarError(errRec2, "Las contraseñas no coinciden.");
+    return;
+  }
+
+  errRec2.style.display = "none";
+  document.getElementById("rec-paso2").style.display = "none";
+  document.getElementById("rec-paso3").style.display = "block";
+  mostrarToast("Contraseña actualizada correctamente", "success");
+}
+
+// RECUPERACIÓN — Volver al login
+function volverAlLogin() {
+  _restaurarTabsYRol();
+  codigoRecuperacion = null;
+  _mostrarSeccion("secLogin");
+  document.getElementById("mTitulo").textContent  = "PrintSmart 3D";
+  document.getElementById("mSubtitulo").textContent = "Selecciona tu perfil de acceso";
+  // Reset pasos
+  const p1 = document.getElementById("rec-paso1");
+  const p2 = document.getElementById("rec-paso2");
+  const p3 = document.getElementById("rec-paso3");
+  if (p1) p1.style.display = "block";
+  if (p2) p2.style.display = "none";
+  if (p3) p3.style.display = "none";
+}
+
+// INTERÉS EN PRODUCTO DEL CATÁLOGO
 function mostrarInteres(nombreProducto) {
   productoActual = nombreProducto;
-
-  // Abrir modal en tab Cliente
   abrirModal("Cliente");
-
-  // Mostrar el box del producto de interés
   const box    = document.getElementById("prodInteresBox");
   const nombre = document.getElementById("prodInteresNombre");
-  if (box && nombre) {
-    nombre.textContent = nombreProducto;
-    box.style.display  = "block";
-  }
+  if (box && nombre) { nombre.textContent = nombreProducto; box.style.display = "block"; }
 }
 
-// TOASTS — Sistema de notificaciones
+// TOASTS
 function mostrarToast(mensaje, tipo = "info") {
-  const contenedor = document.getElementById("ltoastContainer");
-  if (!contenedor) return;
-
-  const toast = document.createElement("div");
-  toast.className = "ltoast " + tipo;
-
-  const iconos = { success: "✅", error: "❌", info: "ℹ️" };
-  toast.innerHTML = `<span>${iconos[tipo] || "ℹ️"}</span><span>${mensaje}</span>`;
-
-  contenedor.appendChild(toast);
-
+  const c = document.getElementById("ltoastContainer");
+  if (!c) return;
+  const t = document.createElement("div");
+  t.className = "ltoast " + tipo;
+  const ico = { success: "✅", error: "❌", info: "ℹ️" };
+  t.innerHTML = `<span>${ico[tipo] || "ℹ️"}</span><span>${mensaje}</span>`;
+  c.appendChild(t);
   setTimeout(() => {
-    toast.style.opacity    = "0";
-    toast.style.transition = "opacity 0.35s";
-    setTimeout(() => toast.remove(), 350);
+    t.style.opacity = "0"; t.style.transition = "opacity 0.35s";
+    setTimeout(() => t.remove(), 350);
   }, 3500);
 }
 
-// HELPERS INTERNOS
-// Muestra solo una sección del modal y oculta el resto
+// HELPERS PRIVADOS
 function _mostrarSeccion(idVisible) {
-  ["secLogin", "secRegistro", "secExito"].forEach(id => {
+  ["secLogin", "secRegistro", "secExito", "secRecuperar"].forEach(id => {
     const el = document.getElementById(id);
-    if (el) el.style.display = id === idVisible ? "block" : "none";
+    if (el) el.style.display = (id === idVisible) ? "block" : "none";
   });
 }
 
-// Muestra un mensaje de error en un contenedor dado
-function _mostrarError(el, mensaje) {
+function _mostrarError(el, msg) {
   if (!el) return;
-  el.textContent    = mensaje;
-  el.style.display  = "block";
+  el.textContent = msg;
+  el.style.display = "block";
 }
 
-// Limpia todos los campos del formulario
+function _restaurarTabsYRol() {
+  const tabs   = document.querySelector(".modal-tabs");
+  const rolBox = document.getElementById("mRolBox");
+  if (tabs)   tabs.style.display   = "";
+  if (rolBox) rolBox.style.display = "";
+  document.querySelectorAll(".mtab").forEach(t => t.classList.remove("activo"));
+  const tabAdmin = document.getElementById("tab-Admin");
+  if (tabAdmin) tabAdmin.classList.add("activo");
+}
+
 function limpiarFormularios() {
-  ["mEmail", "mPass", "rNombre", "rEmail", "rTelefono", "rPass"].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.value = "";
-  });
-  const terminos = document.getElementById("terminos");
-  if (terminos) terminos.checked = false;
+  ["mEmail","mPass","rNombre","rEmail","rTelefono","rPass",
+   "emailRecuperar","codigoIngresado","nuevaPass","confirmarPass"
+  ].forEach(id => { const el = document.getElementById(id); if (el) el.value = ""; });
 
-  const prodBox = document.getElementById("prodInteresBox");
-  if (prodBox) prodBox.style.display = "none";
+  const term = document.getElementById("terminos");
+  if (term) term.checked = false;
 
-  ["mErr", "mErrReg"].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.style.display = "none";
+  const pbox = document.getElementById("prodInteresBox");
+  if (pbox) pbox.style.display = "none";
+
+  ["mErr","mErrReg","mErrRec","mErrRec2"].forEach(id => {
+    const el = document.getElementById(id); if (el) el.style.display = "none";
   });
 }
 
-// Animación de spin para el botón de carga
+// INYECTAR HTML DE RECUPERACIÓN EN EL MODAL
+// (Se agrega dinámicamente para no tocar index.html)
+function _inyectarRecuperacion() {
+  const modalBox = document.getElementById("modalBox");
+  if (!modalBox || document.getElementById("secRecuperar")) return;
+
+  modalBox.insertAdjacentHTML("beforeend", `
+    <div id="secRecuperar" style="display:none;">
+
+      <!-- PASO 1: Email -->
+      <div id="rec-paso1">
+        <div class="modal-err" id="mErrRec"></div>
+        <label class="mlbl">Tu correo registrado</label>
+        <div class="mfield-wrap" style="margin-bottom:18px;">
+          <i class="bi bi-envelope mfield-ico"></i>
+          <input type="email" class="mfield" id="emailRecuperar"
+                 placeholder="tu@correo.com"/>
+        </div>
+        <button class="btn-modal-accion" onclick="enviarCodigoRecuperacion()">
+          <i class="bi bi-send"></i> Enviar Código
+        </button>
+        <div class="modal-div">
+          <div class="modal-div-line"></div><span>o</span><div class="modal-div-line"></div>
+        </div>
+        <div class="modal-link-txt">
+          <span onclick="volverAlLogin()">← Volver al inicio de sesión</span>
+        </div>
+      </div>
+
+      <!-- PASO 2: Código + nueva contraseña -->
+      <div id="rec-paso2" style="display:none;">
+        <div class="modal-err" id="mErrRec2"></div>
+        <div style="background:rgba(91,33,182,0.1);border:1px solid rgba(139,92,246,0.2);
+                    border-radius:10px;padding:12px 14px;margin-bottom:16px;
+                    font-size:12.5px;color:#A78BFA;">
+          <i class="bi bi-info-circle" style="margin-right:6px;"></i>
+          Revisa el toast en pantalla — ahí aparece el código de demo.
+        </div>
+        <label class="mlbl">Código de 6 dígitos</label>
+        <div class="mfield-wrap">
+          <i class="bi bi-key mfield-ico"></i>
+          <input type="text" class="mfield" id="codigoIngresado" placeholder="000000"
+                 maxlength="6"
+                 style="letter-spacing:8px;font-size:20px;font-weight:800;text-align:center;"/>
+        </div>
+        <label class="mlbl">Nueva contraseña</label>
+        <div class="mfield-wrap">
+          <i class="bi bi-lock mfield-ico"></i>
+          <input type="password" class="mfield" id="nuevaPass" placeholder="Mínimo 6 caracteres"/>
+        </div>
+        <label class="mlbl">Confirmar contraseña</label>
+        <div class="mfield-wrap" style="margin-bottom:18px;">
+          <i class="bi bi-lock-fill mfield-ico"></i>
+          <input type="password" class="mfield" id="confirmarPass" placeholder="Repite tu contraseña"/>
+        </div>
+        <button class="btn-modal-accion" onclick="verificarCodigo()">
+          <i class="bi bi-shield-check"></i> Verificar y Cambiar Contraseña
+        </button>
+        <div class="modal-link-txt" style="margin-top:14px;">
+          <span onclick="volverAlLogin()">← Volver al inicio de sesión</span>
+        </div>
+      </div>
+
+      <!-- PASO 3: Éxito -->
+      <div id="rec-paso3" style="display:none;text-align:center;padding:16px 0;">
+        <div style="width:72px;height:72px;background:rgba(34,197,94,0.14);
+                    border:2px solid rgba(34,197,94,0.3);border-radius:50%;
+                    display:flex;align-items:center;justify-content:center;
+                    font-size:32px;margin:0 auto 18px;color:#22C55E;">✓</div>
+        <h3 style="color:white;font-size:18px;font-weight:800;margin-bottom:8px;">
+          ¡Contraseña actualizada!
+        </h3>
+        <p style="color:#9D78E0;font-size:13px;margin-bottom:22px;">
+          Tu contraseña ha sido cambiada exitosamente.
+        </p>
+        <button class="btn-modal-accion" onclick="volverAlLogin()">
+          Ir al inicio de sesión
+        </button>
+      </div>
+
+    </div>
+  `);
+}
+
+// CSS del spinner
 const spinCSS = document.createElement("style");
 spinCSS.textContent = `
-  .spin-icon {
-    display: inline-block;
-    animation: spin 0.8s linear infinite;
-  }
-  @keyframes spin {
-    from { transform: rotate(0deg); }
-    to   { transform: rotate(360deg); }
-  }
+  .spin-icon { display:inline-block; animation:spin .8s linear infinite; }
+  @keyframes spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
 `;
 document.head.appendChild(spinCSS);
