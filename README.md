@@ -8,7 +8,7 @@
 
 <br/>
 
-<img src="1. TRIMESTRE/logo2.jpeg" alt="PrintSmart 3D Logo" width="200"/>
+<img src="3.TRIMESTRE/1.Prototipo Navegable/assets/logo2.jpeg" alt="PrintSmart 3D Logo" width="200"/>
 
 </div>
 
