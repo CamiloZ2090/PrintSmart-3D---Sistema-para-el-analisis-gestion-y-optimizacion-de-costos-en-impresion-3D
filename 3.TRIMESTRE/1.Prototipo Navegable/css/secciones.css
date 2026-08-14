@@ -1,0 +1,333 @@
+/*ESTILOS ESPECÍFICOS DE CADA SECCIÓN */
+
+/* PEDIDOS */
+.badge-pend-tech { background: var(--purple-100); color: var(--purple-700);
+  padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+
+.badge-pend-fin  { background: #FEF3C7; color: #D97706;
+  padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+
+.badge-margen-alto { background: #DCFCE7; color: #16A34A;
+  padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 700; }
+
+.badge-margen-bajo { background: #FEE2E2; color: #DC2626;
+  padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 700; }
+
+/* Estado vacío del panel de pedidos */
+.estado-vacio {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  color: #D1D5DB;
+  text-align: center;
+  gap: 12px;
+}
+
+.estado-vacio i { font-size: 48px; }
+.estado-vacio p { font-size: 14px; font-weight: 600; color: var(--text-muted); }
+
+/* Vista previa del modelo 3D */
+.modelo-preview {
+  height: 140px;
+  background: linear-gradient(135deg, #F3F4F6, #E5E7EB);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48px;
+  color: var(--text-muted);
+}
+
+/* Historial del pedido */
+.historial-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: #F9FAFB;
+  border-radius: 10px;
+  padding: 12px;
+  font-size: 12.5px;
+  margin-bottom: 8px;
+}
+
+.hist-avatar {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: var(--purple-600);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.btn-cerrar {
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 6px;
+}
+
+.btn-cerrar:hover { background: #F3F4F6; }
+
+/* CÁLCULOS */
+.etiqueta-seccion {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+}
+
+/* Zona de carga STL */
+.zona-carga {
+  border: 2px dashed #D1D5DB;
+  border-radius: 12px;
+  padding: 40px 20px;
+  text-align: center;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.zona-carga:hover {
+  border-color: var(--purple-400);
+  background: var(--purple-50);
+  color: var(--purple-600);
+}
+
+.icono-grande { font-size: 32px; }
+
+/* Slider / Rango */
+.rango {
+  width: 100%;
+  accent-color: var(--purple-600);
+  cursor: pointer;
+}
+
+/* Grupo de botones toggle (0.05 / 0.10 / 0.20) */
+.grupo-botones { display: flex; gap: 4px; }
+
+.btn-toggle {
+  flex: 1;
+  border: 1px solid #E5E7EB;
+  background: white;
+  color: var(--text-mid);
+  padding: 7px 0;
+  border-radius: 8px;
+  font-size: 13px;
+  font-family: var(--fuente);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-toggle:hover { border-color: var(--purple-400); }
+.btn-toggle.activo {
+  background: var(--purple-700);
+  color: white;
+  border-color: var(--purple-700);
+}
+
+/* Vista previa 3D */
+.preview-3d {
+  height: 160px;
+  background: linear-gradient(135deg, #F8F9FA, #E9ECEF);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  gap: 8px;
+  font-size: 13px;
+}
+
+.preview-3d i { font-size: 52px; color: #C4B5FD; }
+
+/* Desglose de costos */
+.costo-fila {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #F9FAFB;
+}
+
+.costo-concepto { font-size: 13px; color: var(--text-mid); }
+.costo-sub      { font-size: 11px; color: var(--text-muted); }
+.costo-valor    { font-size: 14px; font-weight: 600; color: var(--text-dark); }
+
+/* Caja total */
+.caja-total {
+  background: var(--purple-700);
+  border-radius: 12px;
+  padding: 16px;
+  color: white;
+  text-align: center;
+  margin: 14px 0;
+}
+
+.total-label { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; opacity: 0.8; }
+.total-valor { font-size: 32px; font-weight: 900; }
+.total-sub   { font-size: 12px; opacity: 0.7; margin-top: 4px; }
+
+/* REPORTES */
+.roi-fila {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.roi-nombre { font-size: 13px; color: var(--text-mid); width: 170px; flex-shrink: 0; }
+.roi-barra  { flex: 1; height: 6px; background: #F3F4F6; border-radius: 10px; overflow: hidden; }
+.roi-fill   { height: 100%; border-radius: 10px; background: var(--purple-700); }
+.roi-val    { font-size: 13px; font-weight: 700; width: 35px; }
+
+/* USUARIOS */
+.tab-filtro {
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--text-muted);
+  padding: 8px 4px;
+  margin-right: 20px;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+}
+
+.tab-filtro.activo {
+  color: var(--purple-700);
+  border-bottom-color: var(--purple-700);
+}
+
+.tabla-head-usuarios {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1.2fr 40px;
+  gap: 10px;
+  padding: 0 14px;
+  margin-bottom: 6px;
+}
+
+.tabla-head-usuarios span {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--text-muted);
+}
+
+.fila-usuario {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1.2fr 40px;
+  gap: 10px;
+  padding: 12px 14px;
+  align-items: center;
+  border-bottom: 1px solid #F9FAFB;
+  transition: background 0.15s;
+}
+
+.fila-usuario:hover { background: #F9FAFB; }
+
+.usuario-id { display: flex; align-items: center; gap: 10px; }
+
+/* Puntos de estado online */
+.punto {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.punto.online     { background: var(--success); }
+.punto.ausente    { background: #D1D5DB; }
+.punto.suspendido { background: var(--danger); }
+
+/* Badges de roles */
+.badge-rol {
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.badge-rol.admin    { background: var(--purple-100); color: var(--purple-700); }
+.badge-rol.operador { background: #F0FDF4; color: #16A34A; }
+.badge-rol.cliente  { background: #EFF6FF; color: #2563EB; }
+
+/* Footer de tabla */
+.tabla-footer-usuarios {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 14px;
+  font-size: 12.5px;
+  color: var(--text-muted);
+  border-top: 1px solid #F9FAFB;
+}
+
+.btn-pagina {
+  width: 28px; height: 28px;
+  background: white;
+  border: 1px solid #E5E7EB;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+}
+
+/* Resumen de roles */
+.rol-resumen {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
+  font-size: 13.5px;
+}
+
+/* CONFIGURACIÓN */
+.almac-fila { margin-bottom: 14px; }
+
+.almac-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: var(--text-mid);
+  margin-bottom: 4px;
+}
+
+.almac-barra {
+  height: 8px;
+  background: #F3F4F6;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.almac-fill {
+  height: 100%;
+  border-radius: 10px;
+  transition: width 0.6s ease;
+}
+
+.almac-fill.morado { background: var(--purple-600); }
+.almac-fill.azul   { background: #3B82F6; }
+.almac-fill.verde  { background: var(--success); }
+
+/* Tarjetas de info del sistema */
+.sys-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px 16px;
+}
+
+.sys-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text-muted); }
+.sys-valor { font-size: 14px; font-weight: 700; color: var(--text-dark); margin-top: 4px; }

@@ -1,0 +1,217 @@
+/* ESTILOS DE LA PÁGINA DE LOGIN */
+
+/* Fondo con gradiente suave */
+.login-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #F5F3FF 0%, #ffffff 60%, #EDE9FE 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Tarjeta central del login */
+.login-card {
+  background: white;
+  border-radius: 20px;
+  padding: 40px;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 8px 40px rgba(91, 33, 182, 0.12);
+}
+
+/* Logo circular arriba */
+.login-logo {
+  width: 72px;
+  height: 72px;
+  background: #1a0a2e;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 14px;
+  overflow: hidden; /* Recorta la imagen según el border-radius */
+}
+
+/* Ajuste de la imagen interna */
+.login-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* R hise y llena todo el contenedor sin deformarse */
+  display: block;
+}
+
+.login-titulo {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--purple-700);
+  margin-bottom: 4px;
+}
+
+.login-subtitulo {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+/* Selector de roles */
+.label-rol {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-mid);
+  margin-bottom: 8px;
+}
+
+.role-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.tab-rol {
+  flex: 1;
+  padding: 9px 0;
+  border: 1px solid var(--border);
+  background: white;
+  border-radius: 8px;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-family: var(--fuente);
+  transition: all 0.2s;
+}
+
+.tab-rol:hover {
+  border-color: var(--purple-400);
+  color: var(--purple-700);
+}
+
+.tab-rol.activo {
+  background: var(--purple-700);
+  color: white;
+  border-color: var(--purple-700);
+}
+
+/* Caja de descripción del rol */
+.role-desc {
+  background: var(--purple-50);
+  border: 1px solid var(--purple-100);
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: var(--purple-700);
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+/* Etiqueta de campo */
+.campo-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-mid);
+  display: block;
+  margin-bottom: 5px;
+}
+
+/* Wrapper con icono izquierdo */
+.campo-wrapper {
+  position: relative;
+}
+
+.campo-icono {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  font-size: 16px;
+}
+
+/* Input del login */
+.campo-input {
+  width: 100%;
+  border: 1px solid #E5E7EB;
+  border-radius: 10px;
+  padding: 10px 14px 10px 40px;
+  font-size: 14px;
+  font-family: var(--fuente);
+  color: var(--text-mid);
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.campo-input:focus {
+  border-color: var(--purple-500);
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.12);
+}
+
+/* Ojo para mostrar/ocultar contraseña */
+.campo-ojo {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 16px;
+}
+
+/* Enlace "olvidaste contraseña" */
+.link-olvide {
+  font-size: 12px;
+  color: var(--purple-600);
+  text-decoration: none;
+}
+
+.link-olvide:hover { text-decoration: underline; }
+
+/* Checkbox */
+.check-custom {
+  width: 15px;
+  height: 15px;
+  accent-color: var(--purple-700);
+  cursor: pointer;
+}
+
+.check-label {
+  font-size: 13px;
+  color: var(--text-mid);
+  cursor: pointer;
+}
+
+/* Botón principal de login */
+.btn-login {
+  width: 100%;
+  background: var(--purple-700);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 13px;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: var(--fuente);
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.btn-login:hover {
+  background: var(--purple-800);
+  transform: translateY(-1px);
+}
+
+.btn-login:active { transform: translateY(0); }
+
+/* Texto inferior */
+.texto-soporte {
+  font-size: 13px;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.link-soporte {
+  color: var(--purple-700);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.link-soporte:hover { text-decoration: underline; }

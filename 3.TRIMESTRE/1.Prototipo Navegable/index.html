@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PrintSmart 3D</title>
+  <link rel="icon" type="image/jpeg" href="assets/logo2.jpeg"/>
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
+  <!-- Inter Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+
+  <!-- CSS propios -->
+  <link rel="stylesheet" href="css/variables.css"/>
+  <link rel="stylesheet" href="css/landing.css"/>
+</head>
+<body class="landing-body">
+
+<!--NAVBAR-->
+<nav class="lnav" id="lnav">
+  <div class="lnav-inner">
+
+    <a class="lnav-brand" href="#">
+      <img src="assets/logo2.jpeg" alt="PrintSmart 3D" class="lnav-logo-img"/>
+      <span class="lnav-brand-txt">PrintSmart 3D</span>
+    </a>
+
+    <ul class="lnav-links">
+      <li><a href="#inicio"       class="lnav-active">Inicio</a></li>
+      <li><a href="#catalogo">Catálogo</a></li>
+      <li><a href="#como-funciona">¿Cómo funciona?</a></li>
+      <li><a href="#materiales">Materiales</a></li>
+      <li><a href="#nosotros">Nosotros</a></li>
+    </ul>
+
+    <button class="btn-lnav-login" onclick="abrirModal('Admin')">
+      <i class="bi bi-person-circle"></i> Iniciar Sesión
+    </button>
+
+  </div>
+</nav>
+
+<!--HERO -->
+<section class="hero-wrap" id="inicio">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-orb o1"></div>
+  <div class="hero-orb o2"></div>
+
+  <div class="hero-inner">
+
+    <!-- Texto izquierdo -->
+    <div>
+      <div class="hero-badge">
+        <div class="badge-pulse"></div>
+        PrintSmart 3D — ML Mecanizados SAS
+      </div>
+
+      <h1 class="hero-h1">
+        Impresiones 3D<br>
+        <span class="grad-txt">Ideas que se construyen</span>
+      </h1>
+
+      <p class="hero-desc">
+        Exploramos el diseño y la impresión 3D para transformar ideas
+        en objetos funcionales, personalizados y de calidad.
+        Tecnología, creatividad e innovación en cada capa.
+      </p>
+
+      <div class="hero-btns">
+        <button class="btn-hero-p"
+          onclick="document.getElementById('catalogo').scrollIntoView({behavior:'smooth'})">
+          <i class="bi bi-box-seam"></i> Ver Catálogo
+        </button>
+        <button class="btn-hero-s" onclick="abrirModal('Cliente')">
+          <i class="bi bi-person-plus"></i> Cotizar Ahora
+        </button>
+      </div>
+
+      <div class="hero-ministats">
+        <div class="hero-mini-item">
+          <div class="hero-mini-num">+150</div>
+          <div class="hero-mini-lbl">Impresiones</div>
+        </div>
+        <div class="hero-mini-div"></div>
+        <div class="hero-mini-item">
+          <div class="hero-mini-num">+80</div>
+          <div class="hero-mini-lbl">Modelos</div>
+        </div>
+        <div class="hero-mini-div"></div>
+        <div class="hero-mini-item">
+          <div class="hero-mini-num">100%</div>
+          <div class="hero-mini-lbl">Calidad</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Visual derecho — IMAGEN HERO (espacio para foto principal) -->
+    <div class="hero-visual">
+      <div class="hchip c1">
+        <div class="cdot verde"></div> 3 impresoras activas
+      </div>
+      <div class="hchip c2">
+        <div class="cdot morado"></div> Entrega en 48h
+      </div>
+      <div class="hchip c3">
+        <div class="cdot azul"></div> PLA · PETG · Resina
+      </div>
+
+      <div class="hero-frame">
+        <!--
+          ╔══════════════════════════════════╗
+          ║  IMAGEN HERO — coloca aquí tu    ║
+          ║  foto principal de la impresora  ║
+          ║  o el producto estrella.         ║
+          ║                                  ║
+          ║  Reemplaza este div por:         ║
+          ║  <img src="assets/hero.jpg"      ║
+          ║       style="width:100%;         ║
+          ║       height:100%;               ║
+          ║       object-fit:cover"/>        ║
+          ╚══════════════════════════════════╝
+        -->
+        <div class="hero-placeholder-icon">
+          <i class="bi bi-printer-fill"></i>
+          <span>Imagen principal</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- BARRA DE ESTADÍSTICAS -->
+<section class="stats-bar">
+  <div class="stats-inner">
+    <div class="fade-up">
+      <div class="stat-num">+150</div>
+      <div class="stat-lbl">Impresiones realizadas</div>
+    </div>
+    <div class="fade-up">
+      <div class="stat-num">+80</div>
+      <div class="stat-lbl">Modelos diseñados</div>
+    </div>
+    <div class="fade-up">
+      <div class="stat-num">100%</div>
+      <div class="stat-lbl">Proyectos personalizados</div>
+    </div>
+    <div class="fade-up">
+      <div class="stat-num">48h</div>
+      <div class="stat-lbl">Tiempo promedio de entrega</div>
+    </div>
+  </div>
+</section>
+
+<!--CATÁLOGO — 11 PRODUCTOS -->
+<section class="catalogo-sec" id="catalogo">
+  <div class="sec-wrap">
+
+    <div class="cat-header">
+      <div class="sec-tag">Nuestras Creaciones</div>
+      <h2 class="sec-h2">Explora nuestro <span class="grad-txt">catálogo</span></h2>
+      <p class="sec-sub">
+        Cada pieza impresa con precisión milimétrica.
+        ¿Te interesa algún modelo? Regístrate y realiza tu pedido.
+      </p>
+    </div>
+
+    <!-- ── FILA 1: 1 grande + 2 medianos ── -->
+    <div class="prod-fila-top">
+
+      <!-- PRODUCTO 1 — FEATURED -->
+      <div class="pcard featured" onclick="mostrarInteres('Pieza Mecánica Custom')">
+        <div class="pimg">
+          <img src="img/7.jpeg"
+              style="width:100%; height:100%; object-fit:cover;"/>
+          <div class="pimg-icon">
+            <i class="bi bi-gear-wide-connected"></i>
+            <span class="pimg-lbl">AGREGA TU IMAGEN AQUÍ</span>
+          </div>
+          <span class="pbadge">Industrial</span>
+          <span class="pbadge-hot">🔥 Más vendido</span>
+          <span class="img-num">IMG 1</span>
+        </div>
+        <div class="pbody">
+          <div class="pnombre">Pieza Mecánica Custom</div>
+          <div class="pcategoria">Ingeniería · Alta precisión</div>
+          <div class="pdesc">
+            Piezas de repuesto o diseño propio para maquinaria industrial.
+            Tolerancias ajustadas, material resistente a altas temperaturas.
+          </div>
+          <div class="ptags">
+            <span class="ptag">PEEK</span>
+            <span class="ptag">Nylon</span>
+            <span class="ptag">ABS</span>
+          </div>
+          <div class="pfooter">
+            <div>
+              <div class="pprecio">Desde $180.000 COP</div>
+              <div class="pmaterial">Material industrial</div>
+            </div>
+            <button class="btn-interes"
+              onclick="event.stopPropagation(); mostrarInteres('Pieza Mecánica Custom')">
+              <i class="bi bi-bag-plus"></i> Me interesa
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- PRODUCTO 2 — MEDIUM -->
+      <div class="pcard medium" onclick="mostrarInteres('Figura Coleccionable')">
+        <div class="pimg">
+            <img src="img/9.jpeg"
+              style="width:100%; height:100%; object-fit:cover;"/>
+          <div class="pimg-icon">
+            <i class="bi bi-person-arms-up"></i>
+          </div>
+          <span class="pbadge">Arte</span>
+          <span class="img-num">IMG 2</span>
+        </div>
+        <div class="pbody">
+          <div class="pnombre">Figura Coleccionable</div>
+          <div class="pcategoria">Arte · Decoración</div>
+          <div class="pfooter">
+            <div>
+              <div class="pprecio">$120.000 COP</div>
+              <div class="pmaterial">Resina fotopolimérica</div>
+            </div>
+            <button class="btn-interes"
+              onclick="event.stopPropagation(); mostrarInteres('Figura Coleccionable')">
+              <i class="bi bi-bag-plus"></i> Me interesa
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- PRODUCTO 3 — MEDIUM -->
+      <div class="pcard medium" onclick="mostrarInteres('Miniatura Arquitectónica')">
+        <div class="pimg">
+          <img src="img/8.jpeg"
+            style="width:100%; height:100%; object-fit:cover;"/>
+          <div class="pimg-icon">
+            <i class="bi bi-buildings"></i>
+          </div>
+          <span class="pbadge">Decorativo</span>
+          <span class="img-num">IMG 3</span>
+        </div>
+        <div class="pbody">
+          <div class="pnombre">Miniatura Arquitectónica</div>
+          <div class="pcategoria">Maquetas · Arquitectura</div>
+          <div class="pfooter">
+            <div>
+              <div class="pprecio">$150.000 COP</div>
+              <div class="pmaterial">PLA Premium</div>
+            </div>
+            <button class="btn-interes"
+              onclick="event.stopPropagation(); mostrarInteres('Miniatura Arquitectónica')">
+              <i class="bi bi-bag-plus"></i> Me interesa
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- fin fila-top -->
+
+    <!-- ── FILA 2: 4 pequeños ── -->
+    <div class="prod-fila-mid">
+
+      <!-- PRODUCTO 4 -->
+      <div class="pcard small" onclick="mostrarInteres('Barco 3DBenchy')">
+        <div class="pimg">
+          <img src="img/6.jpeg"
+              style="width:100%; height:100%; object-fit:cover;"/>
+          <div class="pimg-icon"><i class="bi bi-tsunami"></i></div>
+          <span class="pbadge">Decorativo</span>
+          <span class="img-num">IMG 4</span>
+        </div>
+        <div class="pbody">
+          <div class="pnombre">Barco 3DBenchy</div>
+          <div class="pcategoria">Hogar · Decoración</div>
+          <div class="pfooter">
+            <div><div class="pprecio">$45.000 COP</div></div>
+            <button class="btn-interes"
+              onclick="event.stopPropagation(); mostrarInteres('Barco 3DBenchy')">
+              <i class="bi bi-bag-plus"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- PRODUCTO 5 -->
+      <div class="pcard small" onclick="mostrarInteres('Maceta Geométrica')">
+        <div class="pimg">
+          <img src="img/5.jpeg"
+              style="width:100%; height:100%; object-fit:cover;"/>
+          <div class="pimg-icon"><i class="bi bi-flower1"></i></div>
+          <span class="pbadge">Hogar</span>
+          <span class="img-num">IMG 5</span>
+        </div>
+        <div class="pbody">
+          <div class="pnombre">Maceta Geométrica</div>
+          <div class="pcategoria">Hogar · Jardín</div>
+          <div class="pfooter">
+            <div><div class="pprecio">$38.000 COP</div></div>
+            <button class="btn-interes"
+              onclick="event.stopPropagation(); mostrarInteres('Maceta Geométrica')">
+              <i class="bi bi-bag-plus"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- PRODUCTO 6 -->
+      <div class="pcard small" onclick="mostrarInteres('Dinosaurio Articulado')">
+        <div class="pimg">
+         <img src="img/4.jpeg"
+              style="width:100%; height:100%; object-fit:cover;"/>
+          <div class="pimg-icon"><i class="bi bi-diagram-3"></i></div>
+          <span class="pbadge">Juguete</span>
+          <span class="pbadge-hot">⭐ Popular</span>
+          <span class="img-num">IMG 6</span>
+        </div>
+        <div class="pbody">
+          <div class="pnombre">Dinosaurio Articulado</div>
+          <div class="pcategoria">Juguetes · Colección</div>
+          <div class="pfooter">
+            <div><div class="pprecio">$72.000 COP</div></div>
+            <button class="btn-interes"
+              onclick="event.stopPropagation(); mostrarInteres('Dinosaurio Articulado')">
+              <i class="bi bi-bag-plus"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- PRODUCTO 7 -->
+      <div class="pcard small" onclick="mostrarInteres('Joyería en Resina')">
+        <div class="pimg">
+          <img src="img/2.jpeg"
+              style="width:100%; height:100%; object-fit:cover;"/>
+          <div class="pimg-icon"><i class="bi bi-gem"></i></div>
+          <span class="pbadge">Moda</span>
+          <span class="img-num">IMG 7</span>
+        </div>
+        <div class="pbody">
+          <div class="pnombre">Joyería en Resina</div>
+          <div class="pcategoria">Moda · Accesorios</div>
+          <div class="pfooter">
+            <div><div class="pprecio">$95.000 COP</div></div>
+            <button class="btn-interes"
+              onclick="event.stopPropagation(); mostrarInteres('Joyería en Resina')">
+              <i class="bi bi-bag-plus"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- fin fila-mid -->
+
+    <!-- ── FILA 3: 4 pequeños ── -->
+    <div class="prod-fila-bot">
+
+      <!-- PRODUCTO 8 -->
+      <div class="pcard small" onclick="mostrarInteres('Llavero Personalizado')">
+        <div class="pimg">
+          <img src="img/3.jpeg"
+              style="width:100%; height:100%; object-fit:cover;"/>
+          <div class="pimg-icon"><i class="bi bi-key-fill"></i></div>
+          <span class="pbadge">Accesorio</span>
+          <span class="img-num">IMG 8</span>
+        </div>
+        <div class="pbody">
+          <div class="pnombre">Llavero Personalizado</div>
+          <div class="pcategoria">Accesorios · Regalo</div>
+          <div class="pfooter">
+            <div><div class="pprecio">$25.000 COP</div></div>
+            <button class="btn-interes"
+              onclick="event.stopPropagation(); mostrarInteres('Llavero Personalizado')">
+              <i class="bi bi-bag-plus"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- PRODUCTO 9 -->
+      <div class="pcard small" onclick="mostrarInteres('Carcasa Electrónica')">
+        <div class="pimg">
+          <img src="img/12.jpeg"
+              style="width:100%; height:100%; object-fit:cover;"/>
+          <div class="pimg-icon"><i class="bi bi-motherboard"></i></div>
+          <span class="pbadge">Tecnología</span>
+          <span class="img-num">IMG 9</span>
+        </div>
+        <div class="pbody">
+          <div class="pnombre">Carcasa Electrónica</div>
+          <div class="pcategoria">Tech · Electrónica</div>
+          <div class="pfooter">
+            <div><div class="pprecio">$65.000 COP</div></div>
+            <button class="btn-interes"
+              onclick="event.stopPropagation(); mostrarInteres('Carcasa Electrónica')">
+              <i class="bi bi-bag-plus"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- PRODUCTO 10 -->
+      <div class="pcard small" onclick="mostrarInteres('Soporte de Escritorio')">
+        <div class="pimg">
+         <img src="img/11.jpeg"
+              style="width:100%; height:100%; object-fit:cover;"/>
+          <div class="pimg-icon"><i class="bi bi-laptop"></i></div>
+          <span class="pbadge">Oficina</span>
+          <span class="img-num">IMG 10</span>
+        </div>
+        <div class="pbody">
+          <div class="pnombre">Soporte de Escritorio</div>
+          <div class="pcategoria">Oficina · Ergonomía</div>
+          <div class="pfooter">
+            <div><div class="pprecio">$55.000 COP</div></div>
+            <button class="btn-interes"
+              onclick="event.stopPropagation(); mostrarInteres('Soporte de Escritorio')">
+              <i class="bi bi-bag-plus"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- PRODUCTO 11 -->
+      <div class="pcard small" onclick="mostrarInteres('Engranaje Industrial')">
+        <div class="pimg">
+          <img src="img/1.jpeg"
+              style="width:100%; height:100%; object-fit:cover;"/>
+          <div class="pimg-icon"><i class="bi bi-gear-fill"></i></div>
+          <span class="pbadge">Mecánica</span>
+          <span class="img-num">IMG 11</span>
+        </div>
+        <div class="pbody">
+          <div class="pnombre">Engranaje Industrial</div>
+          <div class="pcategoria">Mecánica · Repuestos</div>
+          <div class="pfooter">
+            <div><div class="pprecio">$85.000 COP</div></div>
+            <button class="btn-interes"
+              onclick="event.stopPropagation(); mostrarInteres('Engranaje Industrial')">
+              <i class="bi bi-bag-plus"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- fin fila-bot -->
+
+  </div><!-- fin sec-wrap -->
+</section>
+
+<!--¿POR QUÉ ELEGIRNOS?-->
+<section class="features-sec" id="nosotros">
+  <div class="sec-wrap text-center">
+    <div class="sec-tag">¿Por qué elegirnos?</div>
+    <h2 class="sec-h2">Calidad que se <span class="grad-txt">toca y se siente</span></h2>
+    <p class="sec-sub">
+      Combinamos tecnología de punta con experiencia para entregarte el mejor resultado.
+    </p>
+
+    <div class="features-grid">
+      <div class="fcard fade-up">
+        <div class="fcard-ico">🖨️</div>
+        <div class="fcard-titulo">Diseño 3D a Medida</div>
+        <div class="fcard-desc">
+          Modelamos desde cero o adaptamos tu archivo.
+          Resolución de hasta 0.05 mm por capa.
+        </div>
+      </div>
+      <div class="fcard fade-up">
+        <div class="fcard-ico">🧪</div>
+        <div class="fcard-titulo">Materiales Variados</div>
+        <div class="fcard-desc">
+          PLA, PETG, ABS, TPU, Resina fotopolimérica
+          y más según tu necesidad específica.
+        </div>
+      </div>
+      <div class="fcard fade-up">
+        <div class="fcard-ico">🎯</div>
+        <div class="fcard-titulo">Impresión Precisa</div>
+        <div class="fcard-desc">
+          Control de calidad en cada etapa del proceso.
+          Cada capa, un compromiso con el detalle.
+        </div>
+      </div>
+      <div class="fcard fade-up">
+        <div class="fcard-ico">⚡</div>
+        <div class="fcard-titulo">Entrega Rápida</div>
+        <div class="fcard-desc">
+          Desde prototipos hasta proyectos creativos.
+          Entrega garantizada en 24–72 horas.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ¿CÓMO FUNCIONA?-->
+<section class="proceso-sec" id="como-funciona">
+  <div class="sec-wrap text-center">
+    <div class="sec-tag">Proceso</div>
+    <h2 class="sec-h2">¿Cómo <span class="grad-txt">funciona</span>?</h2>
+    <p class="sec-sub">Desde tu idea hasta el producto final en 4 pasos simples.</p>
+
+    <div class="proceso-steps">
+      <div class="pstep fade-up">
+        <div class="step-num">01</div>
+        <div class="step-titulo">Elige tu modelo</div>
+        <div class="step-desc">
+          Explora nuestro catálogo o cuéntanos tu idea personalizada.
+        </div>
+      </div>
+      <div class="pstep fade-up">
+        <div class="step-num">02</div>
+        <div class="step-titulo">Regístrate</div>
+        <div class="step-desc">
+          Crea tu cuenta de cliente para gestionar y rastrear tu pedido.
+        </div>
+      </div>
+      <div class="pstep fade-up">
+        <div class="step-num">03</div>
+        <div class="step-titulo">Imprimimos</div>
+        <div class="step-desc">
+          Nuestros técnicos procesan y validan cada pieza con precisión.
+        </div>
+      </div>
+      <div class="pstep fade-up">
+        <div class="step-num">04</div>
+        <div class="step-titulo">Entregamos</div>
+        <div class="step-desc">
+          Recibe tu producto terminado con garantía de calidad incluida.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MATERIALES-->
+<section class="mat-sec" id="materiales">
+  <div class="sec-wrap">
+    <div class="mat-grid">
+
+      <div>
+        <div class="sec-tag">Materiales</div>
+        <h2 class="sec-h2" style="text-align:left;">
+          Los mejores <span class="grad-txt">materiales</span>
+        </h2>
+        <p class="sec-sub" style="text-align:left; max-width:100%; margin:0 0 28px;">
+          Seleccionamos el material adecuado para cada aplicación,
+          desde juguetes hasta piezas industriales de alta resistencia.
+        </p>
+        <button class="btn-hero-s" onclick="abrirModal('Cliente')">
+          <i class="bi bi-chat-dots"></i> Asesoría gratuita
+        </button>
+      </div>
+
+      <div>
+        <div class="mat-item fade-up">
+          <div class="mat-ico">🟡</div>
+          <div>
+            <div class="mat-nombre">PLA — Ácido Poliláctico</div>
+            <div class="mat-desc">
+              Ideal para decoración, prototipos y modelos. Ecológico y fácil de imprimir.
+            </div>
+          </div>
+        </div>
+        <div class="mat-item fade-up">
+          <div class="mat-ico">🔵</div>
+          <div>
+            <div class="mat-nombre">PETG — Polietileno Tereftalato</div>
+            <div class="mat-desc">
+              Resistente a impactos y temperaturas. Perfecto para piezas funcionales.
+            </div>
+          </div>
+        </div>
+        <div class="mat-item fade-up">
+          <div class="mat-ico">⚪</div>
+          <div>
+            <div class="mat-nombre">Resina Fotopolimérica</div>
+            <div class="mat-desc">
+              Alta resolución para figuras detalladas, joyería y modelos médicos.
+            </div>
+          </div>
+        </div>
+        <div class="mat-item fade-up">
+          <div class="mat-ico">🔴</div>
+          <div>
+            <div class="mat-nombre">ABS & TPU Flexible</div>
+            <div class="mat-desc">
+              ABS para piezas rígidas de ingeniería, TPU para partes flexibles y elásticas.
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!--CTA FINAL-->
+<section class="cta-sec">
+  <div class="cta-glow"></div>
+  <div class="cta-inner">
+    <div class="sec-tag">¡Empieza hoy!</div>
+    <h2 class="cta-h2">
+      ¿Listo para <span class="grad-txt">crear</span>?
+    </h2>
+    <p class="cta-desc">
+      Únete a nuestra plataforma como cliente y accede a todo el catálogo,
+      seguimiento de pedidos en tiempo real y atención directa con producción.
+    </p>
+    <button class="btn-cta" onclick="abrirModal('Cliente')">
+      <i class="bi bi-person-plus-fill"></i>
+      Registrarme como Cliente
+    </button>
+    <div class="cta-link">
+      ¿Ya tienes cuenta?
+      <span onclick="abrirModal('Admin')">Inicia Sesión →</span>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER-->
+<footer class="lfooter">
+  <div class="footer-grid">
+
+    <div>
+      <div class="fbrand-name">PrintSmart 3D</div>
+      <div class="ftagline">Imagina · Diseña · Imprime</div>
+      <div class="fdesc">
+        Sistema de gestión y optimización de costos en impresión 3D.
+        Desarrollado para ML Mecanizados SAS.
+      </div>
+      <div class="fsocials">
+        <a class="fsocial-btn" href="#"><i class="bi bi-instagram"></i></a>
+        <a class="fsocial-btn" href="#"><i class="bi bi-facebook"></i></a>
+        <a class="fsocial-btn" href="#"><i class="bi bi-whatsapp"></i></a>
+        <a class="fsocial-btn" href="#"><i class="bi bi-envelope"></i></a>
+      </div>
+    </div>
+
+    <div>
+      <div class="fcol-title">Catálogo</div>
+      <ul class="flinks">
+        <li><a onclick="document.getElementById('catalogo').scrollIntoView({behavior:'smooth'})">Modelos Decorativos</a></li>
+        <li><a onclick="document.getElementById('catalogo').scrollIntoView({behavior:'smooth'})">Piezas Industriales</a></li>
+        <li><a onclick="document.getElementById('catalogo').scrollIntoView({behavior:'smooth'})">Juguetes y Arte</a></li>
+        <li><a onclick="document.getElementById('catalogo').scrollIntoView({behavior:'smooth'})">Accesorios</a></li>
+        <li><a onclick="abrirModal('Cliente')">Pedido a Medida</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <div class="fcol-title">Empresa</div>
+      <ul class="flinks">
+        <li><a onclick="document.getElementById('nosotros').scrollIntoView({behavior:'smooth'})">Sobre nosotros</a></li>
+        <li><a onclick="document.getElementById('materiales').scrollIntoView({behavior:'smooth'})">Materiales</a></li>
+        <li><a onclick="document.getElementById('como-funciona').scrollIntoView({behavior:'smooth'})">¿Cómo funciona?</a></li>
+        <li><a href="#">Blog técnico</a></li>
+        <li><a href="#">Casos de éxito</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <div class="fcol-title">Acceso</div>
+      <ul class="flinks">
+        <li><a onclick="abrirModal('Cliente')">Portal Cliente</a></li>
+        <li><a onclick="abrirModal('Admin')">Panel Admin</a></li>
+        <li><a onclick="abrirModal('Operador')">Panel Operario</a></li>
+        <li><a href="#">Soporte técnico</a></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    <span>© 2025 PrintSmart 3D — ML Mecanizados SAS. Todos los derechos reservados.</span>
+    <span>Ficha SENA 3388486 · ADSO · CEET</span>
+  </div>
+</footer>
+
+<!-- MODAL LOGIN / REGISTRO-->
+<div class="modal-ov" id="modalOv" onclick="cerrarModalClick(event)">
+  <div class="modal-box" id="modalBox">
+
+    <!-- Cerrar -->
+    <button class="modal-close-btn" onclick="cerrarModal()">
+      <i class="bi bi-x"></i>
+    </button>
+
+    <!-- Logo -->
+    <div class="modal-logo">
+      <img src="assets/logo2.jpeg" alt="PrintSmart 3D"/>
+    </div>
+
+    <div class="modal-titulo" id="mTitulo">PrintSmart 3D</div>
+    <div class="modal-subtitulo" id="mSubtitulo">Selecciona tu perfil de acceso</div>
+
+    <!-- Tabs -->
+    <div class="modal-tabs">
+      <button class="mtab" id="tab-Admin"
+        onclick="selectModalRol('Admin', this)">
+        <i class="bi bi-shield-check"></i> Admin
+      </button>
+      <button class="mtab" id="tab-Operador"
+        onclick="selectModalRol('Operador', this)">
+        <i class="bi bi-tools"></i> Operario
+      </button>
+      <button class="mtab" id="tab-Cliente"
+        onclick="selectModalRol('Cliente', this)">
+        <i class="bi bi-person"></i> Cliente
+      </button>
+    </div>
+
+    <!-- Descripción del rol -->
+    <div class="modal-rol-box" id="mRolBox">
+      <i class="bi bi-info-circle" id="mRolIcono"></i>
+      <span id="mRolTexto">
+        Acceso total: usuarios, configuración, reportes financieros y control de toda la operación.
+      </span>
+    </div>
+
+    <!-- SECCIÓN LOGIN (Admin / Operario) -->
+    <div id="secLogin">
+      <div class="modal-err" id="mErr"></div>
+
+      <label class="mlbl">Correo Electrónico</label>
+      <div class="mfield-wrap">
+        <i class="bi bi-envelope mfield-ico"></i>
+        <input type="email" class="mfield" id="mEmail"
+               placeholder="admin@printsmart3d.com"/>
+      </div>
+
+      <label class="mlbl">Contraseña</label>
+      <div class="mfield-wrap">
+        <i class="bi bi-lock mfield-ico"></i>
+        <input type="password" class="mfield" id="mPass"
+               placeholder="••••••••" style="padding-right:40px;"/>
+        <span class="mfield-eye" onclick="togglePassLogin()">
+          <i class="bi bi-eye" id="mOjoLogin"></i>
+        </span>
+      </div>
+
+      <div style="text-align:right; margin-bottom:14px;">
+        <a href="#" style="font-size:11.5px; color:#7C3AED; text-decoration:none;">
+          ¿Olvidaste tu contraseña?
+        </a>
+      </div>
+
+      <button class="btn-modal-accion" id="btnLogin" onclick="iniciarSesionModal()">
+        Iniciar Sesión &nbsp;<i class="bi bi-arrow-right"></i>
+      </button>
+
+      <div class="modal-div">
+        <div class="modal-div-line"></div>
+        <span>o</span>
+        <div class="modal-div-line"></div>
+      </div>
+      <div class="modal-link-txt">
+        ¿Eres cliente nuevo?
+        <span onclick="selectModalRol('Cliente', document.getElementById('tab-Cliente'))">
+          Regístrate aquí →
+        </span>
+      </div>
+    </div>
+
+    <!-- SECCIÓN REGISTRO CLIENTE -->
+    <div id="secRegistro" style="display:none;">
+      <div class="modal-err" id="mErrReg"></div>
+
+      <!-- Box de producto de interés -->
+      <div class="prod-interes-box" id="prodInteresBox">
+        <i class="bi bi-bag-check" style="margin-right:6px;"></i>
+        Interesado en: <strong id="prodInteresNombre"></strong>
+      </div>
+
+      <label class="mlbl">Nombre Completo</label>
+      <div class="mfield-wrap">
+        <i class="bi bi-person mfield-ico"></i>
+        <input type="text" class="mfield" id="rNombre"
+               placeholder="Tu nombre completo"/>
+      </div>
+
+      <label class="mlbl">Correo Electrónico</label>
+      <div class="mfield-wrap">
+        <i class="bi bi-envelope mfield-ico"></i>
+        <input type="email" class="mfield" id="rEmail"
+               placeholder="tu@correo.com"/>
+      </div>
+
+      <label class="mlbl">Teléfono <span style="color:#3B1E72;">(opcional)</span></label>
+      <div class="mfield-wrap">
+        <i class="bi bi-phone mfield-ico"></i>
+        <input type="tel" class="mfield" id="rTelefono"
+               placeholder="300 000 0000"/>
+      </div>
+
+      <label class="mlbl">Contraseña</label>
+      <div class="mfield-wrap">
+        <i class="bi bi-lock mfield-ico"></i>
+        <input type="password" class="mfield" id="rPass"
+               placeholder="Mínimo 6 caracteres" style="padding-right:40px;"/>
+        <span class="mfield-eye" onclick="togglePassReg()">
+          <i class="bi bi-eye" id="mOjoReg"></i>
+        </span>
+      </div>
+
+      <div style="display:flex; align-items:flex-start; gap:8px; margin-bottom:16px;">
+        <input type="checkbox" id="terminos"
+               style="margin-top:3px; accent-color:#7C3AED; cursor:pointer; flex-shrink:0;"/>
+        <label for="terminos"
+               style="font-size:11.5px; color:#7C5AC2; cursor:pointer; line-height:1.5;">
+          Acepto los <a href="#" style="color:#A78BFA;">términos y condiciones</a>
+          y la política de privacidad de PrintSmart 3D.
+        </label>
+      </div>
+
+      <button class="btn-modal-accion" onclick="registrarCliente()">
+        <i class="bi bi-person-check"></i> Crear Cuenta de Cliente
+      </button>
+
+      <div class="modal-div">
+        <div class="modal-div-line"></div>
+        <span>o</span>
+        <div class="modal-div-line"></div>
+      </div>
+      <div class="modal-link-txt">
+        ¿Ya tienes cuenta?
+        <span onclick="selectModalRol('Admin', document.getElementById('tab-Admin'))">
+          Inicia sesión →
+        </span>
+      </div>
+    </div>
+
+    <!-- PANTALLA DE ÉXITO -->
+    <div class="modal-exito" id="secExito">
+      <div class="exito-ico">✓</div>
+      <h3 style="color:white; font-size:20px; font-weight:800; margin-bottom:8px;">
+        ¡Registro exitoso!
+      </h3>
+      <p style="color:#9D78E0; font-size:13.5px; line-height:1.65; margin-bottom:22px;">
+        Bienvenido a PrintSmart 3D. En breve recibirás un correo de confirmación
+        con los detalles de tu cuenta y acceso al portal de cliente.
+      </p>
+      <button class="btn-modal-accion" onclick="cerrarModal()">
+        Explorar catálogo
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<!-- Toast container -->
+<div class="ltoast-container" id="ltoastContainer"></div>
+
+<!-- SCRIPTS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/login.js"></script>
+</body>
+</html>
