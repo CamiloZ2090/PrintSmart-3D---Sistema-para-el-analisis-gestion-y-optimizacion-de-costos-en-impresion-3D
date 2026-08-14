@@ -1,6 +1,6 @@
-// =============================================
+
 // PEDIDOS.JS — Gestión de pedidos
-// =============================================
+
 
 // Mostrar el detalle de un pedido al hacer clic en la fila
 function mostrarDetallePedido(id, cliente, margen, tipo) {
@@ -31,12 +31,12 @@ function cerrarDetallePedido() {
 
 // Aprobar pedido
 function aprobarPedido() {
-  mostrarToast("✅ Pedido aprobado y enviado a producción", "success");
+  mostrarToast("Pedido aprobado y enviado a producción", "success");
   cerrarDetallePedido();
 }
 
 // Rechazar pedido
 function rechazarPedido() {
-  mostrarToast("❌ Pedido rechazado. Se notificará al cliente.", "error");
+  mostrarToast("Pedido rechazado. Se notificará al cliente.", "error");
   cerrarDetallePedido();
 }

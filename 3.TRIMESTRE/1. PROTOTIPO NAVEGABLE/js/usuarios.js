@@ -1,6 +1,6 @@
-// =============================================
+
 // USUARIOS.JS — Filtros y gestión de usuarios
-// =============================================
+
 
 // Filtrar la lista de usuarios por rol
 function filtrarUsuarios(filtro, tabEl) {

@@ -1,6 +1,5 @@
-// =============================================
+
 // CALCULOS.JS — Calculadora de costos
-// =============================================
 
 // Variables internas
 let alturaCapa = "0.10";
@@ -57,14 +56,14 @@ function cargarArchivoSTL(input) {
 
   // Validar que sea .stl
   if (!archivo.name.toLowerCase().endsWith(".stl")) {
-    mostrarToast("❌ Solo se permiten archivos .STL", "error");
+    mostrarToast("Solo se permiten archivos .STL", "error");
     return;
   }
 
   // Validar tamaño máximo (500MB)
   const tamañoMB = (archivo.size / (1024 * 1024)).toFixed(2);
   if (tamañoMB > 500) {
-    mostrarToast("❌ El archivo supera los 500MB", "error");
+    mostrarToast("El archivo supera los 500MB", "error");
     return;
   }
 
@@ -76,7 +75,7 @@ function cargarArchivoSTL(input) {
       `<i class="bi bi-check-circle text-success"></i>
        <strong>${archivo.name}</strong> — ${tamañoMB} MB`;
 
-    mostrarToast(`✅ Archivo cargado: ${archivo.name}`, "success");
+    mostrarToast(`Archivo cargado: ${archivo.name}`, "success");
     calcularCosto(); // Recalcula con el archivo cargado
   }, 800);
 }
@@ -85,6 +84,6 @@ function cargarArchivoSTL(input) {
 function generarCotizacion() {
   mostrarToast("📄 Generando cotización en PDF...", "info");
   setTimeout(() => {
-    mostrarToast("✅ Cotización enviada al cliente por email", "success");
+    mostrarToast("Cotización enviada al cliente por email", "success");
   }, 2000);
 }

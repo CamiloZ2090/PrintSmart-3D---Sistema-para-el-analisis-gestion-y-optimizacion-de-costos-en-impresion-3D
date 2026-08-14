@@ -1,9 +1,8 @@
-// =============================================
-// LOGIN.JS — Lógica de inicio de sesión
-// =============================================
 
+// LOGIN.JS — Lógica de inicio de sesión
 // Controla qué roles tienen panel listo
 // Cambia a true cuando configures cada rol
+
 const rolesDisponibles = {
   Admin:    true,
   Operador: false,
@@ -79,13 +78,13 @@ function iniciarSesion() {
 
   // Bloqueo de seguridad
   if (!rolesDisponibles[rolActual]) {
-    msgError.textContent = "🔒 Este rol aún no está configurado. Selecciona el rol Admin.";
+    msgError.textContent = "Este rol aún no está configurado. Selecciona el rol Admin.";
     msgError.style.display = "block";
     return;
   }
 
   if (!email || !pass) {
-    msgError.textContent = "⚠️ Por favor completa el correo y la contraseña.";
+    msgError.textContent = "Por favor completa el correo y la contraseña.";
     msgError.style.display = "block";
     return;
   }

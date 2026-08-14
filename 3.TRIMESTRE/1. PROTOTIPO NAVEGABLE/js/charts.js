@@ -1,6 +1,5 @@
-// =============================================
+
 // CHARTS.JS — Todos los gráficos con Chart.js
-// =============================================
 
 // Guardamos las instancias de gráficos para no duplicarlos
 const instanciasGraficos = {};
@@ -26,9 +25,8 @@ function iniciarGraficosSeccion(seccion) {
   }
 }
 
-// -----------------------------------------------
 // GRÁFICO: Ingresos (Dashboard)
-// -----------------------------------------------
+
 function crearGraficoIngresos() {
   const canvas = document.getElementById("graficoIngresos");
   if (!canvas) return;
@@ -70,9 +68,9 @@ function crearGraficoIngresos() {
   });
 }
 
-// -----------------------------------------------
+
 // GRÁFICO: Mini barras de consumo (Materiales KPI)
-// -----------------------------------------------
+
 function crearGraficoMiniMat() {
   const canvas = document.getElementById("graficoMiniMat");
   if (!canvas) return;
@@ -96,9 +94,8 @@ function crearGraficoMiniMat() {
   });
 }
 
-// -----------------------------------------------
 // GRÁFICO: Consumo vs Stock Real (Materiales)
-// -----------------------------------------------
+
 function crearGraficoConsumo() {
   const canvas = document.getElementById("graficoConsumo");
   if (!canvas) return;
@@ -134,9 +131,8 @@ function crearGraficoConsumo() {
   });
 }
 
-// -----------------------------------------------
 // GRÁFICO: Ingresos vs Gastos (Reportes)
-// -----------------------------------------------
+
 function crearGraficoReporte() {
   const canvas = document.getElementById("graficoReporte");
   if (!canvas) return;
@@ -172,9 +168,8 @@ function crearGraficoReporte() {
   });
 }
 
-// -----------------------------------------------
 // GRÁFICO: Desperdicio (Doughnut) (Reportes)
-// -----------------------------------------------
+
 function crearGraficoDesp() {
   const canvas = document.getElementById("graficoDesp");
   if (!canvas) return;

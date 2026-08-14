@@ -1,6 +1,6 @@
-// =============================================
+
 // CONFIGURACION.JS — Ajustes del sistema
-// =============================================
+
 
 // Toggle especial para el Modo Mantenimiento
 function alternarMantenimiento(el) {

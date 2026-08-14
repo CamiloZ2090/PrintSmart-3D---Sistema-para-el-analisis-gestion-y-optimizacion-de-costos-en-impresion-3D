@@ -1,6 +1,5 @@
-// =============================================
+
 // MATERIALES.JS — Formulario de materiales
-// =============================================
 
 // Sincronizar el selector de color con el campo de texto
 document.addEventListener("DOMContentLoaded", () => {
@@ -35,7 +34,7 @@ function guardarMaterial() {
   }
 
   // Simular guardado exitoso
-  mostrarToast(`✅ Material "${nombre}" guardado correctamente`, "success");
+  mostrarToast(`Material "${nombre}" guardado correctamente`, "success");
   limpiarFormMaterial();
 }
 
