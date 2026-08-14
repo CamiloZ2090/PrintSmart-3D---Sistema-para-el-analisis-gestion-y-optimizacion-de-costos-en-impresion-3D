@@ -1,8 +1,6 @@
-/* =============================================
-   LAYOUT: SIDEBAR + TOPBAR + CONTENIDO
-============================================= */
+/* LAYOUT: SIDEBAR + TOPBAR + CONTENIDO*/
 
-/* ---------- SIDEBAR ---------- */
+/* SIDEBAR */
 .sidebar {
   position: fixed;
   top: 0; left: 0; bottom: 0;
@@ -121,7 +119,7 @@
 .sidebar-link.peligro { color: var(--danger); }
 .sidebar-link.peligro:hover { color: #DC2626; }
 
-/* ---------- TOPBAR ---------- */
+/* TOPBAR*/
 .topbar {
   position: fixed;
   top: 0;
@@ -241,7 +239,7 @@
   letter-spacing: 0.5px;
 }
 
-/* ---------- CONTENIDO PRINCIPAL ---------- */
+/*  CONTENIDO PRINCIPAL*/
 .contenido-principal {
   margin-left: var(--sidebar-ancho);
   margin-top: var(--topbar-alto);
@@ -262,7 +260,7 @@
   color: var(--text-muted);
 }
 
-/* ---------- SISTEMA DE NOTIFICACIONES ---------- */
+/* SISTEMA DE NOTIFICACIONES */
 .toast-container {
   position: fixed;
   bottom: 24px;

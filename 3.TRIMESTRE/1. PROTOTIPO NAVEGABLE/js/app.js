@@ -1,6 +1,5 @@
-// =============================================
+
 // APP.JS — Navegación y utilidades globales
-// =============================================
 
 // Al cargar la página, configurar el nombre del usuario y la navegación
 window.addEventListener("DOMContentLoaded", () => {
@@ -25,7 +24,7 @@ window.addEventListener("DOMContentLoaded", () => {
     elAvatar.style.background = datos.color;
   }
 
-  // --- CONECTAR CLICS DEL MENÚ AUTOMÁTICAMENTE ---
+  // CONECTAR CLICS DEL MENÚ AUTOMÁTICAMENTE
   document.querySelectorAll(".sidebar-nav .nav-item").forEach(item => {
     item.addEventListener("click", (e) => {
       e.preventDefault();
@@ -42,9 +41,8 @@ window.addEventListener("DOMContentLoaded", () => {
   mostrarSeccion("dashboard", navInicial);
 });
 
-// -----------------------------------------------
 // NAVEGACIÓN: muestra una sección y oculta el resto
-// -----------------------------------------------
+
 let graficosCreados = {};  // Para no crear gráficos duplicados
 
 function mostrarSeccion(idSeccion, navEl) {
@@ -88,17 +86,15 @@ function mostrarSeccion(idSeccion, navEl) {
   }, 60);
 }
 
-// -----------------------------------------------
 // CERRAR SESIÓN
-// -----------------------------------------------
+
 function cerrarSesion() {
   sessionStorage.clear();
   window.location.href = "index.html";
 }
 
-// -----------------------------------------------
 // SISTEMA DE NOTIFICACIONES (Toasts)
-// -----------------------------------------------
+
 function mostrarToast(mensaje, tipo = "info") {
   const contenedor = document.getElementById("toastContainer");
   if (!contenedor) return;
@@ -118,9 +114,7 @@ function mostrarToast(mensaje, tipo = "info") {
   }, 3500);
 }
 
-// -----------------------------------------------
 // TOGGLE GENÉRICO (Interruptor on/off)
-// -----------------------------------------------
 function alternarToggle(el) {
   el.classList.toggle("on");
   const estaOn = el.classList.contains("on");
@@ -181,16 +175,16 @@ async function exportarPDF() {
       const writable = await fileHandle.createWritable();
       await writable.write(pdfBlob);
       await writable.close();
-      mostrarToast("✅ PDF guardado correctamente", "success");
+      mostrarToast(" PDF guardado correctamente", "success");
     } else {
       // Fallback por si el navegador no soporta showSaveFilePicker
       doc.save("PrintSmart_Dashboard.pdf");
-      mostrarToast("✅ PDF descargado", "success");
+      mostrarToast("PDF descargado", "success");
     }
   } catch (e) {
     if (e.name !== "AbortError") {
       doc.save("PrintSmart_Dashboard.pdf");
-      mostrarToast("✅ PDF descargado", "success");
+      mostrarToast("PDF descargado", "success");
     }
   }
 }

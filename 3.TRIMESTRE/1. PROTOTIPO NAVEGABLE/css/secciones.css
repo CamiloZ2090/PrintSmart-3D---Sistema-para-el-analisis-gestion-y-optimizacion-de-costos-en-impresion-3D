@@ -1,8 +1,6 @@
-/* =============================================
-   ESTILOS ESPECÍFICOS DE CADA SECCIÓN
-============================================= */
+/*ESTILOS ESPECÍFICOS DE CADA SECCIÓN */
 
-/* ---------- PEDIDOS ---------- */
+/* PEDIDOS */
 .badge-pend-tech { background: var(--purple-100); color: var(--purple-700);
   padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; }
 
@@ -79,7 +77,7 @@
 
 .btn-cerrar:hover { background: #F3F4F6; }
 
-/* ---------- CÁLCULOS ---------- */
+/* CÁLCULOS */
 .etiqueta-seccion {
   font-size: 11px;
   font-weight: 700;
@@ -180,7 +178,7 @@
 .total-valor { font-size: 32px; font-weight: 900; }
 .total-sub   { font-size: 12px; opacity: 0.7; margin-top: 4px; }
 
-/* ---------- REPORTES ---------- */
+/* REPORTES */
 .roi-fila {
   display: flex;
   align-items: center;
@@ -193,7 +191,7 @@
 .roi-fill   { height: 100%; border-radius: 10px; background: var(--purple-700); }
 .roi-val    { font-size: 13px; font-weight: 700; width: 35px; }
 
-/* ---------- USUARIOS ---------- */
+/* USUARIOS */
 .tab-filtro {
   font-size: 13.5px;
   font-weight: 500;
@@ -295,7 +293,7 @@
   font-size: 13.5px;
 }
 
-/* ---------- CONFIGURACIÓN ---------- */
+/* CONFIGURACIÓN */
 .almac-fila { margin-bottom: 14px; }
 
 .almac-label {

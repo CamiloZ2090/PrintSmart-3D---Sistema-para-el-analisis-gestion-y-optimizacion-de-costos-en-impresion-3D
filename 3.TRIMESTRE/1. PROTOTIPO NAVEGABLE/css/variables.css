@@ -1,8 +1,6 @@
-/* =============================================
-   VARIABLES GLOBALES
+/* VARIABLES GLOBALES
    Aquí defines los colores y tamaños del sitio.
-   Cambiar un valor aquí lo cambia EN TODO EL SITIO.
-============================================= */
+   Cambiar un valor aquí lo cambia EN TODO EL SITIO.*/
 :root {
   /* Paleta de morados */
   --purple-900: #3B0764;
