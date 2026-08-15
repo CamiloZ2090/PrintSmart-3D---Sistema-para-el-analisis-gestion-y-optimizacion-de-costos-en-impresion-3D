@@ -167,12 +167,12 @@ function pedirProducto(nombre, precio) {
 
 // REALIZAR PEDIDO — Cálculo de precio
 const preciosMaterial = {
-  pla:    45,
-  petg:   58,
-  abs:    52,
-  tpu:    65,
-  resina: 95,
-  nylon:  120
+  pla:    45000,
+  petg:   58000,
+  abs:    52000,
+  tpu:    65000,
+  resina: 95000,
+  nylon:  120000
 };
 
 function calcularPrecio() {
@@ -180,29 +180,26 @@ function calcularPrecio() {
   const densidad  = parseInt(document.getElementById("pedDensidad")?.value || "50");
   const cantidad  = parseInt(document.getElementById("pedCantidad")?.value || "1");
 
-  const base      = preciosMaterial[material] || 45;
+  const base      = preciosMaterial[material] || 45000;
   const factorDen = densidad / 50;
-  const precio    = (base * factorDen * cantidad).toFixed(2);
+  const precio    = Math.round(base * factorDen * cantidad);
 
   const precioEl = document.getElementById("precioEstimado");
-  if (precioEl) precioEl.textContent = "$" + precio;
+  if (precioEl) precioEl.textContent = _formatCOP(precio);
 
-  // Actualizar resumen del paso 2
   actualizarResumen();
 }
 
 function actualizarResumen() {
-  const nombre     = document.getElementById("pedNombre")?.value || "Mi Pedido 3D";
-  const material   = document.getElementById("pedMaterial");
-  const matTexto   = material?.options[material.selectedIndex]?.text || "PLA — Estándar";
-  const precioBase = document.getElementById("precioEstimado")?.textContent || "$45.00";
+  const nombre   = document.getElementById("pedNombre")?.value || "Mi Pedido 3D";
+  const material = document.getElementById("pedMaterial");
+  const matTexto = material?.options[material.selectedIndex]?.text || "PLA — Estándar";
 
-  // Extraer número del precio
-  const num    = parseFloat(precioBase.replace("$", "")) * 1000;
-  const iva    = Math.round(num * 0.19);
-  const total  = num + iva;
-
-  const fmt = v => "$" + v.toLocaleString("es-CO") + " COP";
+  // Leer precio directamente del texto ya formateado en COP
+  const precioTxt = document.getElementById("precioEstimado")?.textContent || "$45.000";
+  const num       = parseInt(precioTxt.replace(/\D/g, "")) || 45000;
+  const iva       = Math.round(num * 0.19);
+  const total     = num + iva;
 
   const rNombre   = document.getElementById("resumenNombreItem");
   const rMat      = document.getElementById("resumenMatItem");
@@ -213,10 +210,10 @@ function actualizarResumen() {
 
   if (rNombre)   rNombre.textContent   = nombre || "Mi Pedido 3D";
   if (rMat)      rMat.textContent      = matTexto;
-  if (rSubtotal) rSubtotal.textContent = fmt(num);
-  if (rIva)      rIva.textContent      = fmt(iva);
-  if (rTotal)    rTotal.textContent    = fmt(total);
-  if (rPrecio)   rPrecio.textContent   = fmt(num);
+  if (rSubtotal) rSubtotal.textContent = _formatCOP(num);
+  if (rIva)      rIva.textContent      = _formatCOP(iva);
+  if (rTotal)    rTotal.textContent    = _formatCOP(total);
+  if (rPrecio)   rPrecio.textContent   = _formatCOP(num);
 }
 
 // REALIZAR PEDIDO — Carga de archivo
@@ -755,5 +752,9 @@ document.addEventListener("keydown", (e) => {
       notifPanel.style.display = "none";
       notifAbiertas = false;
     }
+  }
+  // HELPER — Formatear precio en pesos colombianos
+  function _formatCOP(valor) {
+    return "$" + valor.toLocaleString("es-CO") + " COP";
   }
 });
