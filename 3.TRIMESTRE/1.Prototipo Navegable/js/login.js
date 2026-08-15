@@ -107,12 +107,17 @@ function selectModalRol(rol, tabEl) {
   if (errLog) errLog.style.display = "none";
 
   if (rol === "Cliente") {
-    _mostrarSeccion("secRegistro");
-    titulo.textContent = "Crear cuenta de Cliente";
-    subtit.textContent = "Accede al catálogo y realiza tus pedidos";
+    _mostrarSeccion("secLogin");
+    titulo.textContent  = "Bienvenido, Cliente";
+    subtit.textContent  = "Inicia sesión en tu cuenta";
     rolBox.classList.remove("bloqueado");
-    rolIco.className = "bi bi-person-plus";
+    rolIco.className = "bi bi-person-check";
     rolTxt.textContent = datosRol.Cliente.desc;
+    const btn = document.getElementById("btnLogin");
+    if (btn) {
+      btn.disabled = false;
+      btn.innerHTML = 'Iniciar Sesión &nbsp;<i class="bi bi-arrow-right"></i>';
+    }
 
   } else if (!rolesDisponibles[rol]) {
     _mostrarSeccion("secLogin");
@@ -441,6 +446,72 @@ function _inyectarRecuperacion() {
 
     </div>
   `);
+}
+// REGISTRO DESDE LA SECCIÓN INFERIOR
+
+// Cierra el modal y baja al formulario de registro
+function irARegistro() {
+  cerrarModal();
+  setTimeout(() => {
+    const sec = document.getElementById("sec-registro");
+    if (sec) sec.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, 350);
+}
+
+// Toggle contraseña del formulario inferior
+function toggleRegfPass() {
+  const input = document.getElementById("regfPass");
+  const ico   = document.getElementById("regfOjo");
+  if (!input) return;
+  input.type    = input.type === "password" ? "text" : "password";
+  ico.className = input.type === "password" ? "bi bi-eye" : "bi bi-eye-slash";
+}
+
+// Registrar cliente desde el formulario de la sección
+function registrarClienteForm() {
+  const nombre   = document.getElementById("regfNombre")?.value.trim();
+  const email    = document.getElementById("regfEmail")?.value.trim();
+  const pass     = document.getElementById("regfPass")?.value.trim();
+  const terminos = document.getElementById("regfTerminos")?.checked;
+  const mErr     = document.getElementById("regFormError");
+
+  if (!nombre) {
+    _mostrarError(mErr, "Ingresa tu nombre completo.");
+    return;
+  }
+  if (!email?.includes("@")) {
+    _mostrarError(mErr, "Ingresa un correo electrónico válido.");
+    return;
+  }
+  if (!pass || pass.length < 6) {
+    _mostrarError(mErr, "La contraseña debe tener al menos 6 caracteres.");
+    return;
+  }
+  if (!terminos) {
+    _mostrarError(mErr, "Debes aceptar los términos y condiciones.");
+    return;
+  }
+
+  mErr.style.display = "none";
+
+  // Guardar sesión
+  sessionStorage.setItem("clienteNombre", nombre);
+  sessionStorage.setItem("clienteEmail",  email);
+  sessionStorage.setItem("rolActual",     "Cliente");
+
+  // Cambiar botón a loading
+  const btn = document.querySelector(".reg-btn");
+  if (btn) {
+    btn.disabled   = true;
+    btn.innerHTML  = '<i class="bi bi-arrow-repeat spin-icon"></i>&nbsp; Creando cuenta...';
+  }
+
+  mostrarToast(
+    "¡Cuenta creada! Bienvenido, " + nombre.split(" ")[0] + "!",
+    "success"
+  );
+
+  setTimeout(() => { window.location.href = "cliente.html"; }, 1600);
 }
 
 // CSS del spinner
