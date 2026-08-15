@@ -4,7 +4,7 @@
 
 const rolesDisponibles = {
   Admin:    true,
-  Operador: false,
+  Operador: true,
   Cliente:  true
 };
 
@@ -190,10 +190,12 @@ function iniciarSesionModal() {
 
     // Redirigir según rol
     if (rolModalActual === "Cliente") {
-      window.location.href = "cliente.html";
-    } else {
-      window.location.href = "admin.html";
-    }
+        window.location.href = "cliente.html";
+      } else if (rolModalActual === "Operador") {
+        window.location.href = "operador.html";
+      } else {
+        window.location.href = "admin.html";
+      }
   }, 900);
 }
 
