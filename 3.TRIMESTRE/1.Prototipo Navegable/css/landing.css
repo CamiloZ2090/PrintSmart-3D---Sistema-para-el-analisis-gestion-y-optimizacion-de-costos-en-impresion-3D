@@ -486,7 +486,7 @@ html { scroll-behavior: smooth; }
 /* Fila 1: 1 grande + 2 medianos */
 .prod-fila-top {
   display: grid;
-  grid-template-columns: 1.9fr 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: 20px;
   margin-bottom: 20px;
 }
@@ -540,10 +540,9 @@ html { scroll-behavior: smooth; }
   overflow: hidden;
 }
 /* Alturas según tipo */
-.pcard.featured .pimg { height: 240px; }
+.pcard.featured .pimg { height: 190px; }
 .pcard.medium   .pimg { height: 190px; }
-.pcard.small    .pimg { height: 148px; }
-
+.pcard.small    .pimg { height: 160px; }
 /* Icono placeholder */
 .pimg-icon {
   display: flex;
@@ -626,7 +625,7 @@ html { scroll-behavior: smooth; }
   margin-bottom: 4px;
   line-height: 1.3;
 }
-.pcard.featured .pnombre { font-size: 18px; }
+.pcard.featured .pnombre { font-size: 15px; }
 .pcard.medium   .pnombre { font-size: 15px; }
 
 .pcategoria {
@@ -673,7 +672,7 @@ html { scroll-behavior: smooth; }
   color: #C4B5FD;
   line-height: 1;
 }
-.pcard.featured .pprecio { font-size: 20px; }
+.pcard.featured .pprecio { font-size: 14.5px; }
 .pmaterial {
   font-size: 10px;
   color: var(--dk-faint);
@@ -1596,3 +1595,26 @@ html { scroll-behavior: smooth; }
   .registro-inner { grid-template-columns: 1fr; gap: 40px; }
   .reg-titulo { font-size: 30px; }
 }
+.pcard.featured .pdesc { display: none; }
+.pcard.featured .ptags { display: none; }
+.pcard.featured .pbadge-hot { top: 10px; right: 10px; }
+/* =====================
+   IMÁGENES EN TARJETAS — Ajuste correcto
+===================== */
+
+/* La imagen llena el contenedor sin deformarse */
+.pimg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  position: absolute;
+  top: 0; left: 0;
+}
+
+/* Cuando hay imagen, ocultar el ícono placeholder */
+.pimg img ~ .pimg-icon { display: none; }
+
+/* El contenedor necesita position relative para que la imagen lo llene */
+.pimg { position: relative; }
