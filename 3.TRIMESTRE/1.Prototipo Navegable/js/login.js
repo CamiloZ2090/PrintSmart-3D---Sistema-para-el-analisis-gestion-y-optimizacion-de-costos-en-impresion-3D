@@ -15,7 +15,7 @@ const datosRol = {
   },
   Operador: {
     desc: "Gestión de cola de impresión, inventario de materiales y mantenimiento técnico.",
-    descBloqueado: "El panel de Operario está en desarrollo. Estará disponible pronto."
+    descBloqueado: null
   },
   Cliente: {
     desc: "Registra tu cuenta para hacer pedidos, ver cotizaciones y seguimiento en tiempo real.",
