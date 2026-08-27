@@ -72,14 +72,14 @@
   </nav>
 
   <!-- Botón de Acción -->
-  <button class="btn-nuevo-trabajo">
+  <button class="btn-nuevo-trabajo" onclick="abrirNuevoTrabajo()">
     <i class="bi bi-plus-lg"></i>
     <span>Nuevo Trabajo de Impresión</span>
   </button>
 
   <!-- Footer Sidebar -->
   <div class="sidebar-footer">
-    <a href="#" class="sidebar-link">
+    <a href="javascript:void(0)" onclick="mostrarCentroAyuda()" class="sidebar-link">
       <i class="bi bi-question-circle"></i>
       <span>Centro de Ayuda</span>
     </a>
@@ -99,16 +99,16 @@
     </div>
 
     <div class="topbar-derecha">
-        <button class="topbar-btn">
+        <button class="topbar-btn" onclick="toggleNotificaciones()">
         <i class="bi bi-bell"></i>
         <span class="punto-rojo"></span>
         </button>
-        <button class="topbar-btn">
+        <button class="topbar-btn" onclick="toggleHistorial()">
         <i class="bi bi-clock-history"></i>
         </button>
 
         <!-- Perfil de Usuario con IDs actualizados -->
-        <div class="usuario-perfil">
+        <div class="usuario-perfil" onclick="mostrarSeccion('configuracion', document.getElementById('nav-configuracion'))" title="Ir a Configuración" style="cursor:pointer;">
         <div class="avatar" id="topbarAvatar">AR</div>
         <div>
             <div class="usuario-nombre" id="topbarNombre">Alex Rivera</div>
@@ -131,7 +131,7 @@
           <p class="sec-subtitulo">Analítica de precisión y visión general de fabricación en tiempo real.</p>
         </div>
         <div class="d-flex gap-2">
-          <button class="btn-outline"><i class="bi bi-calendar3"></i> Últimos 30 Días</button>
+          <button class="btn-outline" onclick="cambiarPeriodo(this)"><i class="bi bi-calendar3"></i> Últimos 30 Días</button>
           <button class="btn-primario" onclick="exportarPDF()">
             <i class="bi bi-download"></i> Exportar PDF
         </button>
@@ -147,7 +147,7 @@
               <span class="badge-subida">+12.5%</span>
             </div>
             <div class="kpi-label">Ingresos Totales</div>
-            <div class="kpi-valor">$142,384</div>
+            <div class="kpi-valor">$28.500.000</div>
           </div>
         </div>
         <div class="col-md-3">
@@ -200,7 +200,7 @@
           <div class="card-custom h-100">
             <div class="d-flex justify-content-between mb-3">
               <h6 class="card-titulo">Actividad Reciente</h6>
-              <a href="#" class="link-morado">Ver Todo</a>
+              <a href="javascript:void(0)" onclick="verTodaActividad()" class="link-morado">Ver Todo</a>
             </div>
             <!-- Items de actividad -->
             <div class="actividad-item">
@@ -294,8 +294,8 @@
         <div class="d-flex justify-content-between mb-3">
           <h6 class="card-titulo">Inventario de Materiales</h6>
           <div class="d-flex gap-2">
-            <button class="topbar-btn"><i class="bi bi-funnel"></i></button>
-            <button class="topbar-btn"><i class="bi bi-three-dots-vertical"></i></button>
+            <button class="topbar-btn" onclick="filtrarInventarioRapido()" title="Filtrar"><i class="bi bi-funnel"></i></button>
+            <button class="topbar-btn" onclick="opcionesInventario()" title="Más opciones"><i class="bi bi-three-dots-vertical"></i></button>
           </div>
         </div>
         <table class="tabla-custom">
@@ -346,7 +346,7 @@
         <div class="promo-etiqueta">OPTIMIZACIÓN DE INSTALACIONES</div>
         <div class="promo-titulo">Aumentar eficiencia un 14%</div>
         <p class="promo-desc">Redirigir la Unidad 04 a pedidos aeroespaciales de alta prioridad según los niveles actuales de resina.</p>
-        <button class="btn-outline-blanco">Aplicar Optimización</button>
+        <button class="btn-outline-blanco" onclick="aplicarOptimizacion(this)">Aplicar Optimización</button>
       </div>
 
     </div>
@@ -411,10 +411,10 @@
                 <span class="ms-3 estado-online">● Sistema Online</span>
               </div>
               <div class="d-flex gap-2">
-                <button class="btn-outline" style="font-size:12px;padding:5px 10px;">
+                <button class="btn-outline" style="font-size:12px;padding:5px 10px;" onclick="filtrarMateriales()">
                   <i class="bi bi-funnel"></i> Filtros
                 </button>
-                <button class="btn-outline" style="font-size:12px;padding:5px 10px;">
+                <button class="btn-outline" style="font-size:12px;padding:5px 10px;" onclick="exportarMateriales()">
                   <i class="bi bi-download"></i> Exportar
                 </button>
               </div>
@@ -428,7 +428,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
+                <tr onclick="verDetalleMaterial('PLA Carbon Fiber','Proto-Pasta Inc.','12.5 kg','$45.00','Óptimo')" style="cursor:pointer;">
                   <td><div class="d-flex align-items-center gap-2">
                     <div class="dot-material negro"></div>
                     <div><div class="fw-600">PLA Carbon Fiber</div>
@@ -439,7 +439,7 @@
                   <td>5.0 kg</td><td>$45.00</td>
                   <td><span class="badge-optimo">Óptimo</span></td>
                 </tr>
-                <tr>
+                <tr onclick="verDetalleMaterial('PETG Neon Orange','Filamentum','2.1 kg','$32.50','Crítico')" style="cursor:pointer;">
                   <td><div class="d-flex align-items-center gap-2">
                     <div class="dot-material naranja"></div>
                     <div><div class="fw-600">PETG Neon Orange</div>
@@ -450,7 +450,7 @@
                   <td>3.0 kg</td><td>$32.50</td>
                   <td><span class="badge-critico">Crítico</span></td>
                 </tr>
-                <tr>
+                <tr onclick="verDetalleMaterial('Tough Resin V4','Formlabs','5.0 L','$175.00','Suficiente')" style="cursor:pointer;">
                   <td><div class="d-flex align-items-center gap-2">
                     <div class="dot-material morado"></div>
                     <div><div class="fw-600">Tough Resin V4</div>
@@ -545,8 +545,8 @@
           <p class="sec-subtitulo">Revisión técnica y financiera de solicitudes entrantes.</p>
         </div>
         <div class="d-flex gap-2">
-          <button class="btn-outline"><i class="bi bi-funnel"></i> Filtrar</button>
-          <button class="btn-primario"><i class="bi bi-download"></i> Exportar CSV</button>
+          <button class="btn-outline" onclick="filtrarPedidos(this)"><i class="bi bi-funnel"></i> Filtrar</button>
+          <button class="btn-primario" onclick="exportarPedidosCSV()"><i class="bi bi-download"></i> Exportar CSV</button>
         </div>
       </div>
 
@@ -823,7 +823,7 @@
             <div class="tip-box">
               <div class="tip-titulo"><i class="bi bi-lightbulb me-2"></i>Optimización Inteligente</div>
               <p class="tip-texto">Cambiar a <strong>Antero 800NA</strong> reduciría el tiempo de impresión un 12%.</p>
-              <a href="#" class="link-morado fw-600" style="font-size:12px;">Ver materiales alternativos →</a>
+              <a href="javascript:void(0)" onclick="verMaterialesAlternativos()" class="link-morado fw-600" style="font-size:12px;">Ver materiales alternativos →</a>
             </div>
           </div>
         </div>
@@ -840,14 +840,14 @@
           <p class="sec-subtitulo">Profundización operativa y financiera del Q3 2023.</p>
         </div>
         <div class="d-flex gap-2 align-items-center">
-          <button class="btn-outline"><i class="bi bi-calendar3"></i> 01 Jul – 30 Sep</button>
+          <button class="btn-outline" onclick="cambiarPeriodoReporte(this)"><i class="bi bi-calendar3"></i> 01 Jul – 30 Sep</button>
           <select class="select-form" style="width:160px;padding:7px 10px;">
             <option>Todos los Clientes</option>
             <option>Industrial Tech</option>
             <option>BioLab Medical</option>
           </select>
-          <button class="btn-outline"><i class="bi bi-file-earmark-excel"></i> Excel</button>
-          <button class="btn-primario"><i class="bi bi-file-earmark-pdf"></i> Reporte PDF</button>
+          <button class="btn-outline" onclick="exportarExcel()"><i class="bi bi-file-earmark-excel"></i> Excel</button>
+          <button class="btn-primario" onclick="exportarPDFReporte()"><i class="bi bi-file-earmark-pdf"></i> Reporte PDF</button>
         </div>
       </div>
 
@@ -947,7 +947,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
+                <tr onclick="verDetalleOperador('Roberto Castillo','Mañana','1,240 pzs','99.2%','98.5%')" style="cursor:pointer;">
                   <td><div class="d-flex align-items-center gap-2">
                     <div class="hist-avatar" style="background:#7C3AED;">RC</div>
                     <span class="fw-600">Roberto Castillo</span>
@@ -956,7 +956,7 @@
                   <td class="text-success fw-700">99.2%</td>
                   <td class="fw-700">98.5%</td>
                 </tr>
-                <tr>
+                <tr onclick="verDetalleOperador('Marta López','Tarde','1,105 pzs','98.8%','96.2%')" style="cursor:pointer;">
                   <td><div class="d-flex align-items-center gap-2">
                     <div class="hist-avatar" style="background:#2563EB;">ML</div>
                     <span class="fw-600">Marta López</span>
@@ -965,7 +965,7 @@
                   <td class="text-success fw-700">98.8%</td>
                   <td class="fw-700">96.2%</td>
                 </tr>
-                <tr>
+                <tr onclick="verDetalleOperador('Samuel Jiménez','Noche','980 pzs','94.5%','89.4%')" style="cursor:pointer;">
                   <td><div class="d-flex align-items-center gap-2">
                     <div class="hist-avatar" style="background:#0F766E;">SJ</div>
                     <span class="fw-600">Samuel Jiménez</span>
@@ -1114,8 +1114,8 @@
             <div class="tabla-footer-usuarios">
               <span>Mostrando 4 de 1,284 usuarios</span>
               <div class="d-flex gap-2">
-                <button class="btn-pagina"><i class="bi bi-chevron-left"></i></button>
-                <button class="btn-pagina"><i class="bi bi-chevron-right"></i></button>
+                <button class="btn-pagina" onclick="paginaAnterior()" title="Página anterior"><i class="bi bi-chevron-left"></i></button>
+                <button class="btn-pagina" onclick="paginaSiguiente()" title="Página siguiente"><i class="bi bi-chevron-right"></i></button>
               </div>
             </div>
           </div>
@@ -1184,8 +1184,6 @@
               <div class="col-8">
                 <label class="campo-label">MONEDA DEL SISTEMA</label>
                 <select class="select-form">
-                  <option>Dólar Estadounidense (USD)</option>
-                  <option>Euro (EUR)</option>
                   <option>Peso Colombiano (COP)</option>
                 </select>
               </div>
@@ -1221,13 +1219,18 @@
               <h6 class="card-titulo mb-0">Preferencias Regionales</h6>
             </div>
             <label class="campo-label">IDIOMA DEL SISTEMA</label>
-            <select class="select-form mb-3">
+            <select class="select-form mb-3" id="selectIdioma">
               <option>Español (Colombia)</option>
+              <option>English (US)</option>
             </select>
             <label class="campo-label">ZONA HORARIA</label>
-            <select class="select-form">
+            <select class="select-form" id="selectZona">
               <option>(UTC-05:00) Bogotá, Lima, Quito</option>
+              <option>(UTC-03:00) Buenos Aires</option>
             </select>
+            <button class="btn-primario w-100 justify-content-center mt-3" onclick="guardarRegionales()">
+              <i class="bi bi-save"></i> Guardar Preferencias
+            </button>
           </div>
         </div>
         <!-- Almacenamiento -->
@@ -1301,6 +1304,7 @@
   <script src="js/calculos.js"></script>
   <script src="js/usuarios.js"></script>
   <script src="js/configuracion.js"></script>
+  <script src="js/admin-funciones.js"></script>
 
 </body>
 </html>
