@@ -5,7 +5,8 @@
 const rolesDisponibles = {
   Admin:    true,
   Operador: true,
-  Cliente:  true
+  Cliente:  true,
+  Tecnico: false,
 };
 
 const datosRol = {
@@ -20,7 +21,11 @@ const datosRol = {
   Cliente: {
     desc: "Registra tu cuenta para hacer pedidos, ver cotizaciones y seguimiento en tiempo real.",
     descBloqueado: null
-  }
+  },
+    Tecnico: {
+    desc: "Getionan el mantenimiento de los equipos",
+    descBloqueado: null
+    }
 };
 
 let rolModalActual      = "Admin";

@@ -8,7 +8,8 @@ window.addEventListener("DOMContentLoaded", () => {
   const datosRol = {
     Admin:    { nombre: "Camilo Zambrano",  iniciales: "CZ", color: "#5B21B6" },
     Operador: { nombre: "", iniciales: "", color: "#0F766E" },
-    Cliente:  { nombre: "", iniciales: "", color: "#2563EB" }
+    Cliente:  { nombre: "", iniciales: "", color: "#2563EB" },
+    Tecnico:  { nombre: "", iniciales: "", color: "#eb2550"}
   };
 
   const datos = datosRol[rol] || datosRol["Admin"];

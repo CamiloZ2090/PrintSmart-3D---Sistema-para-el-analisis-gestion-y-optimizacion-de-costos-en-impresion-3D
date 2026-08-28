@@ -769,7 +769,6 @@
       <div class="ftagline">Imagina · Diseña · Imprime</div>
       <div class="fdesc">
         Sistema de gestión y optimización de costos en impresión 3D.
-        Desarrollado para ML Mecanizados SAS.
       </div>
       <div class="fsocials">
         <a class="fsocial-btn" href="#"><i class="bi bi-instagram"></i></a>
@@ -807,6 +806,7 @@
         <li><a onclick="abrirModal('Cliente')">Portal Cliente</a></li>
         <li><a onclick="abrirModal('Admin')">Panel Admin</a></li>
         <li><a onclick="abrirModal('Operador')">Panel Operario</a></li>
+        <li><a onclick="abrirModal('Tecnico')">Panel Tecnico</a></li>
         <li><a href="#">Soporte técnico</a></li>
       </ul>
     </div>
@@ -848,9 +848,14 @@
         <i class="bi bi-tools"></i> Operario
       </button>
       <button class="mtab" id="tab-Cliente"
+        onclick="selectModalRol('Tecnico', this)">
+        <i class="bi bi-person"></i> Tecnico
+      </button>
+      <button class="mtab" id="tab-Cliente"
         onclick="selectModalRol('Cliente', this)">
         <i class="bi bi-person"></i> Cliente
       </button>
+
     </div>
 
     <!-- Descripción del rol -->
