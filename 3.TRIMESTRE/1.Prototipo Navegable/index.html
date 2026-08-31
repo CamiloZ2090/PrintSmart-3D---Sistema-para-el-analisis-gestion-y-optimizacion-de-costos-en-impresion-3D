@@ -848,14 +848,15 @@
         onclick="selectModalRol('Operador', this)">
         <i class="bi bi-tools"></i> Operario
       </button>
-      <button class="mtab" id="tab-Cliente"
-        onclick="selectModalRol('Tecnico', this)">
-        <i class="bi bi-person"></i> Tecnico
+      <button class="mtab" id="tab-Operador"
+      onclick="selectModalRol('Operador', this)">
+      <i class="bi bi-tools"></i> Tecnico
       </button>
       <button class="mtab" id="tab-Cliente"
         onclick="selectModalRol('Cliente', this)">
         <i class="bi bi-person"></i> Cliente
       </button>
+    </div>
 
     </div>
 
@@ -865,6 +866,9 @@
       <span id="mRolTexto">
         Acceso total: usuarios, configuración, reportes financieros y control de toda la operación.
       </span>
+    </div>
+    <div class="role-desc" id="desc-Tecnico" style="display:none">
+    <span>Acceso al panel de mantenimiento, diagnóstico de impresoras e historial de intervenciones.</span>
     </div>
 
     <!-- SECCIÓN LOGIN (Admin / Operario) -->

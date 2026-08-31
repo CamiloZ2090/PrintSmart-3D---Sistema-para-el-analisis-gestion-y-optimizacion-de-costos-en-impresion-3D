@@ -3,1597 +3,643 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>PrintSmart 3D | Tecnico</title>
+  <title>PrintSmart 3D — Técnico</title>
   <link rel="icon" type="image/jpeg" href="assets/logo2.jpeg"/>
-
-  <!-- Bootstrap 5 -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
-  <!-- Bootstrap Icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
-  <!-- Inter -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
-
-  <!-- CSS propios -->
   <link rel="stylesheet" href="css/variables.css"/>
-  <link rel="stylesheet" href="css/cliente.css"/>
+  <link rel="stylesheet" href="css/tecnico.css"/>
 </head>
-<body class="cliente-body">
+<body>
 
-<!--SIDEBAR-->
-<aside class="cl-sidebar">
+<!-- ══ SIDEBAR ══ -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-icon"><img src="assets/logo2.jpeg" alt="Logo"/></div>
+    <div>
+      <div class="logo-titulo">PrintSmart 3D</div>
+      <div class="logo-sub">Panel Técnico</div>
+    </div>
+  </div>
 
-  <!-- Marca -->
-  <a class="cl-brand" href="index.html">
-    <img src="assets/logo2.jpeg" alt="Logo" class="cl-brand-logo"/>
-    <span class="cl-brand-txt">PrintSmart 3D</span>
-  </a>
-
-  <!-- Navegación -->
-  <nav class="cl-nav">
-    <button class="cl-nav-item activo" id="nav-dashboard"
-      onclick="irA('dashboard', this)">
-      <i class="bi bi-grid-1x2"></i> Dashboard
-    </button>
-
-    <button class="cl-nav-item" id="nav-catalogo"
-      onclick="irA('catalogo', this)">
-      <i class="bi bi-shop"></i> Catálogo
-    </button>
-
-    <button class="cl-nav-item" id="nav-realizar"
-      onclick="irA('realizar', this)">
-      <i class="bi bi-cart-plus"></i> Realizar Pedido
-    </button>
-
-    <button class="cl-nav-item" id="nav-pedidos"
-      onclick="irA('pedidos', this)">
-      <i class="bi bi-clock-history"></i> Mis Pedidos
-    </button>
-
-    <button class="cl-nav-item" id="nav-estado"
-      onclick="irA('estado', this)">
-      <i class="bi bi-broadcast"></i> Estado del Pedido
-    </button>
-
-    <div class="cl-nav-sep">Cuenta</div>
-
-    <button class="cl-nav-item" id="nav-config"
-      onclick="irA('config', this)">
-      <i class="bi bi-gear"></i> Configuración
-    </button>
+  <nav class="sidebar-nav">
+    <div class="nav-grupo">GENERAL</div>
+    <div class="nav-item activo" id="nav-dashboard" data-seccion="dashboard">
+      <i class="bi bi-grid-1x2"></i><span>Dashboard</span>
+    </div>
+    <div class="nav-item" id="nav-registro" data-seccion="registro">
+      <i class="bi bi-tools"></i><span>Registrar Mantenimiento</span>
+    </div>
+    <div class="nav-item" id="nav-historial" data-seccion="historial">
+      <i class="bi bi-clock-history"></i><span>Historial</span>
+    </div>
+    <div class="nav-grupo" style="margin-top:18px">EQUIPOS</div>
+    <div class="nav-item" id="nav-impresoras" data-seccion="impresoras">
+      <i class="bi bi-printer"></i><span>Gestionar Impresoras</span>
+    </div>
+    <div class="nav-grupo" style="margin-top:18px">CUENTA</div>
+    <div class="nav-item" id="nav-perfil" data-seccion="perfil">
+      <i class="bi bi-person-circle"></i><span>Mi Perfil</span>
+    </div>
   </nav>
 
-  <!-- Botón nuevo pedido -->
-  <button class="btn-nuevo-pedido" onclick="irA('realizar', document.getElementById('nav-realizar'))">
-    <i class="bi bi-plus-lg"></i> Nuevo Pedido
-  </button>
-
-  <!-- Footer sidebar -->
-  <div class="cl-sidebar-footer">
-    <button class="cl-nav-item peligro" onclick="cerrarSesionCliente()">
+  <div class="sidebar-footer">
+    <button class="btn-cerrar-sesion" onclick="cerrarSesion()">
       <i class="bi bi-box-arrow-left"></i> Cerrar Sesión
     </button>
   </div>
-
 </aside>
 
-<!--TOPBAR-->
-<header class="cl-topbar">
-
-  <!-- Buscador -->
-  <div class="cl-buscador">
-    <i class="bi bi-search cl-buscador-ico"></i>
-    <input type="text" class="cl-buscador-input"
-           id="clBuscador"
-           placeholder="Buscar pedidos o facturas..."
-           oninput="buscarEnSeccion(this.value)"/>
-  </div>
-
-  <!-- Derecha -->
-  <div class="cl-topbar-right">
-
-    <!-- Notificaciones -->
-    <button class="cl-topbar-btn" onclick="toggleNotificaciones()" title="Notificaciones">
-      <i class="bi bi-bell"></i>
-      <div class="cl-notif-dot"></div>
-    </button>
-
-    <!-- Perfil -->
-    <div class="cl-perfil" onclick="irA('config', document.getElementById('nav-config'))">
-      <div class="cl-avatar" id="clAvatar">JP</div>
+<!-- ══ TOPBAR ══ -->
+<div class="topbar">
+  <input type="text" class="buscador-top" id="buscadorInput" placeholder="Buscar..."/>
+  <div class="topbar-der">
+    <div class="notif-wrap">
+      <i class="bi bi-bell" style="font-size:18px; color:var(--text-mid)"></i>
+      <span class="notif-dot">2</span>
+    </div>
+    <div class="topbar-usuario">
+      <div class="topbar-avatar" id="topbarAvatar">JR</div>
       <div>
-        <div class="cl-perfil-nombre" id="clNombreTopbar">Juan Pérez</div>
-        <div class="cl-perfil-rol">Cliente </div>
+        <div class="topbar-nombre" id="topbarNombre">Juan Rodríguez</div>
+        <div class="topbar-rol"    id="topbarRol">TÉCNICO</div>
       </div>
     </div>
-
   </div>
-</header>
+</div>
 
-<!--CONTENIDO PRINCIPAL-->
-<main class="cl-main">
+<!-- ══ CONTENIDO PRINCIPAL ══ -->
+<main class="main-content">
 
-  <!--SECCIÓN: DASHBOARD-->
+  <!-- ── DASHBOARD ── -->
   <section id="sec-dashboard">
-
-    <div class="cl-sec-header">
+    <div class="page-header">
       <div>
-        <h1 class="cl-sec-titulo" id="dashSaludo">¡Hola, Juan!</h1>
-        <p class="cl-sec-sub">Bienvenido a tu panel de control de impresión 3D.</p>
+        <h1 class="page-titulo">Dashboard</h1>
+        <p class="page-sub">Resumen de tu jornada 👋</p>
       </div>
-      <button class="cl-btn-p"
-        onclick="irA('realizar', document.getElementById('nav-realizar'))">
-        <i class="bi bi-rocket-takeoff"></i> Realizar Nuevo Pedido
-      </button>
     </div>
 
-    <!-- KPIs -->
-    <div class="cl-kpi-grid">
-      <div class="cl-kpi">
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-icono" style="background:#EDE9FE;color:#5B21B6"><i class="bi bi-wrench-adjustable"></i></div>
         <div>
-          <div class="cl-kpi-label">Pedidos Activos</div>
-          <div class="cl-kpi-valor">04</div>
-          <span class="cl-kpi-tag este-mes">Este mes</span>
-        </div>
-        <div class="cl-kpi-ico morado">
-          <i class="bi bi-printer"></i>
+          <div class="kpi-valor">5</div>
+          <div class="kpi-label">Tareas Pendientes</div>
+          <span class="badge-kpi warn">2 urgentes</span>
         </div>
       </div>
-      <div class="cl-kpi">
+      <div class="kpi-card">
+        <div class="kpi-icono" style="background:#DCFCE7;color:#16A34A"><i class="bi bi-check2-all"></i></div>
         <div>
-          <div class="cl-kpi-label">Pedidos Entregados</div>
-          <div class="cl-kpi-valor">128</div>
-          <span class="cl-kpi-tag historico">Histórico</span>
-        </div>
-        <div class="cl-kpi-ico verde">
-          <i class="bi bi-check-circle"></i>
+          <div class="kpi-valor">28</div>
+          <div class="kpi-label">Mantenimientos este mes</div>
+          <span class="badge-kpi ok">+4 vs mes anterior</span>
         </div>
       </div>
-      <div class="cl-kpi">
+      <div class="kpi-card">
+        <div class="kpi-icono" style="background:#FEF9C3;color:#B45309"><i class="bi bi-printer-fill"></i></div>
         <div>
-          <div class="cl-kpi-label">Inversión Total</div>
-          <div class="cl-kpi-valor">$2.450.000</div>
-          <span class="cl-kpi-tag total">COP · Total</span>
-        </div>
-        <div class="cl-kpi-ico azul">
-          <i class="bi bi-wallet2"></i>
+          <div class="kpi-valor">8</div>
+          <div class="kpi-label">Impresoras Asignadas</div>
+          <span class="badge-kpi warn">1 con falla</span>
         </div>
       </div>
-    </div>
-
-    <!-- Pedido en curso -->
-    <div class="cl-pedido-curso">
-      <div class="cl-pedido-curso-tag">
-        <div class="cl-pedido-curso-tag-dot"></div>
-        Pedido en Curso
-      </div>
-
-      <div class="cl-pedido-curso-inner">
+      <div class="kpi-card">
+        <div class="kpi-icono" style="background:#FEE2E2;color:#DC2626"><i class="bi bi-exclamation-triangle"></i></div>
         <div>
-          <div class="cl-pedido-nombre">Prototipo Brazo Robótico V2</div>
-          <div class="cl-pedido-fecha">
-            <i class="bi bi-calendar3"></i>
-            Estimado: 14 de Octubre, 17:30
-          </div>
-
-          <!-- Barra de progreso -->
-          <div class="cl-progreso-label">
-            <span>Progreso de Impresión</span>
-            <span class="cl-progreso-pct">68%</span>
-          </div>
-          <div class="cl-barra-wrap">
-            <div class="cl-barra-fill" style="width:68%;"></div>
-          </div>
-
-          <!-- Chips info -->
-          <div class="cl-pedido-chips">
-            <div class="cl-pedido-chip">
-              <div class="cl-chip-label">Material</div>
-              <div class="cl-chip-valor">Resina Industrial High-Temp</div>
-            </div>
-            <div class="cl-pedido-chip">
-              <div class="cl-chip-label">Máquina</div>
-              <div class="cl-chip-valor">Formlabs 3B+ (Unit 4)</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Preview imagen -->
-        <div class="cl-pedido-preview">
-          <div class="cl-pedido-preview-ph">
-            <i class="bi bi-robot"></i>
-          </div>
-          <button class="cl-live-btn" onclick="mostrarToastCliente('📡 Conectando con cámara en vivo...','info')">
-            <i class="bi bi-camera-video"></i> Vista en vivo de cámara
-          </button>
-        </div>
-      </div>
-
-      <div class="cl-pedido-footer">
-        <span>Actualizado hace 2 minutos</span>
-        <span class="cl-link-morado"
-          onclick="irA('estado', document.getElementById('nav-estado'))">
-          Ver detalles completos →
-        </span>
-      </div>
-    </div>
-
-    <!-- Fila: Historial + Cards laterales -->
-    <div class="cl-grid-3-1" style="gap:16px;">
-
-      <!-- Historial reciente -->
-      <div class="cl-card">
-        <div class="cl-card-titulo">Historial Reciente</div>
-        <div class="cl-card-sub" style="margin-bottom:14px;">Tus últimas 3 transacciones</div>
-        <table class="cl-tabla">
-          <thead>
-            <tr>
-              <th>Nombre del Proyecto</th>
-              <th>Fecha</th>
-              <th>Estado</th>
-              <th>Costo</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr onclick="irA('estado', document.getElementById('nav-estado'))"
-                style="cursor:pointer;">
-              <td class="fw-700">Carcasa Sensor IoT x10</td>
-              <td>08 Oct 2024</td>
-              <td><span class="cl-badge entregado">Entregado</span></td>
-              <td class="fw-700 text-morado">$42.000</td>
-            </tr>
-            <tr onclick="irA('estado', document.getElementById('nav-estado'))"
-                style="cursor:pointer;">
-              <td class="fw-700">Engranaje Helicoidal 45mm</td>
-              <td>02 Oct 2024</td>
-              <td><span class="cl-badge entregado">Entregado</span></td>
-              <td class="fw-700 text-morado">$60.000</td>
-            </tr>
-            <tr onclick="irA('estado', document.getElementById('nav-estado'))"
-                style="cursor:pointer;">
-              <td class="fw-700">Soporte Motor Nema 17</td>
-              <td>28 Sep 2024</td>
-              <td><span class="cl-badge error">Error de Archivo</span></td>
-              <td class="fw-700">$0</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <!-- Cards laterales -->
-      <div style="display:flex;flex-direction:column;gap:14px;">
-
-        <!-- Guía de preparación -->
-        <div class="cl-tip-card">
-          <div class="cl-tip-tag">Guía de Preparación</div>
-          <div class="cl-tip-titulo">Optimiza tus archivos STL</div>
-          <div class="cl-tip-item">
-            <i class="bi bi-check-circle"></i>
-            Verifica que el modelo sea "manifold" (estanco).
-          </div>
-          <div class="cl-tip-item">
-            <i class="bi bi-check-circle"></i>
-            Espesor mínimo de pared: 0.8mm.
-          </div>
-          <div class="cl-tip-item">
-            <i class="bi bi-check-circle"></i>
-            Usa formatos .STEP para mayor precisión.
-          </div>
-          <button class="cl-tip-btn"
-            onclick="mostrarToastCliente('📚 Abriendo centro de ayuda...','info')">
-            Ver Centro de Ayuda
-          </button>
-        </div>
-
-        <!-- Nueva tecnología -->
-        <div class="cl-nueva-tec-card">
-          <div class="cl-nueva-tec-tag">Nueva Tecnología</div>
-          <div class="cl-nueva-tec-titulo">Impresión SLS de Carbono</div>
-          <div class="cl-nueva-tec-desc">
-            Resistencia mecánica extrema con nuestra nueva serie de materiales compuestos.
-          </div>
-          <button class="cl-btn-o cl-btn-sm" style="margin-top:12px;"
-            onclick="irA('catalogo', document.getElementById('nav-catalogo'))">
-            <i class="bi bi-arrow-right-circle"></i> Ver en catálogo
-          </button>
-        </div>
-
-      </div>
-    </div>
-
-  </section>
-
-  <!--SECCIÓN: CATÁLOGO-->
-  <section id="sec-catalogo" style="display:none;">
-
-    <div class="cl-sec-header">
-      <div>
-        <h1 class="cl-sec-titulo">Catálogo</h1>
-        <p class="cl-sec-sub">Escoge el modelo que necesitas o sube uno personalizado.</p>
-      </div>
-      <button class="cl-btn-p"
-        onclick="irA('realizar', document.getElementById('nav-realizar'))">
-        <i class="bi bi-upload"></i> Subir mi diseño
-      </button>
-    </div>
-
-    <!-- Filtros -->
-    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:6px;">
-      <button class="cl-btn-p cl-btn-sm" onclick="filtrarCatalogo('todos', this)">Todos</button>
-      <button class="cl-btn-o cl-btn-sm" onclick="filtrarCatalogo('Industrial', this)">Industrial</button>
-      <button class="cl-btn-o cl-btn-sm" onclick="filtrarCatalogo('Decorativo', this)">Decorativo</button>
-      <button class="cl-btn-o cl-btn-sm" onclick="filtrarCatalogo('Juguete', this)">Juguetes</button>
-      <button class="cl-btn-o cl-btn-sm" onclick="filtrarCatalogo('Arte', this)">Arte</button>
-      <button class="cl-btn-o cl-btn-sm" onclick="filtrarCatalogo('Tecnología', this)">Tecnología</button>
-      <button class="cl-btn-o cl-btn-sm" onclick="filtrarCatalogo('Hogar', this)">Hogar</button>
-    </div>
-
-    <div class="cl-cat-grid" id="catalogoGrid">
-
-      <!-- 11 productos del catálogo -->
-      <div class="cl-cat-card" data-cat="Decorativo"
-           onclick="pedirProducto('Dragon articulado','$70.000 COP')">
-        <div class="cl-cat-img">
-            <img src="img/1.jpeg"
-            style="width:100%; height:100%" />
-          <span class="cl-cat-badge">Decorativo</span>
-        </div>
-        <div class="cl-cat-body">
-          <div class="cl-cat-nombre">Dragon articulado</div>
-          <div class="cl-cat-categoria">Ingeniería · Alta precisión</div>
-          <div class="cl-cat-footer">
-            <div class="cl-cat-precio">$70.000</div>
-            <button class="cl-cat-btn"
-              onclick="event.stopPropagation(); pedirProducto('Dragon articulado','$70.000 COP')">
-              Pedir
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <div class="cl-cat-card" data-cat="Arte"
-           onclick="pedirProducto('Carro personalizado','$55.000 COP')">
-        <div class="cl-cat-img">
-          <img src="img/Carro.jpeg"
-          style="width:100%; height:100%" />
-        
-          <span class="cl-cat-badge">Arte</span>
-        </div>
-        <div class="cl-cat-body">
-          <div class="cl-cat-nombre">Carrro personalizada</div>
-          <div class="cl-cat-categoria">Arte · Decoración</div>
-          <div class="cl-cat-footer">
-            <div class="cl-cat-precio">$55.000</div>
-            <button class="cl-cat-btn"
-              onclick="event.stopPropagation(); pedirProducto('Carro personalizado','$55.000 COP')">
-              Pedir
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <div class="cl-cat-card" data-cat="Decorativo"
-           onclick="pedirProducto('Goku','$8.000 COP')">
-        <div class="cl-cat-img">
-          <img src="img/goku.jpeg"
-          style="width:100%; height:100%" />
-          
-          <span class="cl-cat-badge">Decorativo</span>
-        </div>
-        <div class="cl-cat-body">
-          <div class="cl-cat-nombre">Goku</div>
-          <div class="cl-cat-categoria">Muñecos· anime </div>
-          <div class="cl-cat-footer">
-            <div class="cl-cat-precio">$8.000</div>
-            <button class="cl-cat-btn"
-              onclick="event.stopPropagation(); pedirProducto('Goku','$8.000 COP')">
-              Pedir
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <div class="cl-cat-card" data-cat="Decorativo"
-           onclick="pedirProducto('garfield','$7.000 COP')">
-        <div class="cl-cat-img">
-          <img src="img/garfield.jpeg"
-          style="width:100%; height:100%" />
-          <span class="cl-cat-badge">Decorativo</span>
-        </div>
-        <div class="cl-cat-body">
-          <div class="cl-cat-nombre">garfield</div>
-          <div class="cl-cat-categoria">personajes· muñecos</div>
-          <div class="cl-cat-footer">
-            <div class="cl-cat-precio">$7.000</div>
-            <button class="cl-cat-btn"
-              onclick="event.stopPropagation(); pedirProducto('garfield','$7.000 COP')">
-              Pedir
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <div class="cl-cat-card" data-cat="Hogar"
-           onclick="pedirProducto('Flores en maceta','$25.000 COP')">
-        <div class="cl-cat-img">
-          <img src="img/flores maceta.png"
-          style="width:100%; height:100%" />
-          <span class="cl-cat-badge">Hogar</span>
-        </div>
-        <div class="cl-cat-body">
-          <div class="cl-cat-nombre">flores en maceta</div>
-          <div class="cl-cat-categoria">Hogar · Jardín</div>
-          <div class="cl-cat-footer">
-            <div class="cl-cat-precio">$25.000</div>
-            <button class="cl-cat-btn"
-              onclick="event.stopPropagation(); pedirProducto('Flores en maceta','$25.000 COP')">
-              Pedir
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <div class="cl-cat-card" data-cat="Juguete"
-           onclick="pedirProducto('Dinosaurio Articulado','$40.000 COP')">
-        <div class="cl-cat-img">
-           <img src="img/dinosaurio articulado.png"
-          style="width:100%; height:100%" />
-          <i class="bi bi-diagram-3"></i>
-          <span class="cl-cat-badge">Juguete</span>
-        </div>
-        <div class="cl-cat-body">
-          <div class="cl-cat-nombre">Dinosaurio Articulado</div>
-          <div class="cl-cat-categoria">Juguetes · Colección</div>
-          <div class="cl-cat-footer">
-            <div class="cl-cat-precio">$40.000</div>
-            <button class="cl-cat-btn"
-              onclick="event.stopPropagation(); pedirProducto('Dinosaurio Articulado','$40.000 COP')">
-              Pedir
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <div class="cl-cat-card" data-cat="Arte"
-           onclick="pedirProducto('Joyería','$25.000 COP')">
-        <div class="cl-cat-img">
-          <img src="img/aretes.png"
-          style="width:100%; height:100%" />
-          <span class="cl-cat-badge">Arte</span>
-        </div>
-        <div class="cl-cat-body">
-          <div class="cl-cat-nombre">Joyería</div>
-          <div class="cl-cat-categoria">Moda · Accesorios</div>
-          <div class="cl-cat-footer">
-            <div class="cl-cat-precio">$25.000</div>
-            <button class="cl-cat-btn"
-              onclick="event.stopPropagation(); pedirProducto('Joyería ','$25.000 COP')">
-              Pedir
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <div class="cl-cat-card" data-cat="Decorativo"
-           onclick="pedirProducto('Llavero Personalizado','$10.000 COP')">
-        <div class="cl-cat-img">
-          <img src="img/llavero personalizado.jpeg"
-          style="width:100%; height:100%" />
-          <span class="cl-cat-badge">Accesorio</span>
-        </div>
-        <div class="cl-cat-body">
-          <div class="cl-cat-nombre">Llavero Personalizado</div>
-          <div class="cl-cat-categoria">Accesorios · Regalo</div>
-          <div class="cl-cat-footer">
-            <div class="cl-cat-precio">$10.000</div>
-            <button class="cl-cat-btn"
-              onclick="event.stopPropagation(); pedirProducto('Llavero Personalizado','$10.000 COP')">
-              Pedir
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <div class="cl-cat-card" data-cat="Tecnología"
-           onclick="pedirProducto('Soportes play4','$45.000 COP')">
-        <div class="cl-cat-img">
-          <img src="img/Soporte play.jpeg"
-          style="width:100%; height:100%" />
-          <span class="cl-cat-badge">Tecnología</span>
-        </div>
-        <div class="cl-cat-body">
-          <div class="cl-cat-nombre">Soporte play4</div>
-          <div class="cl-cat-categoria">Tech · Electrónica</div>
-          <div class="cl-cat-footer">
-            <div class="cl-cat-precio">$45.000</div>
-            <button class="cl-cat-btn"
-              onclick="event.stopPropagation(); pedirProducto('Soportes play4','$45.000 COP')">
-              Pedir
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <div class="cl-cat-card" data-cat="Tecnología"
-           onclick="pedirProducto('Soporte de Escritorio','$55.000 COP')">
-        <div class="cl-cat-img">
-          <img src="img/soporte computador.png"
-          style="width:100%; height:100%" />
-          <span class="cl-cat-badge">Oficina</span>
-        </div>
-        <div class="cl-cat-body">
-          <div class="cl-cat-nombre">Soporte de Escritorio</div>
-          <div class="cl-cat-categoria">Oficina · Ergonomía</div>
-          <div class="cl-cat-footer">
-            <div class="cl-cat-precio">$55.000</div>
-            <button class="cl-cat-btn"
-              onclick="event.stopPropagation(); pedirProducto('Soporte de Escritorio','$55.000 COP')">
-              Pedir
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <div class="cl-cat-card" data-cat="Industrial"
-           onclick="pedirProducto('Engranaje','$85.000 COP')">
-        <div class="cl-cat-img">
-          <img src="img/Engranaje.png"
-          style="width:100%; height:100%" />
-          <span class="cl-cat-badge">Mecánica</span>
-        </div>
-        <div class="cl-cat-body">
-          <div class="cl-cat-nombre">Engranaje </div>
-          <div class="cl-cat-categoria">Mecánica · Repuestos</div>
-          <div class="cl-cat-footer">
-            <div class="cl-cat-precio">$85.000</div>
-            <button class="cl-cat-btn"
-              onclick="event.stopPropagation(); pedirProducto('Engranaje','$85.000 COP')">
-              Pedir
-            </button>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!--SECCIÓN: REALIZAR PEDIDO-->
-  <section id="sec-realizar" style="display:none;">
-
-    <div class="cl-sec-header">
-      <div>
-        <h1 class="cl-sec-titulo">Realizar Pedido</h1>
-        <p class="cl-sec-sub">Completa los detalles de tu impresión personalizada.</p>
-      </div>
-    </div>
-
-    <!-- Stepper -->
-    <div class="cl-stepper" id="stepper">
-      <div class="cl-step-item activo" id="step1">
-        <div class="cl-step-num">1</div>
-        <div class="cl-step-lbl">Proyecto</div>
-      </div>
-      <div class="cl-step-item" id="step2">
-        <div class="cl-step-num">2</div>
-        <div class="cl-step-lbl">Pedido</div>
-      </div>
-      <div class="cl-step-item" id="step3">
-        <div class="cl-step-num">3</div>
-        <div class="cl-step-lbl">Review</div>
-      </div>
-    </div>
-
-    <!-- ── PASO 1: Detalles del proyecto ── -->
-    <div id="paso1">
-      <div class="cl-grid-2" style="align-items:start;">
-
-        <!-- Formulario -->
-        <div>
-          <div class="cl-card">
-            <div class="cl-card-titulo">
-              <i class="bi bi-pencil-square text-morado" style="margin-right:8px;"></i>
-              Detalles del Proyecto
-            </div>
-            <div class="cl-card-sub">Cuéntanos qué necesitas imprimir.</div>
-
-            <div class="cl-form-group">
-              <label class="cl-form-label">Nombre del Pedido</label>
-              <input type="text" class="cl-form-input" id="pedNombre"
-                     placeholder="Ej: Prototipo Carcasa V2"
-                     oninput="actualizarResumen()"/>
-            </div>
-
-            <div class="cl-grid-2" style="gap:12px;">
-              <div class="cl-form-group">
-                <label class="cl-form-label">Material</label>
-                <select class="cl-form-select" id="pedMaterial"
-                        onchange="calcularPrecio()">
-                  <option value="pla">PLA — Estándar</option>
-                  <option value="petg">PETG — Funcional</option>
-                  <option value="abs">ABS — Resistente</option>
-                  <option value="tpu">TPU — Flexible</option>
-                  <option value="resina">Resina — Alta Resolución</option>
-                  <option value="nylon">Nylon — Industrial</option>
-                </select>
-              </div>
-              <div class="cl-form-group">
-                <label class="cl-form-label">Color</label>
-                <select class="cl-form-select" id="pedColor">
-                  <option>Negro Carbón</option>
-                  <option>Blanco Puro</option>
-                  <option>Gris Acero</option>
-                  <option>Morado</option>
-                  <option>Rojo</option>
-                  <option>Azul</option>
-                  <option>Transparente</option>
-                  <option>Personalizado</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="cl-grid-2" style="gap:12px;">
-              <div class="cl-form-group">
-                <label class="cl-form-label">Cantidad</label>
-                <input type="number" class="cl-form-input" id="pedCantidad"
-                       value="1" min="1" max="999"
-                       oninput="calcularPrecio()"/>
-              </div>
-              <div class="cl-form-group">
-                <label class="cl-form-label">Densidad de Relleno</label>
-                <select class="cl-form-select" id="pedDensidad"
-                        onchange="calcularPrecio()">
-                  <option value="15">15% — Ligero</option>
-                  <option value="25">25% — Normal</option>
-                  <option value="50" selected>50% — Sólido</option>
-                  <option value="75">75% — Reforzado</option>
-                  <option value="100">100% — Macizo</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="cl-form-group">
-              <label class="cl-form-label">Notas adicionales (opcional)</label>
-              <textarea class="cl-form-input" id="pedNotas" rows="3"
-                style="resize:vertical;"
-                placeholder="Tolerancias especiales, acabado, ensamblaje..."></textarea>
-            </div>
-          </div>
-
-          <!-- Zona de carga -->
-          <div class="cl-card" style="margin-top:16px;">
-            <div class="cl-card-titulo">
-              <i class="bi bi-cloud-upload text-morado" style="margin-right:8px;"></i>
-              Carga tu referencia
-            </div>
-            <div class="cl-card-sub">Sube una imagen PNG/JPG o archivo STL de referencia.</div>
-
-            <!-- Zona drag & drop -->
-            <div class="cl-upload-zone" id="uploadZone"
-                 onclick="document.getElementById('fileInput').click()"
-                 ondragover="dragOver(event)"
-                 ondragleave="dragLeave(event)"
-                 ondrop="dropArchivo(event)">
-              <div class="cl-upload-ico">
-                <i class="bi bi-image"></i>
-              </div>
-              <div class="cl-upload-titulo">Carga tu referencia (PNG / JPG / STL)</div>
-              <div class="cl-upload-desc">
-                Sube una imagen de referencia para que nuestro equipo<br/>
-                técnico pueda procesar tu solicitud.
-              </div>
-              <button class="cl-btn-p" type="button"
-                onclick="event.stopPropagation(); document.getElementById('fileInput').click()">
-                <i class="bi bi-folder2-open"></i> Seleccionar Archivo
-              </button>
-              <input type="file" id="fileInput" accept=".png,.jpg,.jpeg,.stl"
-                     style="display:none;" onchange="cargarArchivo(this)"/>
-            </div>
-
-            <!-- Preview del archivo cargado -->
-            <div class="cl-upload-preview" id="uploadPreview">
-              <img id="previewImg" src="" alt="Preview"/>
-              <div class="cl-upload-preview-bar">
-                <span class="cl-preview-nombre" id="previewNombre">archivo.png</span>
-                <button class="cl-btn-o cl-btn-sm" onclick="eliminarArchivo()">
-                  <i class="bi bi-trash"></i> Eliminar
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Panel derecho -->
-        <div>
-
-          <!-- Inversión estimada -->
-          <div class="cl-inversion-card">
-            <div class="cl-inversion-label">Inversión Estimada</div>
-            <div>
-                <span class="cl-inversion-valor" id="precioEstimado">$45.000</span>
-                <span class="cl-inversion-usd">COP</span>
-            </div>
-            <div class="cl-inversion-desc">
-                Precio total basado en material y parámetros seleccionados. Sin cargos ocultos.
-            </div>
-            </div>
-
-          <!-- Vista previa de referencia -->
-          <div class="cl-preview-ref-card">
-            <div class="cl-preview-ref-header">
-              <i class="bi bi-eye" style="font-size:14px;"></i>
-              Vista Previa de Referencia
-            </div>
-            <div class="cl-preview-ref-body" id="previewRefBody">
-              <i class="bi bi-image-fill"></i>
-              <span>Sin imagen cargada</span>
-              <img id="previewRefImg" src="" alt=""/>
-            </div>
-          </div>
-
-          <!-- Botón confirmar -->
-          <button class="btn-confirmar" onclick="siguientePaso()">
-            Confirmar Pedido &nbsp;<i class="bi bi-arrow-right"></i>
-          </button>
-          <div class="cl-seguro-txt">
-            <i class="bi bi-shield-lock-fill text-morado"></i>
-            Pago seguro y entrega garantizada
-          </div>
-
+          <div class="kpi-valor">2</div>
+          <div class="kpi-label">Diagnósticos Abiertos</div>
+          <span class="badge-kpi err">Requieren atención</span>
         </div>
       </div>
     </div>
 
-    <!--PASO 2: Información de Envío y Pago-->
-    <div id="paso2" style="display:none;">
-      <div class="cl-grid-2" style="align-items:start; gap:16px;">
-
-        <div style="display:flex;flex-direction:column;gap:16px;">
-
-          <!-- Envío -->
-          <div class="cl-card">
-            <div class="cl-card-titulo">
-              <i class="bi bi-truck text-morado" style="margin-right:8px;"></i>
-              Información de Envío
-            </div>
-            <div class="cl-grid-2" style="gap:12px;">
-              <div class="cl-form-group">
-                <label class="cl-form-label">Nombre Completo</label>
-                <input type="text" class="cl-form-input" id="envNombre"
-                       placeholder="Juan Pérez"/>
-              </div>
-              <div class="cl-form-group">
-                <label class="cl-form-label">Correo Electrónico</label>
-                <input type="email" class="cl-form-input" id="envEmail"
-                       placeholder="juan@ejemplo.com"/>
-              </div>
-            </div>
-            <div class="cl-form-group">
-              <label class="cl-form-label">Dirección de Entrega</label>
-              <input type="text" class="cl-form-input" id="envDireccion"
-                     placeholder="Calle Principal #123, Bogotá"/>
-            </div>
-            <div class="cl-grid-2" style="gap:12px;">
-              <div class="cl-form-group">
-                <label class="cl-form-label">Ciudad</label>
-                <input type="text" class="cl-form-input" id="envCiudad"
-                       placeholder="Bogotá"/>
-              </div>
-              <div class="cl-form-group">
-                <label class="cl-form-label">Código Postal</label>
-                <input type="text" class="cl-form-input" id="envCodigo"
-                       placeholder="110111"/>
-              </div>
-            </div>
-          </div>
-
-          <!-- Pago -->
-          <div class="cl-card">
-            <div class="cl-card-titulo">
-              <i class="bi bi-credit-card text-morado" style="margin-right:8px;"></i>
-              Método de Pago
-            </div>
-
-            <div class="cl-metodo-pago">
-              <div class="cl-metodo-btn activo" id="metodoPago-tarjeta"
-                   onclick="selectMetodo('tarjeta')">
-                <i class="bi bi-credit-card" style="font-size:22px;color:#5B21B6;"></i>
-                <div>
-                  <div class="cl-metodo-nombre">Tarjeta Débito/Crédito</div>
-                  <div class="cl-metodo-sub">Visa, Mastercard, AMEX</div>
-                </div>
-                <div class="cl-radio"></div>
-              </div>
-              <div class="cl-metodo-btn" id="metodoPago-transferencia"
-                   onclick="selectMetodo('transferencia')">
-                <i class="bi bi-bank" style="font-size:22px;color:#6B7280;"></i>
-                <div>
-                  <div class="cl-metodo-nombre">Transferencia</div>
-                  <div class="cl-metodo-sub">PSE / Banco</div>
-                </div>
-                <div class="cl-radio"></div>
-              </div>
-            </div>
-
-            <!-- Campos tarjeta -->
-            <div id="camposTarjeta">
-              <div class="cl-form-group">
-                <label class="cl-form-label">Número de Tarjeta</label>
-                <div style="position:relative;">
-                  <i class="bi bi-credit-card"
-                     style="position:absolute;left:12px;top:50%;transform:translateY(-50%);color:#9CA3AF;"></i>
-                  <input type="text" class="cl-form-input" id="numTarjeta"
-                         placeholder="0000 0000 0000 0000"
-                         maxlength="19"
-                         style="padding-left:38px;"
-                         oninput="formatearTarjeta(this)"/>
-                </div>
-              </div>
-              <div class="cl-grid-2" style="gap:12px;">
-                <div class="cl-form-group">
-                  <label class="cl-form-label">Vencimiento</label>
-                  <input type="text" class="cl-form-input" id="vencTarjeta"
-                         placeholder="MM/YY" maxlength="5"
-                         oninput="formatearVenc(this)"/>
-                </div>
-                <div class="cl-form-group">
-                  <label class="cl-form-label">CVV</label>
-                  <input type="text" class="cl-form-input" id="cvvTarjeta"
-                         placeholder="123" maxlength="4"/>
-                </div>
-              </div>
-            </div>
-
-            <!-- Campos transferencia -->
-            <div id="camposTransferencia" style="display:none;">
-              <div class="cl-form-group">
-                <label class="cl-form-label">Banco</label>
-                <select class="cl-form-select">
-                  <option>Bancolombia</option>
-                  <option>Davivienda</option>
-                  <option>BBVA Colombia</option>
-                  <option>Banco de Bogotá</option>
-                  <option>Nequi / PSE</option>
-                </select>
-              </div>
-              <div class="cl-form-group">
-                <label class="cl-form-label">Tipo de Cuenta</label>
-                <select class="cl-form-select">
-                  <option>Ahorros</option>
-                  <option>Corriente</option>
-                </select>
-              </div>
-            </div>
-
-          </div>
-
-          <!-- Botones navegación -->
-          <div style="display:flex;gap:10px;">
-            <button class="cl-btn-o" onclick="anteriorPaso()">
-              <i class="bi bi-arrow-left"></i> Anterior
-            </button>
-            <button class="btn-confirmar" style="flex:1;"
-                    onclick="finalizarPedido()">
-              <i class="bi bi-check-circle"></i> Finalizar Pedido →
-            </button>
-          </div>
-          <div class="cl-seguro-txt">
-            <i class="bi bi-shield-lock-fill text-morado"></i> Secure SSL &nbsp;·&nbsp;
-            <i class="bi bi-credit-card-2-back text-morado"></i> PCI Compliant
-          </div>
-
-        </div>
-
-        <!-- Resumen del pedido -->
-        <div class="cl-card" style="position:sticky;top:78px;">
-          <div class="cl-card-titulo">Resumen del Pedido</div>
-
-          <div class="cl-resumen-item">
-            <div class="cl-resumen-img" id="resumenIco">
-              <i class="bi bi-box"></i>
-            </div>
-            <div>
-              <div class="cl-resumen-nombre" id="resumenNombreItem">Mi Pedido 3D</div>
-              <div class="cl-resumen-mat" id="resumenMatItem">PLA — Estándar</div>
-            </div>
-            <div class="cl-resumen-precio" id="resumenPrecioItem">$45.000</div>
-          </div>
-
-          <hr class="cl-divisor"/>
-
-          <div class="cl-resumen-fila">
-            <span>Subtotal</span>
-            <span id="resumenSubtotal">$45.000 COP</span>
-          </div>
-          <div class="cl-resumen-fila">
-            <span>Envío</span>
-            <span class="text-success fw-700">Gratis</span>
-          </div>
-          <div class="cl-resumen-fila">
-            <span>IVA (19%)</span>
-            <span id="resumenIva">$8.550 COP</span>
-          </div>
-          <div class="cl-resumen-total">
-            <span>Total</span>
-            <span class="cl-resumen-total-precio" id="resumenTotal">$53.550 COP</span>
-          </div>
-
-          <p style="font-size:11px;color:#9CA3AF;text-align:center;margin-top:12px;">
-            Al hacer clic, aceptas nuestros
-            <a href="#" style="color:#7C3AED;">Términos de Servicio</a>
-            y <a href="#" style="color:#7C3AED;">Políticas de Privacidad</a>.
-          </p>
-        </div>
-
+    <!-- Tareas del día -->
+    <div class="card-sec">
+      <div class="card-sec-header">
+        <h2 class="card-sec-titulo">Tareas de Hoy</h2>
+        <span class="badge-kpi warn">5 pendientes</span>
       </div>
-    </div>
-
-    <!-- ── PASO 3: Confirmación exitosa ── -->
-    <div id="paso3" style="display:none;">
-      <div style="max-width:520px;margin:0 auto;text-align:center;padding:50px 0;">
-        <div style="width:90px;height:90px;background:#DCFCE7;border:3px solid #22C55E;
-                    border-radius:50%;display:flex;align-items:center;justify-content:center;
-                    font-size:40px;color:#22C55E;margin:0 auto 24px;">
-          ✓
+      <div class="lista-tareas">
+        <div class="tarea-item urgente">
+          <div class="tarea-icono urgente"><i class="bi bi-tools"></i></div>
+          <div class="tarea-info">
+            <div class="tarea-nombre">Mantenimiento Correctivo — Impresora #3</div>
+            <div class="tarea-sub">Falla en extrusor · Prioridad alta</div>
+          </div>
+          <button class="btn-tarea" onclick="irARegistro('correctivo', 'imp3')">Registrar</button>
         </div>
-        <h2 style="font-size:26px;font-weight:900;color:#1F2937;margin-bottom:10px;">
-          ¡Pedido Confirmado!
-        </h2>
-        <p style="font-size:15px;color:#6B7280;line-height:1.7;margin-bottom:10px;">
-          Tu pedido <strong id="confirmNombre" class="text-morado">#SP-0045</strong>
-          ha sido recibido exitosamente.
-        </p>
-        <p style="font-size:14px;color:#9CA3AF;margin-bottom:30px;">
-          Recibirás actualizaciones por correo en cada etapa del proceso.
-        </p>
-        <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
-          <button class="cl-btn-p"
-            onclick="irA('estado', document.getElementById('nav-estado'))">
-            <i class="bi bi-broadcast"></i> Ver Estado del Pedido
-          </button>
-          <button class="cl-btn-o"
-            onclick="irA('pedidos', document.getElementById('nav-pedidos'))">
-            <i class="bi bi-clock-history"></i> Mis Pedidos
-          </button>
+        <div class="tarea-item urgente">
+          <div class="tarea-icono urgente"><i class="bi bi-search"></i></div>
+          <div class="tarea-info">
+            <div class="tarea-nombre">Diagnóstico — Impresora #7</div>
+            <div class="tarea-sub">Temperatura inestable · Prioridad alta</div>
+          </div>
+          <button class="btn-tarea" onclick="irASeccion('impresoras')">Ver</button>
+        </div>
+        <div class="tarea-item">
+          <div class="tarea-icono"><i class="bi bi-shield-check"></i></div>
+          <div class="tarea-info">
+            <div class="tarea-nombre">Mantenimiento Preventivo — Impresoras #1, #2, #5</div>
+            <div class="tarea-sub">Revisión mensual programada</div>
+          </div>
+          <button class="btn-tarea" onclick="irARegistro('preventivo', '')">Registrar</button>
         </div>
       </div>
     </div>
 
-  </section>
-
-  <!--SECCIÓN: MIS PEDIDOS-->
-  <section id="sec-pedidos" style="display:none;">
-
-    <div class="cl-sec-header">
-      <div>
-        <h1 class="cl-sec-titulo">Mis Pedidos</h1>
+    <!-- Últimos registros -->
+    <div class="card-sec">
+      <div class="card-sec-header">
+        <h2 class="card-sec-titulo">Últimos Mantenimientos</h2>
+        <a class="link-ver" onclick="irASeccion('historial')">Ver historial completo →</a>
       </div>
-      <button class="cl-btn-p"
-        onclick="irA('realizar', document.getElementById('nav-realizar'))">
-        <i class="bi bi-plus-lg"></i> Nuevo Pedido
-      </button>
-    </div>
-
-    <!-- Pedidos activos -->
-    <h2 style="font-size:14px;font-weight:700;color:#374151;margin-bottom:12px;">
-      Pedidos Activos
-    </h2>
-
-    <div class="cl-grid-2" style="margin-bottom:24px;">
-
-      <!-- Pedido 1 -->
-      <div class="cl-pedido-activo-card">
-        <div class="cl-pedido-activo-header">
-          <div style="display:flex;align-items:center;gap:10px;">
-            <div class="cl-pedido-activo-ico">
-              <i class="bi bi-printer"></i>
-            </div>
-            <div>
-              <div class="cl-pedido-activo-nombre">Prototipo Brazo Robótico</div>
-              <div class="cl-pedido-activo-id">
-                ID: #SP-9824 · Material: Resina Industrial
-              </div>
-            </div>
-          </div>
-          <span class="cl-badge imprimiendo">Imprimiendo</span>
-        </div>
-
-        <!-- Tracker -->
-        <div class="cl-tracker">
-          <div class="cl-tracker-step completado">
-            <div class="cl-tracker-circulo"><i class="bi bi-check"></i></div>
-            <div class="cl-tracker-label">Recibido</div>
-          </div>
-          <div class="cl-tracker-step activo">
-            <div class="cl-tracker-circulo"><i class="bi bi-printer"></i></div>
-            <div class="cl-tracker-label">Imprimiendo</div>
-          </div>
-          <div class="cl-tracker-step">
-            <div class="cl-tracker-circulo">3</div>
-            <div class="cl-tracker-label">Finalizado</div>
-          </div>
-          <div class="cl-tracker-step">
-            <div class="cl-tracker-circulo">4</div>
-            <div class="cl-tracker-label">Enviado</div>
-          </div>
-        </div>
-
-        <div class="cl-pedido-activo-footer">
-          <span>Entrega estimada: 14 de Octubre</span>
-          <span class="cl-link-morado"
-            onclick="irA('estado', document.getElementById('nav-estado'))">
-            Ver detalles →
-          </span>
-        </div>
-      </div>
-
-      <!-- Pedido 2 -->
-      <div class="cl-pedido-activo-card">
-        <div class="cl-pedido-activo-header">
-          <div style="display:flex;align-items:center;gap:10px;">
-            <div class="cl-pedido-activo-ico">
-              <i class="bi bi-gear"></i>
-            </div>
-            <div>
-              <div class="cl-pedido-activo-nombre">Engranajes de Transmisión</div>
-              <div class="cl-pedido-activo-id">
-                ID: #SP-9827 · Material: Nylon Carbono
-              </div>
-            </div>
-          </div>
-          <span class="cl-badge recibido">Recibido</span>
-        </div>
-
-        <div class="cl-tracker">
-          <div class="cl-tracker-step activo">
-            <div class="cl-tracker-circulo"><i class="bi bi-check"></i></div>
-            <div class="cl-tracker-label">Recibido</div>
-          </div>
-          <div class="cl-tracker-step">
-            <div class="cl-tracker-circulo">2</div>
-            <div class="cl-tracker-label">Imprimiendo</div>
-          </div>
-          <div class="cl-tracker-step">
-            <div class="cl-tracker-circulo">3</div>
-            <div class="cl-tracker-label">Finalizado</div>
-          </div>
-          <div class="cl-tracker-step">
-            <div class="cl-tracker-circulo">4</div>
-            <div class="cl-tracker-label">Enviado</div>
-          </div>
-        </div>
-
-        <div class="cl-pedido-activo-footer">
-          <span>En cola de impresión</span>
-          <span class="cl-link-morado"
-            onclick="irA('estado', document.getElementById('nav-estado'))">
-            Ver detalles →
-          </span>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- Historial completo -->
-    <div class="cl-card">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
-        <div class="cl-card-titulo">Historial de Pedidos</div>
-        <div style="position:relative;">
-          <i class="bi bi-search"
-             style="position:absolute;left:10px;top:50%;transform:translateY(-50%);
-                    color:#9CA3AF;font-size:13px;"></i>
-          <input type="text" class="cl-form-input"
-                 placeholder="Buscar pedido..."
-                 style="padding-left:32px;width:200px;font-size:12.5px;"/>
-        </div>
-      </div>
-
-      <table class="cl-tabla">
-        <thead>
-          <tr>
-            <th>Pedido ID</th>
-            <th>Fecha</th>
-            <th>Producto</th>
-            <th>Material</th>
-            <th>Precio</th>
-            <th>Estado</th>
-            <th>Acción</th>
-          </tr>
-        </thead>
+      <table class="tabla">
+        <thead><tr><th>ID</th><th>Impresora</th><th>Tipo</th><th>Fecha</th><th>Estado</th></tr></thead>
         <tbody>
           <tr>
-            <td class="fw-700">#SP-9412</td>
-            <td>22 Sep 2024</td>
-            <td>Carcasa Tablet Rugged</td>
-            <td>ABS Reforzado</td>
-            <td class="fw-700">$125.000</td>
-            <td><span class="cl-badge entregado">Entregado</span></td>
-            <td>
-              <button class="cl-tabla-accion"
-                onclick="abrirEvaluacion('Carcasa Tablet Rugged','#SP-9412')">
-                <i class="bi bi-star"></i> Evaluar
-              </button>
-            </td>
+            <td><strong>#MNT-089</strong></td><td>Impresora #5</td>
+            <td><span class="badge-tipo preventivo">Preventivo</span></td>
+            <td>27/08/2026</td><td><span class="badge-est ok">Completado</span></td>
           </tr>
           <tr>
-            <td class="fw-700">#SP-9388</td>
-            <td>15 Sep 2024</td>
-            <td>Moldes Médicos Mod. A</td>
-            <td>Bio-Polymer</td>
-            <td class="fw-700">$450.000</td>
-            <td><span class="cl-badge entregado">Entregado</span></td>
-            <td>
-              <button class="cl-tabla-accion"
-                onclick="abrirEvaluacion('Moldes Médicos Mod. A','#SP-9388')">
-                <i class="bi bi-star"></i> Evaluar
-              </button>
-            </td>
+            <td><strong>#MNT-088</strong></td><td>Impresora #2</td>
+            <td><span class="badge-tipo correctivo">Correctivo</span></td>
+            <td>25/08/2026</td><td><span class="badge-est ok">Completado</span></td>
           </tr>
           <tr>
-            <td class="fw-700">#SP-9201</td>
-            <td>01 Sep 2024</td>
-            <td>Soporte Motor V8 Scale</td>
-            <td>Aluminio SLM</td>
-            <td class="fw-700">$1.200.000</td>
-            <td><span class="cl-badge cancelado">Cancelado</span></td>
-            <td>
-              <button class="cl-tabla-accion"
-                onclick="mostrarToastCliente('🔄 Reintentando pedido...','info')">
-                <i class="bi bi-arrow-clockwise"></i> Reintentar
-              </button>
-            </td>
+            <td><strong>#MNT-087</strong></td><td>Impresora #7</td>
+            <td><span class="badge-tipo diagnostico">Diagnóstico</span></td>
+            <td>24/08/2026</td><td><span class="badge-est pend">En progreso</span></td>
           </tr>
         </tbody>
       </table>
-
-      <div class="cl-tabla-footer">
-        <span>Mostrando 1–3 de 24 pedidos</span>
-        <div style="display:flex;align-items:center;gap:6px;">
-          <button class="cl-btn-pag">‹</button>
-          <button class="cl-btn-pag activo">1</button>
-          <button class="cl-btn-pag"
-            onclick="this.classList.toggle('activo')">2</button>
-          <button class="cl-btn-pag">›</button>
-        </div>
-      </div>
     </div>
-
   </section>
 
-  <!--SECCIÓN: ESTADO DEL PEDIDO-->
-  <section id="sec-estado" style="display:none;">
-
-    <div class="cl-breadcrumb">
-      <a onclick="irA('pedidos', document.getElementById('nav-pedidos'))">Mis Pedidos</a>
-      <span class="cl-breadcrumb-sep">›</span>
-      <span class="cl-breadcrumb-actual">PED-0045</span>
-    </div>
-
-    <div class="cl-sec-header">
+  <!-- ── REGISTRAR MANTENIMIENTO ── -->
+  <section id="sec-registro" style="display:none">
+    <div class="page-header">
       <div>
-        <h1 class="cl-sec-titulo">Detalles del Seguimiento</h1>
+        <h1 class="page-titulo">Registrar Mantenimiento</h1>
+        <p class="page-sub">Documenta la intervención realizada</p>
       </div>
-      <span class="cl-badge imprimiendo" style="font-size:13px;padding:7px 16px;">
-        Imprimiendo ahora
-      </span>
     </div>
 
-    <div class="cl-grid-2" style="align-items:start;gap:16px;">
-
+    <div class="grid-2col">
       <!-- Columna izquierda -->
-      <div style="display:flex;flex-direction:column;gap:16px;">
+      <div class="card-sec">
+        <h2 class="card-sec-titulo" style="margin-bottom:20px">Datos del Mantenimiento</h2>
 
-        <!-- Flujo de producción -->
-        <div class="cl-flujo-card">
-          <div class="cl-flujo-header">
-            <div class="cl-flujo-titulo">Flujo de Producción</div>
-            <div class="cl-flujo-fecha">Iniciado: 12 Oct, 2024</div>
-          </div>
-
-          <div class="cl-flujo-steps">
-            <div class="cl-flujo-step done">
-              <div class="cl-flujo-circulo"><i class="bi bi-check-lg"></i></div>
-              <div class="cl-flujo-nombre">Pedido Recibido</div>
-              <div class="cl-flujo-hora">12 Oct · 09:15</div>
-            </div>
-            <div class="cl-flujo-step active">
-              <div class="cl-flujo-circulo"><i class="bi bi-printer"></i></div>
-              <div class="cl-flujo-nombre">En Proceso</div>
-              <div class="cl-flujo-hora">En curso (45%)</div>
-            </div>
-            <div class="cl-flujo-step">
-              <div class="cl-flujo-circulo"><i class="bi bi-check2-all"></i></div>
-              <div class="cl-flujo-nombre">Finalizado</div>
-              <div class="cl-flujo-hora">Pendiente</div>
-            </div>
-            <div class="cl-flujo-step">
-              <div class="cl-flujo-circulo"><i class="bi bi-truck"></i></div>
-              <div class="cl-flujo-nombre">Enviado</div>
-              <div class="cl-flujo-hora">Por confirmar</div>
-            </div>
-          </div>
-
-          <!-- Actualizaciones -->
-          <div class="cl-card-titulo" style="margin-bottom:12px;">
-            Actualizaciones en tiempo real
-          </div>
-          <div class="cl-update-item">
-            <div class="cl-update-dot"></div>
-            <div>
-              <div class="cl-update-txt">Capa 1.240 / 3.200 completada</div>
-              <div class="cl-update-tiempo">Hace 2 minutos</div>
-            </div>
-          </div>
-          <div class="cl-update-item">
-            <div class="cl-update-dot"
-                 style="background:#22C55E;"></div>
-            <div>
-              <div class="cl-update-txt">Verificación de calidad inicial aprobada</div>
-              <div class="cl-update-tiempo">Hace 1 hora</div>
-            </div>
-          </div>
-          <div class="cl-update-item">
-            <div class="cl-update-dot"
-                 style="background:#3B82F6;"></div>
-            <div>
-              <div class="cl-update-txt">Pedido asignado a máquina Formlabs 3B+</div>
-              <div class="cl-update-tiempo">Hace 3 horas</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Info Cards: envío, pago, soporte -->
-        <div class="cl-grid-2" style="gap:12px;">
-          <div class="cl-detalle-card">
-            <div class="cl-detalle-titulo">
-              <i class="bi bi-geo-alt text-morado"></i>
-              Destino de Envío
-            </div>
-            <div class="cl-detalle-fila" id="estadoDireccion">
-              <strong>Juan Pérez</strong><br/>
-              Calle de la Innovación, 42<br/>
-              Bogotá, Colombia
-            </div>
-          </div>
-          <div class="cl-detalle-card">
-            <div class="cl-detalle-titulo">
-              <i class="bi bi-credit-card text-morado"></i>
-              Método de Pago
-            </div>
-            <div class="cl-detalle-fila">
-              <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
-                <div style="background:#1a1f71;color:white;border-radius:4px;
-                            padding:2px 7px;font-size:11px;font-weight:800;">VISA</div>
-                Tarjeta Crédito **** 4242
-              </div>
-              Pagado el 12/10/2024
-            </div>
-          </div>
-          <div class="cl-detalle-card">
-            <div class="cl-detalle-titulo">
-              <i class="bi bi-headset text-morado"></i>
-              ¿Necesitas ayuda?
-            </div>
-            <div class="cl-detalle-fila">
-              Contacta con soporte técnico<br/>
-              <strong>000 - 000 - 0000</strong>
-            </div>
-          </div>
-          <div class="cl-entrega-card">
-            <div>
-              <div class="cl-entrega-label">
-                <i class="bi bi-calendar3"></i> Entrega Estimada
-              </div>
-              <div class="cl-entrega-fecha">18 Oct, 2024</div>
-            </div>
-            <i class="bi bi-clock"
-               style="font-size:28px;opacity:0.6;"></i>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Columna derecha: imagen + detalles del producto -->
-      <div style="display:flex;flex-direction:column;gap:14px;">
-
-        <div class="cl-card">
-          <div style="height:200px;background:#F3F4F6;border-radius:10px;
-                      display:flex;align-items:center;justify-content:center;
-                      font-size:60px;color:#C4B5FD;margin-bottom:14px;
-                      position:relative;overflow:hidden;">
-            <i class="bi bi-robot"></i>
-            <button onclick="mostrarToastCliente('🔍 Abriendo vista ampliada...','info')"
-                    style="position:absolute;bottom:8px;right:8px;
-                           background:rgba(0,0,0,0.5);border:none;
-                           border-radius:8px;color:white;padding:5px 9px;
-                           cursor:pointer;font-size:14px;">
-              <i class="bi bi-zoom-in"></i>
+        <div class="campo-g">
+          <label class="campo-lbl">Tipo de Mantenimiento</label>
+          <div class="tipo-tabs">
+            <button class="tipo-tab activo" id="tab-preventivo" onclick="setTipoMant('preventivo',this)">
+              <i class="bi bi-shield-check"></i> Preventivo
+            </button>
+            <button class="tipo-tab" id="tab-correctivo" onclick="setTipoMant('correctivo',this)">
+              <i class="bi bi-tools"></i> Correctivo
+            </button>
+            <button class="tipo-tab" id="tab-diagnostico" onclick="setTipoMant('diagnostico',this)">
+              <i class="bi bi-search"></i> Diagnóstico
             </button>
           </div>
+        </div>
 
-          <div style="display:flex;justify-content:space-between;align-items:flex-start;">
-            <div>
-              <div style="font-size:17px;font-weight:800;color:#1F2937;">
-                Prototipo Epsilon-7
-              </div>
-              <div style="font-size:12px;color:#9CA3AF;margin-top:3px;">
-                Referencia: ENG-2024-X1
-              </div>
-            </div>
-            <div style="text-align:right;">
-              <div style="font-size:20px;font-weight:900;color:#5B21B6;">$50.000</div>
-              <div style="font-size:10.5px;color:#9CA3AF;">IVA Incluido</div>
-            </div>
+        <div class="fila-2">
+          <div class="campo-g">
+            <label class="campo-lbl">Nombre del Técnico <span class="req">*</span></label>
+            <input type="text" class="inp" id="regTecnico" placeholder="Tu nombre completo" oninput="actualizarPreview()"/>
           </div>
-
-          <hr class="cl-divisor"/>
-
-          <div class="cl-grid-2">
-            <div>
-              <div style="font-size:10px;font-weight:700;text-transform:uppercase;
-                          letter-spacing:1px;color:#9CA3AF;margin-bottom:4px;">Material</div>
-              <div style="font-size:13.5px;font-weight:600;color:#374151;">PLA</div>
-            </div>
-            <div>
-              <div style="font-size:10px;font-weight:700;text-transform:uppercase;
-                          letter-spacing:1px;color:#9CA3AF;margin-bottom:4px;">Resolución</div>
-              <div style="font-size:13.5px;font-weight:600;color:#374151;">0.1mm Detalle alto</div>
-            </div>
+          <div class="campo-g">
+            <label class="campo-lbl">Fecha y Hora <span class="req">*</span></label>
+            <input type="datetime-local" class="inp" id="regFecha"/>
           </div>
         </div>
 
-      </div>
-    </div>
+        <div class="campo-g">
+          <label class="campo-lbl">Impresora <span class="req">*</span></label>
+          <select class="inp" id="regImpresora" onchange="actualizarPreview()">
+            <option value="">— Seleccionar impresora —</option>
+            <option value="imp1">Impresora #1 — Prusa MK4</option>
+            <option value="imp2">Impresora #2 — Bambu X1C</option>
+            <option value="imp3">Impresora #3 — Creality K1</option>
+            <option value="imp5">Impresora #5 — Bambu P1S</option>
+            <option value="imp7">Impresora #7 — Voron 2.4</option>
+            <option value="imp8">Impresora #8 — Prusa XL</option>
+          </select>
+        </div>
 
-  </section>
+        <div class="campo-g">
+          <label class="campo-lbl">Descripción del Trabajo <span class="req">*</span></label>
+          <textarea class="inp inp-area" id="regDescripcion" rows="4"
+            placeholder="Describe qué se revisó, qué se reparó o qué se encontró..."></textarea>
+        </div>
 
-  <!--SECCIÓN: CONFIGURACIÓN-->
-  <section id="sec-config" style="display:none;">
+        <div class="campo-g">
+          <label class="campo-lbl">Resultado</label>
+          <select class="inp" id="regResultado" onchange="actualizarPreview()">
+            <option value="ok">✅ Funcionando correctamente</option>
+            <option value="parcial">⚠️ Requiere seguimiento</option>
+            <option value="falla">❌ Falla grave — Fuera de servicio</option>
+            <option value="reparado">🔧 Reparado exitosamente</option>
+          </select>
+        </div>
 
-    <div class="cl-sec-header">
-      <div>
-        <h1 class="cl-sec-titulo">Configuración</h1>
-        <p class="cl-sec-sub">Gestiona tu perfil y preferencias de cuenta.</p>
-      </div>
-    </div>
-
-    <div class="cl-config-grid" style="gap:16px;">
-
-      <!-- Perfil -->
-      <div class="cl-card">
-        <div class="cl-card-titulo" style="margin-bottom:20px;">Mi Perfil</div>
-
-        <div class="cl-perfil-big">
-          <div class="cl-avatar-big" id="avatarBig">
-            JP
-            <div class="cl-avatar-overlay"
-                 onclick="document.getElementById('avatarInput').click()">
-              <i class="bi bi-camera"></i>
-            </div>
+        <div class="fila-2">
+          <div class="campo-g">
+            <label class="campo-lbl">Duración (horas)</label>
+            <input type="number" class="inp" id="regDuracion" min="0.5" step="0.5" value="1"/>
           </div>
-          <input type="file" id="avatarInput" accept="image/*"
-                 style="display:none;" onchange="cambiarAvatar(this)"/>
-          <div>
-            <div class="cl-perfil-big-nombre" id="configNombre">Juan Pérez</div>
-            <div class="cl-perfil-big-email" id="configEmail">juan@correo.com</div>
-            <div class="cl-perfil-big-badge">
-              <i class="bi bi-star-fill"></i> Cliente Premium
-            </div>
+          <div class="campo-g">
+            <label class="campo-lbl">Próximo Mantenimiento</label>
+            <input type="date" class="inp" id="regProximoMant"/>
           </div>
         </div>
 
-        <div class="cl-form-group">
-          <label class="cl-form-label">Nombre Completo</label>
-          <input type="text" class="cl-form-input" id="cfgNombre"
-                 placeholder="Tu nombre completo"/>
-        </div>
-        <div class="cl-form-group">
-          <label class="cl-form-label">Correo Electrónico</label>
-          <input type="email" class="cl-form-input" id="cfgEmail"
-                 placeholder="tu@correo.com"/>
-        </div>
-        <div class="cl-form-group">
-          <label class="cl-form-label">Teléfono</label>
-          <input type="tel" class="cl-form-input" id="cfgTelefono"
-                 placeholder="300 000 0000"/>
-        </div>
-        <div class="cl-form-group">
-          <label class="cl-form-label">Empresa (opcional)</label>
-          <input type="text" class="cl-form-input"
-                 placeholder="ML Mecanizados SAS"/>
-        </div>
-        <button class="cl-btn-p"
-          onclick="guardarPerfil()">
-          <i class="bi bi-floppy"></i> Guardar Cambios
-        </button>
-      </div>
-
-      <!-- Seguridad y Notificaciones -->
-      <div style="display:flex;flex-direction:column;gap:14px;">
-
-        <!-- Seguridad -->
-        <div class="cl-card">
-          <div class="cl-card-titulo" style="margin-bottom:16px;">Seguridad</div>
-
-          <div class="cl-form-group">
-            <label class="cl-form-label">Contraseña actual</label>
-            <input type="password" class="cl-form-input"
-                   placeholder="••••••••"/>
+        <!-- Checklist (solo preventivo) -->
+        <div id="checklistWrap" class="campo-g">
+          <label class="campo-lbl">Lista de Verificación</label>
+          <div class="checklist-grid">
+            <label class="chk-item"><input type="checkbox"/> Limpieza de extrusor</label>
+            <label class="chk-item"><input type="checkbox"/> Calibración de cama</label>
+            <label class="chk-item"><input type="checkbox"/> Lubricación de ejes</label>
+            <label class="chk-item"><input type="checkbox"/> Revisión de correas</label>
+            <label class="chk-item"><input type="checkbox"/> Actualización de firmware</label>
+            <label class="chk-item"><input type="checkbox"/> Prueba de impresión</label>
           </div>
-          <div class="cl-form-group">
-            <label class="cl-form-label">Nueva contraseña</label>
-            <input type="password" class="cl-form-input"
-                   placeholder="Mínimo 6 caracteres"/>
-          </div>
-          <div class="cl-form-group">
-            <label class="cl-form-label">Confirmar contraseña</label>
-            <input type="password" class="cl-form-input"
-                   placeholder="Repite la contraseña"/>
-          </div>
-          <button class="cl-btn-o"
-            onclick="mostrarToastCliente('🔐 Contraseña actualizada correctamente','success')">
-            <i class="bi bi-shield-lock"></i> Cambiar Contraseña
+        </div>
+
+        <div class="btn-grupo">
+          <button class="btn-pri" onclick="guardarMantenimiento()">
+            <i class="bi bi-floppy"></i> Guardar Registro
+          </button>
+          <button class="btn-sec" onclick="limpiarFormMant()">
+            <i class="bi bi-x-circle"></i> Limpiar
           </button>
         </div>
+      </div>
 
-        <!-- Notificaciones -->
-        <div class="cl-card">
-          <div class="cl-card-titulo" style="margin-bottom:14px;">Notificaciones</div>
+      <!-- Columna derecha: imágenes + preview -->
+      <div>
+        <div class="card-sec">
+          <h2 class="card-sec-titulo" style="margin-bottom:18px">Evidencia Fotográfica</h2>
 
-          <div class="cl-toggle-row">
-            <div>
-              <div class="cl-toggle-titulo">Actualizaciones de pedido</div>
-              <div class="cl-toggle-sub">Recibir cambios de estado por correo</div>
-            </div>
-            <div class="cl-toggle on" onclick="this.classList.toggle('on')"></div>
+          <div class="zona-drop" id="zonaImg"
+               onclick="document.getElementById('inputFotos').click()"
+               ondragover="dragSobre(event)"
+               ondragleave="dragFuera(event)"
+               ondrop="soltarFotos(event)">
+            <i class="bi bi-camera-fill zona-drop-ico"></i>
+            <div class="zona-drop-txt">Clic o arrastra fotos aquí</div>
+            <div class="zona-drop-sub">JPG, PNG, WEBP · Máx. 10 MB por imagen</div>
+            <input type="file" id="inputFotos" accept="image/*" multiple
+                   style="display:none" onchange="cargarFotos(this)"/>
           </div>
-          <div class="cl-toggle-row">
-            <div>
-              <div class="cl-toggle-titulo">Promociones y novedades</div>
-              <div class="cl-toggle-sub">Nuevos materiales y descuentos</div>
-            </div>
-            <div class="cl-toggle on" onclick="this.classList.toggle('on')"></div>
-          </div>
-          <div class="cl-toggle-row">
-            <div>
-              <div class="cl-toggle-titulo">Recordatorios de cotización</div>
-              <div class="cl-toggle-sub">Avisos de cotizaciones pendientes</div>
-            </div>
-            <div class="cl-toggle" onclick="this.classList.toggle('on')"></div>
-          </div>
-          <div class="cl-toggle-row">
-            <div>
-              <div class="cl-toggle-titulo">Alertas de entrega</div>
-              <div class="cl-toggle-sub">Notificación al salir el pedido</div>
-            </div>
-            <div class="cl-toggle on" onclick="this.classList.toggle('on')"></div>
+
+          <div class="galeria" id="galeriaFotos"></div>
+          <div class="zona-drop-sub" id="lblConteoFotos" style="text-align:center;margin-top:8px">
+            Sin fotos aún
           </div>
         </div>
 
-        <!-- Cerrar sesión -->
-        <button class="cl-btn-o"
-          style="color:#EF4444;border-color:#EF4444;justify-content:center;"
-          onclick="cerrarSesionCliente()">
-          <i class="bi bi-box-arrow-left"></i> Cerrar Sesión
-        </button>
+        <div class="card-sec" style="margin-top:16px">
+          <h2 class="card-sec-titulo" style="margin-bottom:14px">Vista Previa</h2>
+          <div class="prev-fila"><span>Técnico</span>   <span id="prev-tecnico">—</span></div>
+          <div class="prev-fila"><span>Impresora</span> <span id="prev-impresora">—</span></div>
+          <div class="prev-fila"><span>Tipo</span>      <span id="prev-tipo">Preventivo</span></div>
+          <div class="prev-fila"><span>Resultado</span> <span id="prev-resultado">—</span></div>
+          <div class="prev-fila"><span>Fotos</span>     <span id="prev-fotos">0 imágenes</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
 
+  <!-- ── HISTORIAL ── -->
+  <section id="sec-historial" style="display:none">
+    <div class="page-header">
+      <div>
+        <h1 class="page-titulo">Historial de Mantenimientos</h1>
+        <p class="page-sub">Registro completo de todas las intervenciones</p>
+      </div>
+      <button class="btn-pri" onclick="exportarHistorial()">
+        <i class="bi bi-download"></i> Exportar
+      </button>
+    </div>
+
+    <div class="card-sec" style="padding:14px 20px">
+      <div class="filtros-row">
+        <input type="text" class="inp" style="flex:1" placeholder="Buscar por impresora, técnico o ID..."
+               oninput="filtrarHistorial(this.value)"/>
+        <select class="inp" style="max-width:180px" onchange="filtrarHistorialTipo(this.value)">
+          <option value="all">Todos los tipos</option>
+          <option value="preventivo">Preventivo</option>
+          <option value="correctivo">Correctivo</option>
+          <option value="diagnostico">Diagnóstico</option>
+        </select>
+        <select class="inp" style="max-width:160px">
+          <option>Este mes</option>
+          <option>Últimos 3 meses</option>
+          <option>Este año</option>
+          <option>Todo el historial</option>
+        </select>
       </div>
     </div>
 
+    <div class="card-sec">
+      <table class="tabla" id="tablaHistorial">
+        <thead>
+          <tr>
+            <th>ID</th><th>Impresora</th><th>Tipo</th><th>Técnico</th>
+            <th>Fecha</th><th>Duración</th><th>Resultado</th><th>Fotos</th><th></th>
+          </tr>
+        </thead>
+        <tbody id="cuerpoHistorial"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ── GESTIONAR IMPRESORAS ── -->
+  <section id="sec-impresoras" style="display:none">
+    <div class="page-header">
+      <div>
+        <h1 class="page-titulo">Gestionar Impresoras</h1>
+        <p class="page-sub">Diagnóstico, reparación y prueba de equipos</p>
+      </div>
+    </div>
+
+    <div class="imp-grid">
+      <!-- #1 -->
+      <div class="imp-card">
+        <div class="imp-head">
+          <div class="imp-ico ok"><i class="bi bi-printer-fill"></i></div>
+          <div style="flex:1">
+            <div class="imp-nombre">Impresora #1 <span style="font-weight:400;color:var(--text-muted)">— Prusa MK4</span></div>
+          </div>
+          <span class="badge-est ok">Operativa</span>
+        </div>
+        <div class="imp-stats">
+          <div class="imp-stat"><span>Último mant.</span><strong>27/08/2026</strong></div>
+          <div class="imp-stat"><span>Horas uso</span><strong>1,240 h</strong></div>
+          <div class="imp-stat"><span>Próximo mant.</span><strong>27/09/2026</strong></div>
+        </div>
+        <div class="imp-acciones">
+          <button class="btn-sec btn-sm" onclick="abrirDiagnostico(1,'Prusa MK4')"><i class="bi bi-search"></i> Diagnosticar</button>
+          <button class="btn-sec btn-sm" onclick="irARegistro('preventivo','imp1')"><i class="bi bi-tools"></i> Mant. Preventivo</button>
+        </div>
+      </div>
+
+      <!-- #2 -->
+      <div class="imp-card">
+        <div class="imp-head">
+          <div class="imp-ico ok"><i class="bi bi-printer-fill"></i></div>
+          <div style="flex:1">
+            <div class="imp-nombre">Impresora #2 <span style="font-weight:400;color:var(--text-muted)">— Bambu X1C</span></div>
+          </div>
+          <span class="badge-est ok">Operativa</span>
+        </div>
+        <div class="imp-stats">
+          <div class="imp-stat"><span>Último mant.</span><strong>25/08/2026</strong></div>
+          <div class="imp-stat"><span>Horas uso</span><strong>890 h</strong></div>
+          <div class="imp-stat"><span>Próximo mant.</span><strong>25/09/2026</strong></div>
+        </div>
+        <div class="imp-acciones">
+          <button class="btn-sec btn-sm" onclick="abrirDiagnostico(2,'Bambu X1C')"><i class="bi bi-search"></i> Diagnosticar</button>
+          <button class="btn-sec btn-sm" onclick="irARegistro('preventivo','imp2')"><i class="bi bi-tools"></i> Mant. Preventivo</button>
+        </div>
+      </div>
+
+      <!-- #3 CON FALLA -->
+      <div class="imp-card falla">
+        <div class="imp-head">
+          <div class="imp-ico err"><i class="bi bi-printer-fill"></i></div>
+          <div style="flex:1">
+            <div class="imp-nombre">Impresora #3 <span style="font-weight:400;color:var(--text-muted)">— Creality K1</span></div>
+          </div>
+          <span class="badge-est err">Falla</span>
+        </div>
+        <div class="alerta-imp err">
+          <i class="bi bi-exclamation-triangle-fill"></i>
+          Extrusor taponado — Requiere intervención urgente
+        </div>
+        <div class="imp-stats">
+          <div class="imp-stat"><span>Último mant.</span><strong>10/08/2026</strong></div>
+          <div class="imp-stat"><span>Horas uso</span><strong>2,100 h</strong></div>
+          <div class="imp-stat"><span>Prioridad</span><strong style="color:#DC2626">Alta</strong></div>
+        </div>
+        <div class="imp-acciones">
+          <button class="btn-pri btn-sm" onclick="abrirDiagnostico(3,'Creality K1')"><i class="bi bi-search"></i> Diagnosticar</button>
+          <button class="btn-pri btn-sm" onclick="irARegistro('correctivo','imp3')"><i class="bi bi-wrench-adjustable"></i> Registrar Reparación</button>
+        </div>
+      </div>
+
+      <!-- #5 -->
+      <div class="imp-card">
+        <div class="imp-head">
+          <div class="imp-ico ok"><i class="bi bi-printer-fill"></i></div>
+          <div style="flex:1">
+            <div class="imp-nombre">Impresora #5 <span style="font-weight:400;color:var(--text-muted)">— Bambu P1S</span></div>
+          </div>
+          <span class="badge-est ok">Operativa</span>
+        </div>
+        <div class="imp-stats">
+          <div class="imp-stat"><span>Último mant.</span><strong>27/08/2026</strong></div>
+          <div class="imp-stat"><span>Horas uso</span><strong>560 h</strong></div>
+          <div class="imp-stat"><span>Próximo mant.</span><strong>27/09/2026</strong></div>
+        </div>
+        <div class="imp-acciones">
+          <button class="btn-sec btn-sm" onclick="abrirDiagnostico(5,'Bambu P1S')"><i class="bi bi-search"></i> Diagnosticar</button>
+          <button class="btn-sec btn-sm" onclick="irARegistro('preventivo','imp5')"><i class="bi bi-tools"></i> Mant. Preventivo</button>
+        </div>
+      </div>
+
+      <!-- #7 EN DIAGNÓSTICO -->
+      <div class="imp-card warn">
+        <div class="imp-head">
+          <div class="imp-ico warn"><i class="bi bi-printer-fill"></i></div>
+          <div style="flex:1">
+            <div class="imp-nombre">Impresora #7 <span style="font-weight:400;color:var(--text-muted)">— Voron 2.4</span></div>
+          </div>
+          <span class="badge-est pend">Diagnóstico</span>
+        </div>
+        <div class="alerta-imp warn">
+          <i class="bi bi-thermometer-high"></i>
+          Temperatura de hotend inestable — En diagnóstico
+        </div>
+        <div class="imp-stats">
+          <div class="imp-stat"><span>Último mant.</span><strong>24/08/2026</strong></div>
+          <div class="imp-stat"><span>Horas uso</span><strong>1,780 h</strong></div>
+          <div class="imp-stat"><span>Prioridad</span><strong style="color:#B45309">Media</strong></div>
+        </div>
+        <div class="imp-acciones">
+          <button class="btn-sec btn-sm" onclick="abrirDiagnostico(7,'Voron 2.4')"><i class="bi bi-search"></i> Continuar Diagnóstico</button>
+          <button class="btn-sec btn-sm" onclick="probarFuncionamiento(7)"><i class="bi bi-play-circle"></i> Probar Funcionamiento</button>
+        </div>
+      </div>
+
+      <!-- #8 -->
+      <div class="imp-card">
+        <div class="imp-head">
+          <div class="imp-ico ok"><i class="bi bi-printer-fill"></i></div>
+          <div style="flex:1">
+            <div class="imp-nombre">Impresora #8 <span style="font-weight:400;color:var(--text-muted)">— Prusa XL</span></div>
+          </div>
+          <span class="badge-est ok">Operativa</span>
+        </div>
+        <div class="imp-stats">
+          <div class="imp-stat"><span>Último mant.</span><strong>20/08/2026</strong></div>
+          <div class="imp-stat"><span>Horas uso</span><strong>340 h</strong></div>
+          <div class="imp-stat"><span>Próximo mant.</span><strong>20/09/2026</strong></div>
+        </div>
+        <div class="imp-acciones">
+          <button class="btn-sec btn-sm" onclick="abrirDiagnostico(8,'Prusa XL')"><i class="bi bi-search"></i> Diagnosticar</button>
+          <button class="btn-sec btn-sm" onclick="irARegistro('preventivo','imp8')"><i class="bi bi-tools"></i> Mant. Preventivo</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Diagnóstico -->
+    <div class="modal-overlay" id="modalDiag" style="display:none">
+      <div class="modal-box">
+        <div class="modal-head">
+          <h3 id="modalDiagTitulo">Diagnóstico</h3>
+          <button class="modal-cerrar" onclick="cerrarModal('modalDiag')"><i class="bi bi-x-lg"></i></button>
+        </div>
+        <div class="modal-body">
+          <div class="campo-g">
+            <label class="campo-lbl">Síntoma Principal</label>
+            <input type="text" class="inp" id="diagSintoma" placeholder="Describe el síntoma observado..."/>
+          </div>
+          <div class="campo-g">
+            <label class="campo-lbl">Posible Causa</label>
+            <textarea class="inp inp-area" id="diagCausa" rows="3" placeholder="¿Cuál crees que es la causa?"></textarea>
+          </div>
+          <div class="campo-g">
+            <label class="campo-lbl">Nivel de Severidad</label>
+            <select class="inp" id="diagSeveridad">
+              <option value="baja">🟢 Baja — Puede seguir operando</option>
+              <option value="media">🟡 Media — Requiere atención pronto</option>
+              <option value="alta">🔴 Alta — Fuera de servicio</option>
+            </select>
+          </div>
+          <div class="campo-g">
+            <label class="campo-lbl">Acción Recomendada</label>
+            <select class="inp" id="diagAccion">
+              <option>Mantenimiento preventivo de rutina</option>
+              <option>Reemplazo de pieza</option>
+              <option>Reparación del sistema de calefacción</option>
+              <option>Calibración de sensores</option>
+              <option>Revisión eléctrica completa</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-foot">
+          <button class="btn-pri" onclick="guardarDiagnostico()"><i class="bi bi-floppy"></i> Guardar Diagnóstico</button>
+          <button class="btn-sec" onclick="cerrarModal('modalDiag')">Cancelar</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── MI PERFIL ── -->
+  <section id="sec-perfil" style="display:none">
+    <div class="page-header">
+      <div>
+        <h1 class="page-titulo">Mi Perfil</h1>
+        <p class="page-sub">Administra tu información personal</p>
+      </div>
+    </div>
+
+    <div class="grid-2col">
+      <div class="card-sec">
+        <h2 class="card-sec-titulo" style="margin-bottom:20px">Información Personal</h2>
+
+        <div style="text-align:center;margin-bottom:24px">
+          <div class="perfil-avatar" id="perfilAvatar">JR</div>
+          <div class="perfil-nombre-disp" id="perfilNombreDisplay">Juan Rodríguez</div>
+          <div style="font-size:13px;color:var(--text-muted)">Técnico de Mantenimiento</div>
+        </div>
+
+        <div class="fila-2">
+          <div class="campo-g">
+            <label class="campo-lbl">Nombre</label>
+            <input type="text" class="inp" id="perfilNombre" value="Juan"/>
+          </div>
+          <div class="campo-g">
+            <label class="campo-lbl">Apellido</label>
+            <input type="text" class="inp" id="perfilApellido" value="Rodríguez"/>
+          </div>
+        </div>
+        <div class="campo-g">
+          <label class="campo-lbl">Correo Electrónico</label>
+          <input type="email" class="inp" id="perfilEmail" value="juan.rodriguez@printsmart3d.co"/>
+        </div>
+        <div class="campo-g">
+          <label class="campo-lbl">Teléfono</label>
+          <input type="tel" class="inp" id="perfilTelefono" value="+57 300 123 4567"/>
+        </div>
+        <div class="campo-g">
+          <label class="campo-lbl">Especialidad</label>
+          <select class="inp" id="perfilEspecialidad">
+            <option selected>Mecánica de Impresión 3D</option>
+            <option>Electrónica y Firmware</option>
+            <option>Calibración y Precisión</option>
+            <option>Mantenimiento Industrial</option>
+          </select>
+        </div>
+        <div class="campo-g">
+          <label class="campo-lbl">Años de Experiencia</label>
+          <input type="number" class="inp" id="perfilExperiencia" value="4" min="0"/>
+        </div>
+        <div class="campo-g">
+          <label class="campo-lbl">Bio / Notas</label>
+          <textarea class="inp inp-area" id="perfilBio" rows="3"
+            >Técnico especializado en mantenimiento preventivo y correctivo de impresoras FDM y resina.</textarea>
+        </div>
+        <div class="btn-grupo">
+          <button class="btn-pri" onclick="guardarPerfil()"><i class="bi bi-floppy"></i> Guardar Cambios</button>
+        </div>
+      </div>
+
+      <div>
+        <div class="card-sec">
+          <h2 class="card-sec-titulo" style="margin-bottom:16px">Mis Estadísticas</h2>
+          <div class="stats-grid">
+            <div class="stat-item"><div class="stat-val" style="color:#5B21B6">89</div><div class="stat-lbl">Mant. totales</div></div>
+            <div class="stat-item"><div class="stat-val" style="color:#16A34A">97%</div><div class="stat-lbl">Tasa de éxito</div></div>
+            <div class="stat-item"><div class="stat-val" style="color:#B45309">1.8h</div><div class="stat-lbl">Tiempo promedio</div></div>
+            <div class="stat-item"><div class="stat-val" style="color:#2563EB">28</div><div class="stat-lbl">Este mes</div></div>
+          </div>
+        </div>
+
+        <div class="card-sec" style="margin-top:16px">
+          <h2 class="card-sec-titulo" style="margin-bottom:16px">Cambiar Contraseña</h2>
+          <div class="campo-g">
+            <label class="campo-lbl">Contraseña Actual</label>
+            <input type="password" class="inp" placeholder="••••••••"/>
+          </div>
+          <div class="campo-g">
+            <label class="campo-lbl">Nueva Contraseña</label>
+            <input type="password" class="inp" placeholder="••••••••"/>
+          </div>
+          <div class="campo-g">
+            <label class="campo-lbl">Confirmar Nueva Contraseña</label>
+            <input type="password" class="inp" placeholder="••••••••"/>
+          </div>
+          <button class="btn-pri" onclick="mostrarToast('Contraseña actualizada correctamente','success')">
+            <i class="bi bi-shield-lock"></i> Actualizar Contraseña
+          </button>
+        </div>
+      </div>
+    </div>
   </section>
 
 </main>
 
-<!--MODAL: EVALUACIÓN DEL SERVICIO-->
-<div class="cl-modal-ov" id="modalEval" onclick="cerrarModalEval(event)">
-  <div class="cl-modal-box">
-    <button class="cl-modal-close" onclick="cerrarModalEval()">
-      <i class="bi bi-x"></i>
-    </button>
+<div id="toastContainer" class="toast-container"></div>
 
-    <div class="cl-breadcrumb" style="margin-bottom:14px;">
-      <span>← </span>
-      <span class="cl-link-morado" onclick="cerrarModalEval()"
-            style="cursor:pointer;">
-        Volver a Mis Pedidos
-      </span>
-    </div>
-
-    <div class="cl-modal-titulo">PrintSmart 3D — Evaluar Servicio</div>
-    <div class="cl-modal-sub" id="evalSubtitulo">
-      Tu opinión sobre el pedido
-      <strong class="text-morado" id="evalIdPedido">#SP-0000</strong>
-      es vital para nuestra precisión industrial.
-    </div>
-
-    <!-- Producto evaluado -->
-    <div style="display:flex;align-items:center;gap:12px;padding:14px;
-                background:#F9FAFB;border:1px solid #E5E7EB;
-                border-radius:10px;margin-bottom:20px;">
-      <div style="width:50px;height:50px;background:#EDE9FE;border-radius:8px;
-                  display:flex;align-items:center;justify-content:center;
-                  font-size:22px;color:#7C3AED;flex-shrink:0;">
-        <i class="bi bi-box"></i>
-      </div>
-      <div>
-        <div style="font-size:14px;font-weight:700;" id="evalNombreProd">
-          Producto evaluado
-        </div>
-        <div style="font-size:12px;color:#9CA3AF;">Material: Nylon PA12 Carbon Fiber</div>
-        <span class="cl-badge entregado" style="margin-top:4px;display:inline-flex;">
-          Entregado
-        </span>
-      </div>
-    </div>
-
-    <!-- Pregunta 1 -->
-    <div class="cl-eval-pregunta">1. Calidad del Producto</div>
-    <div class="cl-eval-sub">
-      ¿Cómo calificaría la precisión técnica y el acabado final de la pieza impresa?
-    </div>
-    <div class="cl-stars" id="stars1">
-      <span class="cl-star" onclick="setStars(1,1)">★</span>
-      <span class="cl-star" onclick="setStars(1,2)">★</span>
-      <span class="cl-star" onclick="setStars(1,3)">★</span>
-      <span class="cl-star" onclick="setStars(1,4)">★</span>
-      <span class="cl-star" onclick="setStars(1,5)">★</span>
-    </div>
-
-    <!-- Pregunta 2 -->
-    <div class="cl-eval-pregunta" style="margin-top:16px;">2. Tiempo de Entrega</div>
-    <div class="cl-eval-sub">
-      ¿El pedido llegó dentro de los plazos establecidos y con seguimiento adecuado?
-    </div>
-    <div class="cl-stars" id="stars2">
-      <span class="cl-star" onclick="setStars(2,1)">★</span>
-      <span class="cl-star" onclick="setStars(2,2)">★</span>
-      <span class="cl-star" onclick="setStars(2,3)">★</span>
-      <span class="cl-star" onclick="setStars(2,4)">★</span>
-      <span class="cl-star" onclick="setStars(2,5)">★</span>
-    </div>
-
-    <!-- Comentarios -->
-    <div class="cl-eval-pregunta" style="margin-top:16px;">3. Comentarios Detallados</div>
-    <div class="cl-eval-sub">
-      Sus observaciones nos permiten ajustar nuestros procesos de manufactura.
-    </div>
-    <textarea class="cl-form-input" id="evalComentario" rows="4"
-              placeholder="Escribe aquí tu experiencia, sugerencias o cualquier detalle técnico relevante..."
-              style="resize:vertical;margin-bottom:16px;"></textarea>
-
-    <button class="cl-btn-p" style="width:100%;justify-content:center;padding:13px;"
-            onclick="enviarEvaluacion()">
-      <i class="bi bi-send"></i> Enviar Evaluación
-    </button>
-    <p style="font-size:11px;color:#9CA3AF;text-align:center;margin-top:10px;">
-      Al enviar, confirmas que esta es una opinión genuina basada en tu pedido.
-    </p>
-
-    <!-- Por qué evaluar -->
-    <div class="cl-por-que-card" style="margin-top:16px;">
-      <div class="cl-card-titulo" style="margin-bottom:12px;">¿Por qué evaluarnos?</div>
-      <div class="cl-por-que-item">
-        <i class="bi bi-check-circle-fill"></i>
-        Optimizamos la calibración de nuestras impresoras según tu feedback.
-      </div>
-      <div class="cl-por-que-item">
-        <i class="bi bi-check-circle-fill"></i>
-        Ajustamos las rutas de logística para reducir los tiempos de entrega.
-      </div>
-      <div class="cl-por-que-item">
-        <i class="bi bi-check-circle-fill"></i>
-        Recibe un cupón del 5% de descuento en tu próximo pedido al completar esta encuesta.
-      </div>
-    </div>
-
-  </div>
-</div>
-
-<!-- Toast container -->
-<div class="cl-toast-container" id="clToastContainer"></div>
-
-<!-- SCRIPTS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-<script src="js/cliente.js"></script>
-
+<script src="js/app.js"></script>
+<script src="js/tecnico.js"></script>
 </body>
 </html>
