@@ -820,7 +820,6 @@
     <span>Servicio Nacional De Aprendizaje</span>
   </div>
 </footer>
-
 <!-- MODAL LOGIN / REGISTRO-->
 <div class="modal-ov" id="modalOv" onclick="cerrarModalClick(event)">
   <div class="modal-box" id="modalBox">
@@ -835,7 +834,7 @@
       <img src="assets/logo2.jpeg" alt="PrintSmart 3D"/>
     </div>
 
-    <div class="modal-titulo" id="mTitulo">PrintSmart 3D</div>
+    <div class="modal-titulo"    id="mTitulo">PrintSmart 3D</div>
     <div class="modal-subtitulo" id="mSubtitulo">Selecciona tu perfil de acceso</div>
 
     <!-- Tabs -->
@@ -848,16 +847,14 @@
         onclick="selectModalRol('Operador', this)">
         <i class="bi bi-tools"></i> Operario
       </button>
-      <button class="mtab" id="tab-Operador"
-      onclick="selectModalRol('Operador', this)">
-      <i class="bi bi-tools"></i> Tecnico
+      <button class="mtab" id="tab-Tecnico"
+        onclick="selectModalRol('Tecnico', this)">
+        <i class="bi bi-wrench-adjustable"></i> Técnico
       </button>
       <button class="mtab" id="tab-Cliente"
         onclick="selectModalRol('Cliente', this)">
         <i class="bi bi-person"></i> Cliente
       </button>
-    </div>
-
     </div>
 
     <!-- Descripción del rol -->
@@ -867,11 +864,8 @@
         Acceso total: usuarios, configuración, reportes financieros y control de toda la operación.
       </span>
     </div>
-    <div class="role-desc" id="desc-Tecnico" style="display:none">
-    <span>Acceso al panel de mantenimiento, diagnóstico de impresoras e historial de intervenciones.</span>
-    </div>
 
-    <!-- SECCIÓN LOGIN (Admin / Operario) -->
+    <!-- SECCIÓN LOGIN -->
     <div id="secLogin">
       <div class="modal-err" id="mErr"></div>
 
@@ -893,7 +887,8 @@
       </div>
 
       <div style="text-align:right; margin-bottom:14px;">
-        <a href="#" style="font-size:11.5px; color:#7C3AED; text-decoration:none;">
+        <a href="#" onclick="mostrarRecuperacion()"
+           style="font-size:11.5px; color:#7C3AED; text-decoration:none;">
           ¿Olvidaste tu contraseña?
         </a>
       </div>
@@ -908,10 +903,8 @@
         <div class="modal-div-line"></div>
       </div>
       <div class="modal-link-txt">
-      ¿No tienes cuenta?
-      <span onclick="irARegistro()">Regístrate aquí ↓</span>
-      </div>
-        </span>
+        ¿No tienes cuenta?
+        <span onclick="irARegistro()">Regístrate aquí ↓</span>
       </div>
     </div>
 
@@ -919,7 +912,6 @@
     <div id="secRegistro" style="display:none;">
       <div class="modal-err" id="mErrReg"></div>
 
-      <!-- Box de producto de interés -->
       <div class="prod-interes-box" id="prodInteresBox">
         <i class="bi bi-bag-check" style="margin-right:6px;"></i>
         Interesado en: <strong id="prodInteresNombre"></strong>
@@ -928,22 +920,19 @@
       <label class="mlbl">Nombre Completo</label>
       <div class="mfield-wrap">
         <i class="bi bi-person mfield-ico"></i>
-        <input type="text" class="mfield" id="rNombre"
-               placeholder="Tu nombre completo"/>
+        <input type="text" class="mfield" id="rNombre" placeholder="Tu nombre completo"/>
       </div>
 
       <label class="mlbl">Correo Electrónico</label>
       <div class="mfield-wrap">
         <i class="bi bi-envelope mfield-ico"></i>
-        <input type="email" class="mfield" id="rEmail"
-               placeholder="tu@correo.com"/>
+        <input type="email" class="mfield" id="rEmail" placeholder="tu@correo.com"/>
       </div>
 
       <label class="mlbl">Teléfono <span style="color:#3B1E72;">(opcional)</span></label>
       <div class="mfield-wrap">
         <i class="bi bi-phone mfield-ico"></i>
-        <input type="tel" class="mfield" id="rTelefono"
-               placeholder="300 000 0000"/>
+        <input type="tel" class="mfield" id="rTelefono" placeholder="300 000 0000"/>
       </div>
 
       <label class="mlbl">Contraseña</label>
@@ -971,9 +960,7 @@
       </button>
 
       <div class="modal-div">
-        <div class="modal-div-line"></div>
-        <span>o</span>
-        <div class="modal-div-line"></div>
+        <div class="modal-div-line"></div><span>o</span><div class="modal-div-line"></div>
       </div>
       <div class="modal-link-txt">
         ¿Ya tienes cuenta?
@@ -990,16 +977,13 @@
         ¡Registro exitoso!
       </h3>
       <p style="color:#9D78E0; font-size:13.5px; line-height:1.65; margin-bottom:22px;">
-        Bienvenido a PrintSmart 3D. En breve recibirás un correo de confirmación
-        con los detalles de tu cuenta y acceso al portal de cliente.
+        Bienvenido a PrintSmart 3D. En breve recibirás un correo de confirmación.
       </p>
-      <button class="btn-modal-accion" onclick="cerrarModal()">
-        Explorar catálogo
-      </button>
+      <button class="btn-modal-accion" onclick="cerrarModal()">Explorar catálogo</button>
     </div>
 
   </div>
-</div>
+</div><
 
 <!-- Toast container -->
 <div class="ltoast-container" id="ltoastContainer"></div>
