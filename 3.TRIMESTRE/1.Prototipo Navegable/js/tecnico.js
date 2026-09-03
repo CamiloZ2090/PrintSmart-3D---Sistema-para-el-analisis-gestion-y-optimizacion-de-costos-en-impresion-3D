@@ -277,7 +277,8 @@ function guardarDiagnostico() {
   mostrarToast(`Diagnóstico guardado para Impresora #${impDiagActual}`, "success");
   cerrarModal("modalDiag");
   // Limpiar campos del modal
-  ["diagSintoma","diagCausa"].forEach(id => { const el = document.getElementById(id); if (el) el.value = ""; });
+  ["diagSintoma","diagCausa"].forEach(id => { const el = document.getElementById(id); if (el) el.value = ""; 
+  });
 }
 
 function probarFuncionamiento(num) {
