@@ -1,6 +1,6 @@
-/* ══ TECNICO.CSS ══ */
+/* TECNICO.CSS */
 
-/* ── LAYOUT ── */
+/* LAYOUT */
 .sidebar {
   position: fixed;
   top: 0; left: 0;
@@ -80,7 +80,7 @@
 }
 .btn-cerrar-sesion:hover { background: rgba(255,255,255,0.1); color: white; }
 
-/* ── TOPBAR ── */
+/* TOPBAR */
 .topbar {
   position: fixed;
   top: 0; left: var(--sidebar-ancho); right: 0;
@@ -155,7 +155,7 @@
 .topbar-nombre { font-size: 13.5px; font-weight: 600; color: var(--text-dark); }
 .topbar-rol    { font-size: 11px; color: var(--text-muted); }
 
-/* ── MAIN ── */
+/* MAIN */
 .main-content {
   margin-left: var(--sidebar-ancho);
   margin-top: var(--topbar-alto);
@@ -163,7 +163,7 @@
   min-height: calc(100vh - var(--topbar-alto));
 }
 
-/* ── PAGE HEADER ── */
+/* PAGE HEADER */
 .page-header {
   display: flex;
   align-items: center;
@@ -173,7 +173,7 @@
 .page-titulo { font-size: 22px; font-weight: 800; color: var(--text-dark); }
 .page-sub    { font-size: 13.5px; color: var(--text-muted); margin-top: 4px; }
 
-/* ── KPI GRID ── */
+/* KPI GRID */
 .kpi-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -217,7 +217,7 @@
 .badge-kpi.warn { background: #FEF9C3; color: #B45309; }
 .badge-kpi.err  { background: #FEE2E2; color: #DC2626; }
 
-/* ── CARD SECCIÓN ── */
+/* CARD SECCIÓN */
 .card-sec {
   background: white;
   border-radius: var(--radio);
@@ -282,7 +282,7 @@
 }
 .btn-tarea:hover { background: var(--purple-800); }
 
-/* ── TABLA ── */
+/* TABLA */
 .tabla { width: 100%; border-collapse: collapse; }
 
 .tabla th {
@@ -339,7 +339,7 @@
 }
 .btn-acc:hover { border-color: var(--purple-400); color: var(--purple-700); }
 
-/* ── FORMULARIO ── */
+/* FORMULARIO */
 .grid-2col {
   display: grid;
   grid-template-columns: 1fr 370px;
@@ -459,7 +459,7 @@
 
 .btn-sm { padding: 7px 10px; font-size: 12px; }
 
-/* ── ZONA DE IMÁGENES ── */
+/* ZONA DE IMÁGENES */
 .zona-drop {
   border: 2px dashed #D1D5DB;
   border-radius: 12px;
@@ -512,7 +512,7 @@
 }
 .foto-del:hover { background: var(--danger); }
 
-/* ── PREVIEW ── */
+/* PREVIEW */
 .prev-fila {
   display: flex;
   justify-content: space-between;
@@ -523,10 +523,10 @@
 }
 .prev-fila span:last-child { font-weight: 600; color: var(--text-dark); }
 
-/* ── FILTROS HISTORIAL ── */
+/* FILTROS HISTORIAL */
 .filtros-row { display: flex; gap: 12px; align-items: center; }
 
-/* ── IMPRESORAS GRID ── */
+/* IMPRESORAS GRID */
 .imp-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -590,9 +590,10 @@
 .imp-stat span { font-size: 10px; color: var(--text-muted); display: block; margin-bottom: 2px; }
 .imp-stat strong { font-size: 12px; }
 
-.imp-acciones { display: flex; gap: 8px; }
+.imp-acciones { display: flex; gap: 8px; 
+}
 
-/* ── MODAL ── */
+/* MODAL*/
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -631,7 +632,7 @@
   border-top: 1px solid var(--border);
 }
 
-/* ── PERFIL ── */
+/* PERFIL */
 .perfil-avatar {
   width: 80px; height: 80px;
   background: #0369A1;
@@ -655,7 +656,7 @@
 .stat-val  { font-size: 24px; font-weight: 800; margin-bottom: 4px; }
 .stat-lbl  { font-size: 12px; color: var(--text-muted); }
 
-/* ── TOASTS ── */
+/* TOASTS */
 .toast-container {
   position: fixed;
   bottom: 24px; right: 24px;
@@ -687,7 +688,7 @@
   from { transform: translateX(40px); opacity: 0; }
   to   { transform: translateX(0);    opacity: 1; }
 }
-/* ── FIX SIDEBAR NAV ITEMS ── */
+/* FIX SIDEBAR NAV ITEMS */
 .sidebar-nav .nav-grupo {
   display: block !important;
   font-size: 10px;
@@ -710,7 +711,6 @@
   cursor: pointer;
   margin-bottom: 3px;
   min-height: 40px;
-  white-space: nowrap;
 }
 
 .sidebar-nav .nav-item span {
