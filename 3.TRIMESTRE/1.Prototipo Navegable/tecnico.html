@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PrintSmart 3D — Técnico</title>
+  <link rel="icon" type="image/jpeg" href="assets/logo2.jpeg"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/variables.css"/>
+  <link rel="stylesheet" href="css/tecnico.css"/>
+</head>
+<body>
+
+<!-- ══ SIDEBAR ══ -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-icon"><img src="assets/logo2.jpeg" alt="Logo"/></div>
+    <div>
+      <div class="logo-titulo">PrintSmart 3D</div>
+      <div class="logo-sub">Panel Técnico</div>
+    </div>
+  </div>
+
+  <nav class="sidebar-nav">
+    <div class="nav-grupo">GENERAL</div>
+    <div class="nav-item activo" id="nav-dashboard" data-seccion="dashboard">
+      <i class="bi bi-grid-1x2"></i><span>Dashboard</span>
+    </div>
+    <div class="nav-item" id="nav-registro" data-seccion="registro">
+      <i class="bi bi-tools"></i><span>Registrar Mantenimiento</span>
+    </div>
+    <div class="nav-item" id="nav-historial" data-seccion="historial">
+      <i class="bi bi-clock-history"></i><span>Historial</span>
+    </div>
+    <div class="nav-grupo" style="margin-top:18px">EQUIPOS</div>
+    <div class="nav-item" id="nav-impresoras" data-seccion="impresoras">
+      <i class="bi bi-printer"></i><span>Gestionar Impresoras</span>
+    </div>
+    <div class="nav-grupo" style="margin-top:18px">CUENTA</div>
+    <div class="nav-item" id="nav-perfil" data-seccion="perfil">
+      <i class="bi bi-person-circle"></i><span>Mi Perfil</span>
+    </div>
+  </nav>
+
+  <div class="sidebar-footer">
+    <button class="btn-cerrar-sesion" onclick="cerrarSesion()">
+      <i class="bi bi-box-arrow-left"></i> Cerrar Sesión
+    </button>
+  </div>
+</aside>
+
+<!-- ══ TOPBAR ══ -->
+<div class="topbar">
+  <input type="text" class="buscador-top" id="buscadorInput" placeholder="Buscar..."/>
+  <div class="topbar-der">
+    <div class="notif-wrap">
+      <i class="bi bi-bell" style="font-size:18px; color:var(--text-mid)"></i>
+      <span class="notif-dot">2</span>
+    </div>
+    <div class="topbar-usuario">
+      <div class="topbar-avatar" id="topbarAvatar">JR</div>
+      <div>
+        <div class="topbar-nombre" id="topbarNombre">Juan Rodríguez</div>
+        <div class="topbar-rol"    id="topbarRol">TÉCNICO</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CONTENIDO PRINCIPAL ══ -->
+<main class="main-content">
+
+  <!-- ── DASHBOARD ── -->
+  <section id="sec-dashboard">
+    <div class="page-header">
+      <div>
+        <h1 class="page-titulo">Dashboard</h1>
+        <p class="page-sub">Resumen de tu jornada 👋</p>
+      </div>
+    </div>
+
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-icono" style="background:#EDE9FE;color:#5B21B6"><i class="bi bi-wrench-adjustable"></i></div>
+        <div>
+          <div class="kpi-valor">5</div>
+          <div class="kpi-label">Tareas Pendientes</div>
+          <span class="badge-kpi warn">2 urgentes</span>
+        </div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-icono" style="background:#DCFCE7;color:#16A34A"><i class="bi bi-check2-all"></i></div>
+        <div>
+          <div class="kpi-valor">28</div>
+          <div class="kpi-label">Mantenimientos este mes</div>
+          <span class="badge-kpi ok">+4 vs mes anterior</span>
+        </div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-icono" style="background:#FEF9C3;color:#B45309"><i class="bi bi-printer-fill"></i></div>
+        <div>
+          <div class="kpi-valor">8</div>
+          <div class="kpi-label">Impresoras Asignadas</div>
+          <span class="badge-kpi warn">1 con falla</span>
+        </div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-icono" style="background:#FEE2E2;color:#DC2626"><i class="bi bi-exclamation-triangle"></i></div>
+        <div>
+          <div class="kpi-valor">2</div>
+          <div class="kpi-label">Diagnósticos Abiertos</div>
+          <span class="badge-kpi err">Requieren atención</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tareas del día -->
+    <div class="card-sec">
+      <div class="card-sec-header">
+        <h2 class="card-sec-titulo">Tareas de Hoy</h2>
+        <span class="badge-kpi warn">5 pendientes</span>
+      </div>
+      <div class="lista-tareas">
+        <div class="tarea-item urgente">
+          <div class="tarea-icono urgente"><i class="bi bi-tools"></i></div>
+          <div class="tarea-info">
+            <div class="tarea-nombre">Mantenimiento Correctivo — Impresora #3</div>
+            <div class="tarea-sub">Falla en extrusor · Prioridad alta</div>
+          </div>
+          <button class="btn-tarea" onclick="irARegistro('correctivo', 'imp3')">Registrar</button>
+        </div>
+        <div class="tarea-item urgente">
+          <div class="tarea-icono urgente"><i class="bi bi-search"></i></div>
+          <div class="tarea-info">
+            <div class="tarea-nombre">Diagnóstico — Impresora #7</div>
+            <div class="tarea-sub">Temperatura inestable · Prioridad alta</div>
+          </div>
+          <button class="btn-tarea" onclick="irASeccion('impresoras')">Ver</button>
+        </div>
+        <div class="tarea-item">
+          <div class="tarea-icono"><i class="bi bi-shield-check"></i></div>
+          <div class="tarea-info">
+            <div class="tarea-nombre">Mantenimiento Preventivo — Impresoras #1, #2, #5</div>
+            <div class="tarea-sub">Revisión mensual programada</div>
+          </div>
+          <button class="btn-tarea" onclick="irARegistro('preventivo', '')">Registrar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Últimos registros -->
+    <div class="card-sec">
+      <div class="card-sec-header">
+        <h2 class="card-sec-titulo">Últimos Mantenimientos</h2>
+        <a class="link-ver" onclick="irASeccion('historial')">Ver historial completo →</a>
+      </div>
+      <table class="tabla">
+        <thead><tr><th>ID</th><th>Impresora</th><th>Tipo</th><th>Fecha</th><th>Estado</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>#MNT-089</strong></td><td>Impresora #5</td>
+            <td><span class="badge-tipo preventivo">Preventivo</span></td>
+            <td>27/08/2026</td><td><span class="badge-est ok">Completado</span></td>
+          </tr>
+          <tr>
+            <td><strong>#MNT-088</strong></td><td>Impresora #2</td>
+            <td><span class="badge-tipo correctivo">Correctivo</span></td>
+            <td>25/08/2026</td><td><span class="badge-est ok">Completado</span></td>
+          </tr>
+          <tr>
+            <td><strong>#MNT-087</strong></td><td>Impresora #7</td>
+            <td><span class="badge-tipo diagnostico">Diagnóstico</span></td>
+            <td>24/08/2026</td><td><span class="badge-est pend">En progreso</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ── REGISTRAR MANTENIMIENTO ── -->
+  <section id="sec-registro" style="display:none">
+    <div class="page-header">
+      <div>
+        <h1 class="page-titulo">Registrar Mantenimiento</h1>
+        <p class="page-sub">Documenta la intervención realizada</p>
+      </div>
+    </div>
+
+    <div class="grid-2col">
+      <!-- Columna izquierda -->
+      <div class="card-sec">
+        <h2 class="card-sec-titulo" style="margin-bottom:20px">Datos del Mantenimiento</h2>
+
+        <div class="campo-g">
+          <label class="campo-lbl">Tipo de Mantenimiento</label>
+          <div class="tipo-tabs">
+            <button class="tipo-tab activo" id="tab-preventivo" onclick="setTipoMant('preventivo',this)">
+              <i class="bi bi-shield-check"></i> Preventivo
+            </button>
+            <button class="tipo-tab" id="tab-correctivo" onclick="setTipoMant('correctivo',this)">
+              <i class="bi bi-tools"></i> Correctivo
+            </button>
+            <button class="tipo-tab" id="tab-diagnostico" onclick="setTipoMant('diagnostico',this)">
+              <i class="bi bi-search"></i> Diagnóstico
+            </button>
+          </div>
+        </div>
+
+        <div class="fila-2">
+          <div class="campo-g">
+            <label class="campo-lbl">Nombre del Técnico <span class="req">*</span></label>
+            <input type="text" class="inp" id="regTecnico" placeholder="Tu nombre completo" oninput="actualizarPreview()"/>
+          </div>
+          <div class="campo-g">
+            <label class="campo-lbl">Fecha y Hora <span class="req">*</span></label>
+            <input type="datetime-local" class="inp" id="regFecha"/>
+          </div>
+        </div>
+
+        <div class="campo-g">
+          <label class="campo-lbl">Impresora <span class="req">*</span></label>
+          <select class="inp" id="regImpresora" onchange="actualizarPreview()">
+            <option value="">— Seleccionar impresora —</option>
+            <option value="imp1">Impresora #1 — Prusa MK4</option>
+            <option value="imp2">Impresora #2 — Bambu X1C</option>
+            <option value="imp3">Impresora #3 — Creality K1</option>
+            <option value="imp5">Impresora #5 — Bambu P1S</option>
+            <option value="imp7">Impresora #7 — Voron 2.4</option>
+            <option value="imp8">Impresora #8 — Prusa XL</option>
+          </select>
+        </div>
+
+        <div class="campo-g">
+          <label class="campo-lbl">Descripción del Trabajo <span class="req">*</span></label>
+          <textarea class="inp inp-area" id="regDescripcion" rows="4"
+            placeholder="Describe qué se revisó, qué se reparó o qué se encontró..."></textarea>
+        </div>
+
+        <div class="campo-g">
+          <label class="campo-lbl">Resultado</label>
+          <select class="inp" id="regResultado" onchange="actualizarPreview()">
+            <option value="ok">✅ Funcionando correctamente</option>
+            <option value="parcial">⚠️ Requiere seguimiento</option>
+            <option value="falla">❌ Falla grave — Fuera de servicio</option>
+            <option value="reparado">🔧 Reparado exitosamente</option>
+          </select>
+        </div>
+
+        <div class="fila-2">
+          <div class="campo-g">
+            <label class="campo-lbl">Duración (horas)</label>
+            <input type="number" class="inp" id="regDuracion" min="0.5" step="0.5" value="1"/>
+          </div>
+          <div class="campo-g">
+            <label class="campo-lbl">Próximo Mantenimiento</label>
+            <input type="date" class="inp" id="regProximoMant"/>
+          </div>
+        </div>
+
+        <!-- Checklist (solo preventivo) -->
+        <div id="checklistWrap" class="campo-g">
+          <label class="campo-lbl">Lista de Verificación</label>
+          <div class="checklist-grid">
+            <label class="chk-item"><input type="checkbox"/> Limpieza de extrusor</label>
+            <label class="chk-item"><input type="checkbox"/> Calibración de cama</label>
+            <label class="chk-item"><input type="checkbox"/> Lubricación de ejes</label>
+            <label class="chk-item"><input type="checkbox"/> Revisión de correas</label>
+            <label class="chk-item"><input type="checkbox"/> Actualización de firmware</label>
+            <label class="chk-item"><input type="checkbox"/> Prueba de impresión</label>
+          </div>
+        </div>
+
+        <div class="btn-grupo">
+          <button class="btn-pri" onclick="guardarMantenimiento()">
+            <i class="bi bi-floppy"></i> Guardar Registro
+          </button>
+          <button class="btn-sec" onclick="limpiarFormMant()">
+            <i class="bi bi-x-circle"></i> Limpiar
+          </button>
+        </div>
+      </div>
+
+      <!-- Columna derecha: imágenes + preview -->
+      <div>
+        <div class="card-sec">
+          <h2 class="card-sec-titulo" style="margin-bottom:18px">Evidencia Fotográfica</h2>
+
+          <div class="zona-drop" id="zonaImg"
+               onclick="document.getElementById('inputFotos').click()"
+               ondragover="dragSobre(event)"
+               ondragleave="dragFuera(event)"
+               ondrop="soltarFotos(event)">
+            <i class="bi bi-camera-fill zona-drop-ico"></i>
+            <div class="zona-drop-txt">Clic o arrastra fotos aquí</div>
+            <div class="zona-drop-sub">JPG, PNG, WEBP · Máx. 10 MB por imagen</div>
+            <input type="file" id="inputFotos" accept="image/*" multiple
+                   style="display:none" onchange="cargarFotos(this)"/>
+          </div>
+
+          <div class="galeria" id="galeriaFotos"></div>
+          <div class="zona-drop-sub" id="lblConteoFotos" style="text-align:center;margin-top:8px">
+            Sin fotos aún
+          </div>
+        </div>
+
+        <div class="card-sec" style="margin-top:16px">
+          <h2 class="card-sec-titulo" style="margin-bottom:14px">Vista Previa</h2>
+          <div class="prev-fila"><span>Técnico</span>   <span id="prev-tecnico">—</span></div>
+          <div class="prev-fila"><span>Impresora</span> <span id="prev-impresora">—</span></div>
+          <div class="prev-fila"><span>Tipo</span>      <span id="prev-tipo">Preventivo</span></div>
+          <div class="prev-fila"><span>Resultado</span> <span id="prev-resultado">—</span></div>
+          <div class="prev-fila"><span>Fotos</span>     <span id="prev-fotos">0 imágenes</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── HISTORIAL ── -->
+  <section id="sec-historial" style="display:none">
+    <div class="page-header">
+      <div>
+        <h1 class="page-titulo">Historial de Mantenimientos</h1>
+        <p class="page-sub">Registro completo de todas las intervenciones</p>
+      </div>
+      <button class="btn-pri" onclick="exportarHistorial()">
+        <i class="bi bi-download"></i> Exportar
+      </button>
+    </div>
+
+    <div class="card-sec" style="padding:14px 20px">
+      <div class="filtros-row">
+        <input type="text" class="inp" style="flex:1" placeholder="Buscar por impresora, técnico o ID..."
+               oninput="filtrarHistorial(this.value)"/>
+        <select class="inp" style="max-width:180px" onchange="filtrarHistorialTipo(this.value)">
+          <option value="all">Todos los tipos</option>
+          <option value="preventivo">Preventivo</option>
+          <option value="correctivo">Correctivo</option>
+          <option value="diagnostico">Diagnóstico</option>
+        </select>
+        <select class="inp" style="max-width:160px">
+          <option>Este mes</option>
+          <option>Últimos 3 meses</option>
+          <option>Este año</option>
+          <option>Todo el historial</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="card-sec">
+      <table class="tabla" id="tablaHistorial">
+        <thead>
+          <tr>
+            <th>ID</th><th>Impresora</th><th>Tipo</th><th>Técnico</th>
+            <th>Fecha</th><th>Duración</th><th>Resultado</th><th>Fotos</th><th></th>
+          </tr>
+        </thead>
+        <tbody id="cuerpoHistorial"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ── GESTIONAR IMPRESORAS ── -->
+  <section id="sec-impresoras" style="display:none">
+    <div class="page-header">
+      <div>
+        <h1 class="page-titulo">Gestionar Impresoras</h1>
+        <p class="page-sub">Diagnóstico, reparación y prueba de equipos</p>
+      </div>
+    </div>
+
+    <div class="imp-grid">
+      <!-- #1 -->
+      <div class="imp-card">
+        <div class="imp-head">
+          <div class="imp-ico ok"><i class="bi bi-printer-fill"></i></div>
+          <div style="flex:1">
+            <div class="imp-nombre">Impresora #1 <span style="font-weight:400;color:var(--text-muted)">— Prusa MK4</span></div>
+          </div>
+          <span class="badge-est ok">Operativa</span>
+        </div>
+        <div class="imp-stats">
+          <div class="imp-stat"><span>Último mant.</span><strong>27/08/2026</strong></div>
+          <div class="imp-stat"><span>Horas uso</span><strong>1,240 h</strong></div>
+          <div class="imp-stat"><span>Próximo mant.</span><strong>27/09/2026</strong></div>
+        </div>
+        <div class="imp-acciones">
+          <button class="btn-sec btn-sm" onclick="abrirDiagnostico(1,'Prusa MK4')"><i class="bi bi-search"></i> Diagnosticar</button>
+          <button class="btn-sec btn-sm" onclick="irARegistro('preventivo','imp1')"><i class="bi bi-tools"></i> Mant. Preventivo</button>
+        </div>
+      </div>
+
+      <!-- #2 -->
+      <div class="imp-card">
+        <div class="imp-head">
+          <div class="imp-ico ok"><i class="bi bi-printer-fill"></i></div>
+          <div style="flex:1">
+            <div class="imp-nombre">Impresora #2 <span style="font-weight:400;color:var(--text-muted)">— Bambu X1C</span></div>
+          </div>
+          <span class="badge-est ok">Operativa</span>
+        </div>
+        <div class="imp-stats">
+          <div class="imp-stat"><span>Último mant.</span><strong>25/08/2026</strong></div>
+          <div class="imp-stat"><span>Horas uso</span><strong>890 h</strong></div>
+          <div class="imp-stat"><span>Próximo mant.</span><strong>25/09/2026</strong></div>
+        </div>
+        <div class="imp-acciones">
+          <button class="btn-sec btn-sm" onclick="abrirDiagnostico(2,'Bambu X1C')"><i class="bi bi-search"></i> Diagnosticar</button>
+          <button class="btn-sec btn-sm" onclick="irARegistro('preventivo','imp2')"><i class="bi bi-tools"></i> Mant. Preventivo</button>
+        </div>
+      </div>
+
+      <!-- #3 CON FALLA -->
+      <div class="imp-card falla">
+        <div class="imp-head">
+          <div class="imp-ico err"><i class="bi bi-printer-fill"></i></div>
+          <div style="flex:1">
+            <div class="imp-nombre">Impresora #3 <span style="font-weight:400;color:var(--text-muted)">— Creality K1</span></div>
+          </div>
+          <span class="badge-est err">Falla</span>
+        </div>
+        <div class="alerta-imp err">
+          <i class="bi bi-exclamation-triangle-fill"></i>
+          Extrusor taponado — Requiere intervención urgente
+        </div>
+        <div class="imp-stats">
+          <div class="imp-stat"><span>Último mant.</span><strong>10/08/2026</strong></div>
+          <div class="imp-stat"><span>Horas uso</span><strong>2,100 h</strong></div>
+          <div class="imp-stat"><span>Prioridad</span><strong style="color:#DC2626">Alta</strong></div>
+        </div>
+        <div class="imp-acciones">
+          <button class="btn-pri btn-sm" onclick="abrirDiagnostico(3,'Creality K1')"><i class="bi bi-search"></i> Diagnosticar</button>
+          <button class="btn-pri btn-sm" onclick="irARegistro('correctivo','imp3')"><i class="bi bi-wrench-adjustable"></i> Registrar Reparación</button>
+        </div>
+      </div>
+
+      <!-- #5 -->
+      <div class="imp-card">
+        <div class="imp-head">
+          <div class="imp-ico ok"><i class="bi bi-printer-fill"></i></div>
+          <div style="flex:1">
+            <div class="imp-nombre">Impresora #5 <span style="font-weight:400;color:var(--text-muted)">— Bambu P1S</span></div>
+          </div>
+          <span class="badge-est ok">Operativa</span>
+        </div>
+        <div class="imp-stats">
+          <div class="imp-stat"><span>Último mant.</span><strong>27/08/2026</strong></div>
+          <div class="imp-stat"><span>Horas uso</span><strong>560 h</strong></div>
+          <div class="imp-stat"><span>Próximo mant.</span><strong>27/09/2026</strong></div>
+        </div>
+        <div class="imp-acciones">
+          <button class="btn-sec btn-sm" onclick="abrirDiagnostico(5,'Bambu P1S')"><i class="bi bi-search"></i> Diagnosticar</button>
+          <button class="btn-sec btn-sm" onclick="irARegistro('preventivo','imp5')"><i class="bi bi-tools"></i> Mant. Preventivo</button>
+        </div>
+      </div>
+
+      <!-- #7 EN DIAGNÓSTICO -->
+      <div class="imp-card warn">
+        <div class="imp-head">
+          <div class="imp-ico warn"><i class="bi bi-printer-fill"></i></div>
+          <div style="flex:1">
+            <div class="imp-nombre">Impresora #7 <span style="font-weight:400;color:var(--text-muted)">— Voron 2.4</span></div>
+          </div>
+          <span class="badge-est pend">Diagnóstico</span>
+        </div>
+        <div class="alerta-imp warn">
+          <i class="bi bi-thermometer-high"></i>
+          Temperatura de hotend inestable — En diagnóstico
+        </div>
+        <div class="imp-stats">
+          <div class="imp-stat"><span>Último mant.</span><strong>24/08/2026</strong></div>
+          <div class="imp-stat"><span>Horas uso</span><strong>1,780 h</strong></div>
+          <div class="imp-stat"><span>Prioridad</span><strong style="color:#B45309">Media</strong></div>
+        </div>
+        <div class="imp-acciones">
+          <button class="btn-sec btn-sm" onclick="abrirDiagnostico(7,'Voron 2.4')"><i class="bi bi-search"></i> Continuar Diagnóstico</button>
+          <button class="btn-sec btn-sm" onclick="probarFuncionamiento(7)"><i class="bi bi-play-circle"></i> Probar Funcionamiento</button>
+        </div>
+      </div>
+
+      <!-- #8 -->
+      <div class="imp-card">
+        <div class="imp-head">
+          <div class="imp-ico ok"><i class="bi bi-printer-fill"></i></div>
+          <div style="flex:1">
+            <div class="imp-nombre">Impresora #8 <span style="font-weight:400;color:var(--text-muted)">— Prusa XL</span></div>
+          </div>
+          <span class="badge-est ok">Operativa</span>
+        </div>
+        <div class="imp-stats">
+          <div class="imp-stat"><span>Último mant.</span><strong>20/08/2026</strong></div>
+          <div class="imp-stat"><span>Horas uso</span><strong>340 h</strong></div>
+          <div class="imp-stat"><span>Próximo mant.</span><strong>20/09/2026</strong></div>
+        </div>
+        <div class="imp-acciones">
+          <button class="btn-sec btn-sm" onclick="abrirDiagnostico(8,'Prusa XL')"><i class="bi bi-search"></i> Diagnosticar</button>
+          <button class="btn-sec btn-sm" onclick="irARegistro('preventivo','imp8')"><i class="bi bi-tools"></i> Mant. Preventivo</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Diagnóstico -->
+    <div class="modal-overlay" id="modalDiag" style="display:none">
+      <div class="modal-box">
+        <div class="modal-head">
+          <h3 id="modalDiagTitulo">Diagnóstico</h3>
+          <button class="modal-cerrar" onclick="cerrarModal('modalDiag')"><i class="bi bi-x-lg"></i></button>
+        </div>
+        <div class="modal-body">
+          <div class="campo-g">
+            <label class="campo-lbl">Síntoma Principal</label>
+            <input type="text" class="inp" id="diagSintoma" placeholder="Describe el síntoma observado..."/>
+          </div>
+          <div class="campo-g">
+            <label class="campo-lbl">Posible Causa</label>
+            <textarea class="inp inp-area" id="diagCausa" rows="3" placeholder="¿Cuál crees que es la causa?"></textarea>
+          </div>
+          <div class="campo-g">
+            <label class="campo-lbl">Nivel de Severidad</label>
+            <select class="inp" id="diagSeveridad">
+              <option value="baja">🟢 Baja — Puede seguir operando</option>
+              <option value="media">🟡 Media — Requiere atención pronto</option>
+              <option value="alta">🔴 Alta — Fuera de servicio</option>
+            </select>
+          </div>
+          <div class="campo-g">
+            <label class="campo-lbl">Acción Recomendada</label>
+            <select class="inp" id="diagAccion">
+              <option>Mantenimiento preventivo de rutina</option>
+              <option>Reemplazo de pieza</option>
+              <option>Reparación del sistema de calefacción</option>
+              <option>Calibración de sensores</option>
+              <option>Revisión eléctrica completa</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-foot">
+          <button class="btn-pri" onclick="guardarDiagnostico()"><i class="bi bi-floppy"></i> Guardar Diagnóstico</button>
+          <button class="btn-sec" onclick="cerrarModal('modalDiag')">Cancelar</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── MI PERFIL ── -->
+  <section id="sec-perfil" style="display:none">
+    <div class="page-header">
+      <div>
+        <h1 class="page-titulo">Mi Perfil</h1>
+        <p class="page-sub">Administra tu información personal</p>
+      </div>
+    </div>
+
+    <div class="grid-2col">
+      <div class="card-sec">
+        <h2 class="card-sec-titulo" style="margin-bottom:20px">Información Personal</h2>
+
+        <div style="text-align:center;margin-bottom:24px">
+          <div class="perfil-avatar" id="perfilAvatar">JR</div>
+          <div class="perfil-nombre-disp" id="perfilNombreDisplay">Juan Rodríguez</div>
+          <div style="font-size:13px;color:var(--text-muted)">Técnico de Mantenimiento</div>
+        </div>
+
+        <div class="fila-2">
+          <div class="campo-g">
+            <label class="campo-lbl">Nombre</label>
+            <input type="text" class="inp" id="perfilNombre" value="Juan"/>
+          </div>
+          <div class="campo-g">
+            <label class="campo-lbl">Apellido</label>
+            <input type="text" class="inp" id="perfilApellido" value="Rodríguez"/>
+          </div>
+        </div>
+        <div class="campo-g">
+          <label class="campo-lbl">Correo Electrónico</label>
+          <input type="email" class="inp" id="perfilEmail" value="juan.rodriguez@printsmart3d.co"/>
+        </div>
+        <div class="campo-g">
+          <label class="campo-lbl">Teléfono</label>
+          <input type="tel" class="inp" id="perfilTelefono" value="+57 300 123 4567"/>
+        </div>
+        <div class="campo-g">
+          <label class="campo-lbl">Especialidad</label>
+          <select class="inp" id="perfilEspecialidad">
+            <option selected>Mecánica de Impresión 3D</option>
+            <option>Electrónica y Firmware</option>
+            <option>Calibración y Precisión</option>
+            <option>Mantenimiento Industrial</option>
+          </select>
+        </div>
+        <div class="campo-g">
+          <label class="campo-lbl">Años de Experiencia</label>
+          <input type="number" class="inp" id="perfilExperiencia" value="4" min="0"/>
+        </div>
+        <div class="campo-g">
+          <label class="campo-lbl">Bio / Notas</label>
+          <textarea class="inp inp-area" id="perfilBio" rows="3"
+            >Técnico especializado en mantenimiento preventivo y correctivo de impresoras FDM y resina.</textarea>
+        </div>
+        <div class="btn-grupo">
+          <button class="btn-pri" onclick="guardarPerfil()"><i class="bi bi-floppy"></i> Guardar Cambios</button>
+        </div>
+      </div>
+
+      <div>
+        <div class="card-sec">
+          <h2 class="card-sec-titulo" style="margin-bottom:16px">Mis Estadísticas</h2>
+          <div class="stats-grid">
+            <div class="stat-item"><div class="stat-val" style="color:#5B21B6">89</div><div class="stat-lbl">Mant. totales</div></div>
+            <div class="stat-item"><div class="stat-val" style="color:#16A34A">97%</div><div class="stat-lbl">Tasa de éxito</div></div>
+            <div class="stat-item"><div class="stat-val" style="color:#B45309">1.8h</div><div class="stat-lbl">Tiempo promedio</div></div>
+            <div class="stat-item"><div class="stat-val" style="color:#2563EB">28</div><div class="stat-lbl">Este mes</div></div>
+          </div>
+        </div>
+
+        <div class="card-sec" style="margin-top:16px">
+          <h2 class="card-sec-titulo" style="margin-bottom:16px">Cambiar Contraseña</h2>
+          <div class="campo-g">
+            <label class="campo-lbl">Contraseña Actual</label>
+            <input type="password" class="inp" placeholder="••••••••"/>
+          </div>
+          <div class="campo-g">
+            <label class="campo-lbl">Nueva Contraseña</label>
+            <input type="password" class="inp" placeholder="••••••••"/>
+          </div>
+          <div class="campo-g">
+            <label class="campo-lbl">Confirmar Nueva Contraseña</label>
+            <input type="password" class="inp" placeholder="••••••••"/>
+          </div>
+          <button class="btn-pri" onclick="mostrarToast('Contraseña actualizada correctamente','success')">
+            <i class="bi bi-shield-lock"></i> Actualizar Contraseña
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div id="toastContainer" class="toast-container"></div>
+
+<script src="js/app.js"></script>
+<script src="js/tecnico.js"></script>
+</body>
+</html>

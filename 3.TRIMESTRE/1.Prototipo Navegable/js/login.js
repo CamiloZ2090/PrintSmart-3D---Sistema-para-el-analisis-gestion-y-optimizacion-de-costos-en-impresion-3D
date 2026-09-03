@@ -5,7 +5,8 @@
 const rolesDisponibles = {
   Admin:    true,
   Operador: true,
-  Cliente:  true
+  Cliente:  true,
+  Tecnico: true,
 };
 
 const datosRol = {
@@ -19,6 +20,10 @@ const datosRol = {
   },
   Cliente: {
     desc: "Registra tu cuenta para hacer pedidos, ver cotizaciones y seguimiento en tiempo real.",
+    descBloqueado: null
+  },
+  Tecnico: {                                                             
+    desc: "Panel de mantenimiento: diagnóstico, reparación e historial de intervenciones.",
     descBloqueado: null
   }
 };
@@ -193,11 +198,13 @@ function iniciarSesionModal() {
         window.location.href = "cliente.html";
       } else if (rolModalActual === "Operador") {
         window.location.href = "operador.html";
+      } else if (rolModalActual === "Tecnico") {  
+        window.location.href = "tecnico.html";     
       } else {
         window.location.href = "admin.html";
       }
-  }, 900);
-}
+    }, 900);
+  }   
 
 // REGISTRAR CLIENTE
 function registrarCliente() {

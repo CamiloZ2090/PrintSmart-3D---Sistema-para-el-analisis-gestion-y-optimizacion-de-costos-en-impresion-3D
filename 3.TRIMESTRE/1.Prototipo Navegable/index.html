@@ -16,6 +16,7 @@
   <!-- CSS propios -->
   <link rel="stylesheet" href="css/variables.css"/>
   <link rel="stylesheet" href="css/landing.css"/>
+  <link rel="stylesheet" href="css/style.css"/>
 </head>
 <body class="landing-body">
 
@@ -55,7 +56,7 @@
     <div>
       <div class="hero-badge">
         <div class="badge-pulse"></div>
-        PrintSmart 3D — ML Mecanizados SAS
+        PrintSmart 3D
       </div>
 
       <h1 class="hero-h1">
@@ -74,7 +75,7 @@
           onclick="document.getElementById('catalogo').scrollIntoView({behavior:'smooth'})">
           <i class="bi bi-box-seam"></i> Ver Catálogo
         </button>
-        <button class="btn-hero-s" onclick="abrirModal('Cliente')">
+        <button class="btn-hero-s" onclick="irARegistro()">
           <i class="bi bi-person-plus"></i> Cotizar Ahora
         </button>
       </div>
@@ -183,7 +184,7 @@
           </div>
           <div class="pfooter">
             <div>
-              <div class="pprecio">Desde $60.000 COP</div>
+              <div class="pprecio">Desde $180.000 COP</div>
               <div class="pmaterial">Material industrial</div>
             </div>
             <button class="btn-interes"
@@ -195,7 +196,7 @@
       </div>
 
       <!-- PRODUCTO 2 — MEDIUM -->
-      <div class="pcard medium" onclick="mostrarInteres('Figura Coleccionable pequeña')">
+      <div class="pcard medium" onclick="mostrarInteres('Figura Coleccionable')">
         <div class="pimg">
             <img src="img/9.jpeg"
               style="width:100%; height:100%; object-fit:cover;"/>
@@ -209,7 +210,7 @@
           <div class="pcategoria">Arte · Decoración</div>
           <div class="pfooter">
             <div>
-              <div class="pprecio">Desde$10.000 COP</div>
+              <div class="pprecio">$120.000 COP</div>
               <div class="pmaterial">Resina fotopolimérica</div>
             </div>
            <button class="btn-interes"
@@ -221,7 +222,7 @@
       </div>
 
       <!-- PRODUCTO 3 — MEDIUM -->
-      <div class="pcard medium" onclick="mostrarInteres('Miniatura Arquitectónica')">
+      <div class="pcard medium" onclick="mostrarInteres('Repisa Arquitectónica')">
         <div class="pimg">
           <img src="img/8.jpeg"
             style="width:100%; height:100%; object-fit:cover;"/>
@@ -235,11 +236,11 @@
           <div class="pcategoria">Maquetas · Arquitectura</div>
           <div class="pfooter">
             <div>
-              <div class="pprecio">Desde $80.000 COP</div>
+              <div class="pprecio">$150.000 COP</div>
               <div class="pmaterial">PLA Premium</div>
             </div>
             <button class="btn-interes"
-              onclick="event.stopPropagation(); mostrarInteres('Miniatura Arquitectónica')">
+              onclick="event.stopPropagation(); mostrarInteres('Repisa Arquitectónica')">
               <i class="bi bi-bag-plus"></i> Me interesa
             </button>
           </div>
@@ -263,7 +264,7 @@
           <div class="pnombre">Caricatura Coleccionable</div>
           <div class="pcategoria">Colección · Decoración</div>
           <div class="pfooter">
-            <div><div class="pprecio">Desde $60.000 COP</div></div>
+            <div><div class="pprecio">$45.000 COP</div></div>
             <button class="btn-interes"
               onclick="event.stopPropagation(); mostrarInteres('Caricatura Coleccionable')">
               <i class="bi bi-bag-plus"></i>
@@ -273,6 +274,7 @@
       </div>
 
       <!-- PRODUCTO 5 -->
+      <div class="pcard small" onclick="mostrarInteres('Animales Luminosos')">
       <div class="pcard small" onclick="mostrarInteres('Animales Luminosos')">
         <div class="pimg">
           <img src="img/5.jpeg"
@@ -284,8 +286,9 @@
           <div class="pnombre">Animales Luminosos</div>
           <div class="pcategoria">juguetes · Decoración</div>
           <div class="pfooter">
-            <div><div class="pprecio">Desde $40.000 COP</div></div>
+            <div><div class="pprecio">$38.000 COP</div></div>
             <button class="btn-interes"
+              onclick="event.stopPropagation(); mostrarInteres('Animales Luminosos')">
               onclick="event.stopPropagation(); mostrarInteres('Animales Luminosos')">
               <i class="bi bi-bag-plus"></i>
             </button>
@@ -306,7 +309,7 @@
           <div class="pnombre">Dragones espinozos</div>
           <div class="pcategoria">Juguetes · Colección</div>
           <div class="pfooter">
-            <div><div class="pprecio">Desde $40.000 COP</div></div>
+            <div><div class="pprecio">$72.000 COP</div></div>
             <button class="btn-interes"
               onclick="event.stopPropagation(); mostrarInteres('Dragones espinozos')">
               <i class="bi bi-bag-plus"></i>
@@ -316,7 +319,7 @@
       </div>
 
       <!-- PRODUCTO 7 -->
-      <div class="pcard small" onclick="mostrarInteres('Figuras en pareja')">
+      <div class="pcard small" onclick="mostrarInteres('Joyería en Resina')">
         <div class="pimg">
           <img src="img/2.jpeg"
               style="width:100%; height:100%; object-fit:cover;"/>
@@ -324,12 +327,12 @@
           <span class="pbadge">Match</span>
         </div>
         <div class="pbody">
-          <div class="pnombre">Figuras en pareja</div>
+          <div class="pnombre">Joyería en Resina</div>
           <div class="pcategoria">Moda · Accesorios</div>
           <div class="pfooter">
-            <div><div class="pprecio">Descuento $25.000 COP</div></div>
+            <div><div class="pprecio">$95.000 COP</div></div>
             <button class="btn-interes"
-              onclick="event.stopPropagation(); mostrarInteres('Figuras en pareja')">
+              onclick="event.stopPropagation(); mostrarInteres('Joyería en Resina')">
               <i class="bi bi-bag-plus"></i>
             </button>
           </div>
@@ -353,7 +356,7 @@
           <div class="pnombre">Llavero Equipos deportivos</div>
           <div class="pcategoria">Accesorios · Regalo</div>
           <div class="pfooter">
-            <div><div class="pprecio">desde $5.000 COP</div></div>
+            <div><div class="pprecio">$25.000 COP</div></div>
             <button class="btn-interes"
               onclick="event.stopPropagation(); mostrarInteres('Llavero Equipos deportivos')">
               <i class="bi bi-bag-plus"></i>
@@ -363,7 +366,7 @@
       </div>
 
       <!-- PRODUCTO 9 -->
-      <div class="pcard small" onclick="mostrarInteres('Figura Mini')">
+      <div class="pcard small" onclick="mostrarInteres('Carcasa Electrónica')">
         <div class="pimg">
           <img src="img/12.jpeg"
               style="width:100%; height:100%; object-fit:cover;"/>
@@ -371,12 +374,12 @@
           <span class="pbadge">Tecnología</span>
         </div>
         <div class="pbody">
-          <div class="pnombre">Figura Mini</div>
-          <div class="pcategoria">Colección · Figuras</div>
+          <div class="pnombre">Carcasa Electrónica</div>
+          <div class="pcategoria">Tech · Electrónica</div>
           <div class="pfooter">
-            <div><div class="pprecio">Desde $5.000 COP</div></div>
+            <div><div class="pprecio">$65.000 COP</div></div>
             <button class="btn-interes"
-              onclick="event.stopPropagation(); mostrarInteres('Figura Mini')">
+              onclick="event.stopPropagation(); mostrarInteres('Carcasa Electrónica')">
               <i class="bi bi-bag-plus"></i>
             </button>
           </div>
@@ -395,7 +398,7 @@
           <div class="pnombre">Llavero figuras</div>
           <div class="pcategoria">Accesorios · Regalo</div>
           <div class="pfooter">
-            <div><div class="pprecio">Desde $8.000 COP</div></div>
+            <div><div class="pprecio">$55.000 COP</div></div>
             <button class="btn-interes"
               onclick="event.stopPropagation(); mostrarInteres('Llavero figuras')">
               <i class="bi bi-bag-plus"></i>
@@ -416,7 +419,7 @@
           <div class="pnombre">Reptiles Articulados</div>
           <div class="pcategoria">Colección · Figuras</div>
           <div class="pfooter">
-            <div><div class="pprecio">$70.000 COP</div></div>
+            <div><div class="pprecio">$85.000 COP</div></div>
             <button class="btn-interes"
               onclick="event.stopPropagation(); mostrarInteres('Reptiles Articulados')">
               <i class="bi bi-bag-plus"></i>
@@ -758,7 +761,6 @@
       <div class="ftagline">Imagina · Diseña · Imprime</div>
       <div class="fdesc">
         Sistema de gestión y optimización de costos en impresión 3D.
-        Desarrollado para ML Mecanizados SAS.
       </div>
       <div class="fsocials">
         <a class="fsocial-btn" href="#"><i class="bi bi-instagram"></i></a>
@@ -796,6 +798,7 @@
         <li><a onclick="abrirModal('Cliente')">Portal Cliente</a></li>
         <li><a onclick="abrirModal('Admin')">Panel Admin</a></li>
         <li><a onclick="abrirModal('Operador')">Panel Operario</a></li>
+        <li><a onclick="abrirModal('Tecnico')">Panel Tecnico</a></li>
         <li><a href="#">Soporte técnico</a></li>
       </ul>
     </div>
@@ -803,8 +806,9 @@
   </div>
 
   <div class="footer-bottom">
-    <span>© 2025 PrintSmart 3D — ML Mecanizados SAS. Todos los derechos reservados.</span>
+    <span>© 2025 PrintSmart 3D. Todos los derechos reservados.</span>
     <span>Ficha SENA 3388486 · ADSO · CEET</span>
+    <span>Servicio Nacional De Aprendizaje</span>
   </div>
 </footer>
 
@@ -835,10 +839,16 @@
         onclick="selectModalRol('Operador', this)">
         <i class="bi bi-tools"></i> Operario
       </button>
+      <button class="mtab" id="tab-Operador"
+      onclick="selectModalRol('Operador', this)">
+      <i class="bi bi-tools"></i> Tecnico
+      </button>
       <button class="mtab" id="tab-Cliente"
         onclick="selectModalRol('Cliente', this)">
         <i class="bi bi-person"></i> Cliente
       </button>
+    </div>
+
     </div>
 
     <!-- Descripción del rol -->
@@ -847,6 +857,9 @@
       <span id="mRolTexto">
         Acceso total: usuarios, configuración, reportes financieros y control de toda la operación.
       </span>
+    </div>
+    <div class="role-desc" id="desc-Tecnico" style="display:none">
+    <span>Acceso al panel de mantenimiento, diagnóstico de impresoras e historial de intervenciones.</span>
     </div>
 
     <!-- SECCIÓN LOGIN (Admin / Operario) -->

@@ -817,9 +817,7 @@
                 margin-bottom:22px;flex-wrap:wrap;gap:12px;">
       <h1 class="sec-titulo">Calculadora de Costos</h1>
       <div style="display:flex;gap:10px;">
-        <button class="btn-primario" onclick="opCalcular()">
-          <i class="bi bi-play-fill"></i> Calcular Precio
-        </button>
+       
         <button class="btn-outline" onclick="opReiniciarCalc()">
           <i class="bi bi-arrow-counterclockwise"></i> Reiniciar
         </button>
@@ -833,7 +831,7 @@
 
         <!-- Parámetros de Impresión -->
         <div class="card-custom">
-          <div class="op-card-titulo" style="margin-bottom:14px;">
+          <div class="op-card-titulo">
             <i class="bi bi-sliders"
                style="color:var(--purple-600);margin-right:8px;"></i>Parámetros de Impresión
           </div>
@@ -852,55 +850,129 @@
                 <option value="650">TPU Flexible</option>
               </select>
             </div>
-            <div>
-              <label class="campo-label">Color de la Pieza</label>
-              <div class="op-color-picker" id="colorPickerOp">
-                <div class="op-color-swatch activo" style="background:#5B21B6;"
-                     onclick="opSelectColor(this,'Morado')"></div>
-                <div class="op-color-swatch" style="background:#1F2937;"
-                     onclick="opSelectColor(this,'Negro')"></div>
-                <div class="op-color-swatch" style="background:#EF4444;"
-                     onclick="opSelectColor(this,'Rojo')"></div>
-                <div class="op-color-swatch" style="background:#3B82F6;"
-                     onclick="opSelectColor(this,'Azul')"></div>
-                <div class="op-color-swatch"
-                     style="background:#F9FAFB;border:1px solid #E5E7EB;"
-                     onclick="opSelectColor(this,'Blanco')"></div>
-                <div class="op-color-swatch" style="background:#22C55E;"
-                     onclick="opSelectColor(this,'Verde')"></div>
-                <span style="font-size:11px;color:var(--text-muted);"
-                      id="colorSeleccionadoLbl">Morado</span>
+            <hr style="border-color:#F3F4F6;margin:0 0 16px;"/>
+
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
+              <div>
+                <label class="campo-label">Material</label>
+                <select class="select-form" id="calcMatOp" onchange="opCalcular()">
+                  <option value="450">PLA Premium (Purple)</option>
+                  <option value="390">PLA Estándar</option>
+                  <option value="520">PETG Tough</option>
+                  <option value="480">ABS Resistente</option>
+                  <option value="780">Nylon Carbon</option>
+                  <option value="950">Resina Alta Resolución</option>
+                  <option value="650">TPU Flexible</option>
+                </select>
+              </div>
+              <div>
+                <label class="campo-label">Color de la Pieza</label>
+                <div class="op-color-picker" id="colorPickerOp">
+                  <div class="op-color-swatch activo" style="background:#5B21B6;"
+                      onclick="opSelectColor(this,'Morado')"></div>
+                  <div class="op-color-swatch" style="background:#1F2937;"
+                      onclick="opSelectColor(this,'Negro')"></div>
+                  <div class="op-color-swatch" style="background:#EF4444;"
+                      onclick="opSelectColor(this,'Rojo')"></div>
+                  <div class="op-color-swatch" style="background:#3B82F6;"
+                      onclick="opSelectColor(this,'Azul')"></div>
+                  <div class="op-color-swatch"
+                      style="background:#F9FAFB;border:1px solid #E5E7EB;"
+                      onclick="opSelectColor(this,'Blanco')"></div>
+                  <div class="op-color-swatch" style="background:#22C55E;"
+                      onclick="opSelectColor(this,'Verde')"></div>
+                  <span style="font-size:11px;color:var(--text-muted);"
+                        id="colorSeleccionadoLbl">Morado</span>
+                </div>
+              </div>
+            </div>
+
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+              <div>
+                <label class="campo-label">Peso Estimado (gramos)</label>
+                <div style="position:relative;">
+                  <input type="number" class="campo-form" id="calcPesoOp"
+                        value="150" min="1" max="5000"
+                        style="padding-right:48px;" oninput="opCalcular()"/>
+                  <span style="position:absolute;right:30px;top:50%;transform:translateY(-50%);
+                              font-size:12px;color:var(--text-muted);font-weight:600;pointer-events:none;">g</span>
+                </div>
+              </div>
+              <div>
+                <label class="campo-label">Tiempo de Impresión</label>
+                <div style="position:relative;">
+                  <input type="number" class="campo-form" id="calcTiempoOp"
+                        value="12" min="0.5" max="999" step="0.5"
+                        style="padding-right:48px;" oninput="opCalcular()"/>
+                  <span style="position:absolute;right:30px;top:50%;transform:translateY(-50%);
+                              font-size:12px;color:var(--text-muted);font-weight:600;pointer-events:none;">hrs</span>
+                </div>
               </div>
             </div>
           </div>
 
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
-            <div>
-              <label class="campo-label">Peso Estimado (gramos)</label>
-              <div style="position:relative;">
-                <input type="number" class="campo-form" id="calcPesoOp"
-                       value="150" min="1" max="5000"
-                       oninput="opCalcular()"/>
-                <span style="position:absolute;right:12px;top:50%;transform:translateY(-50%);
-                             font-size:12px;color:var(--text-muted);font-weight:600;">g</span>
-              </div>
+          <!-- Configuración Energética -->
+          <div class="card-custom">
+            <div class="op-card-titulo" style="margin-bottom:14px;">
+              <i class="bi bi-lightning-charge"
+                style="color:var(--warning);margin-right:8px;"></i>Configuración Energética
             </div>
-            <div>
-              <label class="campo-label">Tiempo de Impresión</label>
-              <div style="position:relative;">
-                <input type="number" class="campo-form" id="calcTiempoOp"
-                       value="12" min="0.5" max="999" step="0.5"
-                       oninput="opCalcular()"/>
-                <span style="position:absolute;right:12px;top:50%;transform:translateY(-50%);
-                             font-size:12px;color:var(--text-muted);font-weight:600;">hrs</span>
+            <hr style="border-color:#F3F4F6;margin:0 0 16px;"/>
+
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+              <div>
+                <label class="campo-label">Costo por kWh</label>
+                <div class="campo-prefix">
+                  <span class="prefix-simbolo">$</span>
+                  <input type="number" class="campo-form" id="calcKwhOp"
+                        value="350" min="0" oninput="opCalcular()"/>
+                </div>
+              </div>
+              <div>
+                <label class="campo-label">Consumo Impresora (Watts)</label>
+                <div style="position:relative;">
+                  <input type="number" class="campo-form" id="calcWattsOp"
+                        value="350" min="0" style="padding-right:48px;" oninput="opCalcular()"/>
+                  <span style="position:absolute;right:30px;top:50%;transform:translateY(-50%);
+                              font-size:12px;color:var(--text-muted);font-weight:600;pointer-events:none;">W</span>
+                </div>
               </div>
             </div>
           </div>
+
+          <!-- Costos Operativos -->
+          <div class="card-custom">
+            <div class="op-card-titulo" style="margin-bottom:14px;">
+              <i class="bi bi-wallet2"
+                style="color:var(--success);margin-right:8px;"></i>Costos Operativos y Margen
+            </div>
+            <hr style="border-color:#F3F4F6;margin:0 0 16px;"/>
+
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+              <div>
+                <label class="campo-label">Mano de Obra por Hora</label>
+                <div class="campo-prefix">
+                  <span class="prefix-simbolo">$</span>
+                  <input type="number" class="campo-form" id="calcManoObraOp"
+                        value="15000" min="0" oninput="opCalcular()"/>
+                </div>
+              </div>
+              <div>
+                <label class="campo-label">Margen de Ganancia (%)</label>
+                <div style="position:relative;">
+                  <input type="number" class="campo-form" id="calcMargenOp"
+                        value="30" min="0" max="500" readonly style="padding-right:48px;" oninput="opCalcular()"/>
+                  <span style="position:absolute;right:30px;top:50%;transform:translateY(-50%);
+                              font-size:12px;color:var(--text-muted);font-weight:600;pointer-events:none;">%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
-
         <!-- Configuración Energética -->
         <div class="card-custom">
-          <div class="op-card-titulo" style="margin-bottom:14px;">
+          <div class="op-card-titulo">
             <i class="bi bi-lightning-charge"
                style="color:var(--warning);margin-right:8px;"></i>Configuración Energética
           </div>
@@ -929,7 +1001,7 @@
 
         <!-- Costos Operativos -->
         <div class="card-custom">
-          <div class="op-card-titulo" style="margin-bottom:14px;">
+          <div class="op-card-titulo">
             <i class="bi bi-wallet2"
                style="color:var(--success);margin-right:8px;"></i>Costos Operativos y Margen
           </div>
@@ -957,7 +1029,6 @@
         </div>
 
       </div>
-
       <!-- Panel resumen -->
       <div class="op-resumen-card">
         <div style="font-size:10px;font-weight:700;text-transform:uppercase;
@@ -1391,11 +1462,6 @@
 
 <!-- Toast container -->
 <div class="toast-container" id="toastContainer"></div>
-
-<!-- FAB -->
-<button class="op-fab" onclick="abrirModalMaterial()" title="Agregar trabajo">
-  <i class="bi bi-plus-lg"></i>
-</button>
 
 <!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
