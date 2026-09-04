@@ -9,7 +9,7 @@ window.addEventListener("DOMContentLoaded", () => {
     Admin:    { nombre: "Camilo Zambrano",  iniciales: "CZ", color: "#5B21B6" },
     Operador: { nombre: "Moises Stredel", iniciales: "MS", color: "#0F766E" },
     Cliente:  { nombre: "Yesenia Montoya", iniciales: "YM", color: "#2563EB" },
-    Tecnico:  { nombre: "Eilin Loaiza", iniciales: "EL", color: "#0369A1" }
+    Tecnico:  { nombre: "Eilin Martin", iniciales: "EM", color: "#0369A1" }
   };
 
   const datos = datosRol[rol] || datosRol["Admin"];

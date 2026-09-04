@@ -2,12 +2,12 @@
 
 // ── DATOS SIMULADOS DEL HISTORIAL ──
 let historialData = [
-  { id:"MNT-089", impresora:"Impresora #5", tipo:"preventivo",  tecnico:"Juan Rodríguez", fecha:"27/08/2026", duracion:"2h",   resultado:"ok",      fotos:3 },
-  { id:"MNT-088", impresora:"Impresora #2", tipo:"correctivo",  tecnico:"Juan Rodríguez", fecha:"25/08/2026", duracion:"3.5h", resultado:"reparado", fotos:5 },
-  { id:"MNT-087", impresora:"Impresora #7", tipo:"diagnostico", tecnico:"Juan Rodríguez", fecha:"24/08/2026", duracion:"1h",   resultado:"parcial",  fotos:2 },
-  { id:"MNT-086", impresora:"Impresora #1", tipo:"preventivo",  tecnico:"Juan Rodríguez", fecha:"22/08/2026", duracion:"2h",   resultado:"ok",      fotos:0 },
-  { id:"MNT-085", impresora:"Impresora #8", tipo:"preventivo",  tecnico:"Juan Rodríguez", fecha:"20/08/2026", duracion:"1.5h", resultado:"ok",      fotos:1 },
-  { id:"MNT-084", impresora:"Impresora #3", tipo:"correctivo",  tecnico:"Juan Rodríguez", fecha:"15/08/2026", duracion:"4h",   resultado:"reparado", fotos:7 },
+  { id:"MNT-089", impresora:"Impresora #5", tipo:"preventivo",  tecnico:"Eilin Martin", fecha:"27/08/2026", duracion:"2h",   resultado:"ok",      fotos:3 },
+  { id:"MNT-088", impresora:"Impresora #2", tipo:"correctivo",  tecnico:"Eilin Martin", fecha:"25/08/2026", duracion:"3.5h", resultado:"reparado", fotos:5 },
+  { id:"MNT-087", impresora:"Impresora #7", tipo:"diagnostico", tecnico:"Eilin Martin", fecha:"24/08/2026", duracion:"1h",   resultado:"parcial",  fotos:2 },
+  { id:"MNT-086", impresora:"Impresora #1", tipo:"preventivo",  tecnico:"Eilin Martin", fecha:"22/08/2026", duracion:"2h",   resultado:"ok",      fotos:0 },
+  { id:"MNT-085", impresora:"Impresora #8", tipo:"preventivo",  tecnico:"Eilin Martin", fecha:"20/08/2026", duracion:"1.5h", resultado:"ok",      fotos:1 },
+  { id:"MNT-084", impresora:"Impresora #3", tipo:"correctivo",  tecnico:"Eilin Martin", fecha:"15/08/2026", duracion:"4h",   resultado:"reparado", fotos:7 },
 ];
 
 let fotosRegistro = [];
