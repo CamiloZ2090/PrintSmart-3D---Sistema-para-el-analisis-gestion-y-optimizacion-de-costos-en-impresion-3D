@@ -1,20 +1,33 @@
 // TECNICO.JS — Lógica del panel Técnico
 
-// ── DATOS SIMULADOS DEL HISTORIAL ──
+// DATOS SIMULADOS DEL HISTORIAL 
 let historialData = [
-  { id:"MNT-089", impresora:"Impresora #5", tipo:"preventivo",  tecnico:"Eilin Martin", fecha:"27/08/2026", duracion:"2h",   resultado:"ok",      fotos:3 },
-  { id:"MNT-088", impresora:"Impresora #2", tipo:"correctivo",  tecnico:"Eilin Martin", fecha:"25/08/2026", duracion:"3.5h", resultado:"reparado", fotos:5 },
-  { id:"MNT-087", impresora:"Impresora #7", tipo:"diagnostico", tecnico:"Eilin Martin", fecha:"24/08/2026", duracion:"1h",   resultado:"parcial",  fotos:2 },
-  { id:"MNT-086", impresora:"Impresora #1", tipo:"preventivo",  tecnico:"Eilin Martin", fecha:"22/08/2026", duracion:"2h",   resultado:"ok",      fotos:0 },
-  { id:"MNT-085", impresora:"Impresora #8", tipo:"preventivo",  tecnico:"Eilin Martin", fecha:"20/08/2026", duracion:"1.5h", resultado:"ok",      fotos:1 },
-  { id:"MNT-084", impresora:"Impresora #3", tipo:"correctivo",  tecnico:"Eilin Martin", fecha:"15/08/2026", duracion:"4h",   resultado:"reparado", fotos:7 },
+  { id:"MNT-089", impresora:"Impresora #5", tipo:"preventivo",  tecnico:"Juan Rodríguez", fecha:"27/08/2026", duracion:"2h",   resultado:"ok",      fotos:3 },
+  { id:"MNT-088", impresora:"Impresora #2", tipo:"correctivo",  tecnico:"Juan Rodríguez", fecha:"25/08/2026", duracion:"3.5h", resultado:"reparado", fotos:5 },
+  { id:"MNT-087", impresora:"Impresora #7", tipo:"diagnostico", tecnico:"Juan Rodríguez", fecha:"24/08/2026", duracion:"1h",   resultado:"parcial",  fotos:2 },
+  { id:"MNT-086", impresora:"Impresora #1", tipo:"preventivo",  tecnico:"Juan Rodríguez", fecha:"22/08/2026", duracion:"2h",   resultado:"ok",      fotos:0 },
+  { id:"MNT-085", impresora:"Impresora #8", tipo:"preventivo",  tecnico:"Juan Rodríguez", fecha:"20/08/2026", duracion:"1.5h", resultado:"ok",      fotos:1 },
+  { id:"MNT-084", impresora:"Impresora #3", tipo:"correctivo",  tecnico:"Juan Rodríguez", fecha:"15/08/2026", duracion:"4h",   resultado:"reparado", fotos:7 },
 ];
 
 let fotosRegistro = [];
 let tipoMantActual = "preventivo";
 let impDiagActual  = null;
 
-// ── INIT ──
+// FILTROS DEL HISTORIAL (texto + tipo + fecha; se combinan entre sí)
+let filtroTexto = "";
+let filtroTipo  = "all";
+let filtroRango = "mes";           // debe coincidir con la 1ª opción del <select> de fecha
+let historialVisible = historialData; // último resultado filtrado (lo usa Exportar)
+
+// NOTIFICACIONES SIMULADAS (panel de la campana) 
+let notificacionesData = [
+  { icono:"bi-thermometer-high", tipo:"err",  texto:"Impresora #7 — temperatura del hotend inestable, requiere diagnóstico", tiempo:"Hace 20 min",     seccion:"impresoras", leida:false },
+  { icono:"bi-tools",            tipo:"warn", texto:"Mantenimiento correctivo pendiente — Impresora #3 (falla en extrusor)",   tiempo:"Hace 1 h",        seccion:"registro",   leida:false },
+  { icono:"bi-shield-check",     tipo:"ok",   texto:"Mantenimiento preventivo completado — Impresoras #1 y #2",               tiempo:"Ayer, 4:30 p.m.", seccion:"historial",  leida:true  },
+];
+
+// INIT 
 document.addEventListener("DOMContentLoaded", () => {
   // Fecha/hora por defecto en el formulario
   const ahora = new Date();
@@ -28,10 +41,12 @@ document.addEventListener("DOMContentLoaded", () => {
     if (el) el.value = nombreGuardado;
   }
 
-  renderizarHistorial(historialData);
+  aplicarFiltrosHistorial();
+  renderizarNotificaciones();
+  actualizarBadgeNotif();
 });
 
-// ── NAVEGACIÓN ──
+// NAVEGACIÓN 
 function irASeccion(id) {
   const nav = document.getElementById("nav-" + id) || document.querySelector(`[data-seccion="${id}"]`);
   mostrarSeccion(id, nav);
@@ -49,7 +64,7 @@ function irARegistro(tipo, impresora) {
   }, 80);
 }
 
-// ── TIPO DE MANTENIMIENTO ──
+// TIPO DE MANTENIMIENTO
 function setTipoMant(tipo, boton) {
   tipoMantActual = tipo;
   document.querySelectorAll(".tipo-tab").forEach(b => b.classList.remove("activo"));
@@ -61,7 +76,7 @@ function setTipoMant(tipo, boton) {
   actualizarPreview();
 }
 
-// ── CARGA DE FOTOS ──
+// CARGA DE FOTOS
 function cargarFotos(input) {
   const archivos = Array.from(input.files);
   if (!archivos.length) return;
@@ -131,7 +146,7 @@ function soltarFotos(e) {
   cargarFotos(input);
 }
 
-// ── PREVIEW EN TIEMPO REAL ──
+// PREVIEW EN TIEMPO REAL 
 function actualizarPreview() {
   const tecnico  = document.getElementById("regTecnico")?.value || "—";
   const sel      = document.getElementById("regImpresora");
@@ -139,10 +154,10 @@ function actualizarPreview() {
   const resultado = document.getElementById("regResultado")?.value || "ok";
 
   const mapRes = {
-    ok:      "✅ Funcionando",
-    parcial: "⚠️ Requiere seguimiento",
-    falla:   "❌ Falla grave",
-    reparado:"🔧 Reparado"
+    ok:      "Funcionando",
+    parcial: "Requiere seguimiento",
+    falla:   "Falla grave",
+    reparado:"Reparado"
   };
 
   const set = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
@@ -154,7 +169,7 @@ function actualizarPreview() {
   set("prev-fotos",     fotosRegistro.length + " imagen(es)");
 }
 
-// ── GUARDAR MANTENIMIENTO ──
+// GUARDAR MANTENIMIENTO
 function guardarMantenimiento() {
   const tecnico     = document.getElementById("regTecnico")?.value.trim();
   const impresora   = document.getElementById("regImpresora")?.value;
@@ -182,12 +197,12 @@ function guardarMantenimiento() {
     fotos:     fotosRegistro.length,
   });
 
-  mostrarToast(`✅ ${nuevoId} registrado correctamente`, "success");
+  mostrarToast(`${nuevoId} registrado correctamente`, "success");
   limpiarFormMant();
 
   setTimeout(() => {
     irASeccion("historial");
-    renderizarHistorial(historialData);
+    aplicarFiltrosHistorial();
   }, 1400);
 }
 
@@ -203,7 +218,7 @@ function limpiarFormMant() {
   actualizarPreview();
 }
 
-// ── HISTORIAL ──
+// HISTORIAL 
 function renderizarHistorial(datos) {
   const tbody = document.getElementById("cuerpoHistorial");
   if (!tbody) return;
@@ -244,25 +259,140 @@ function renderizarHistorial(datos) {
   `).join("");
 }
 
-function filtrarHistorial(texto) {
-  const q = texto.toLowerCase();
-  renderizarHistorial(historialData.filter(r =>
+// Convierte "DD/MM/YYYY" (formato usado en historialData) a un objeto Date
+function parsearFechaES(str) {
+  const [d, m, y] = str.split("/").map(Number);
+  return new Date(y, m - 1, d);
+}
+
+// Se usa el registro más reciente como "hoy" de referencia para los rangos
+// de fecha, así "Este mes" siempre muestra los datos vigentes del prototipo
+// aunque el reloj real del equipo esté en un mes distinto al de los datos.
+function obtenerFechaReferencia() {
+  const fechas = historialData.map(r => parsearFechaES(r.fecha));
+  return new Date(Math.max(...fechas));
+}
+
+// Aplica los 3 filtros juntos (texto + tipo + fecha) sobre historialData
+function aplicarFiltrosHistorial() {
+  const q = filtroTexto.toLowerCase();
+  let datos = historialData.filter(r =>
     r.id.toLowerCase().includes(q) ||
     r.impresora.toLowerCase().includes(q) ||
     r.tecnico.toLowerCase().includes(q)
-  ));
+  );
+
+  if (filtroTipo !== "all") {
+    datos = datos.filter(r => r.tipo === filtroTipo);
+  }
+
+  if (filtroRango !== "todo") {
+    const ref = obtenerFechaReferencia();
+    datos = datos.filter(r => {
+      const f = parsearFechaES(r.fecha);
+      if (filtroRango === "mes")    return f.getFullYear() === ref.getFullYear() && f.getMonth() === ref.getMonth();
+      if (filtroRango === "3meses") return f >= new Date(ref.getFullYear(), ref.getMonth() - 2, 1) && f <= ref;
+      if (filtroRango === "anio")   return f.getFullYear() === ref.getFullYear();
+      return true;
+    });
+  }
+
+  historialVisible = datos;
+  renderizarHistorial(datos);
+}
+
+function filtrarHistorial(texto) {
+  filtroTexto = texto;
+  aplicarFiltrosHistorial();
 }
 
 function filtrarHistorialTipo(tipo) {
-  renderizarHistorial(tipo === "all" ? historialData : historialData.filter(r => r.tipo === tipo));
+  filtroTipo = tipo;
+  aplicarFiltrosHistorial();
 }
 
+function filtrarHistorialFecha(rango) {
+  filtroRango = rango;
+  aplicarFiltrosHistorial();
+}
+
+// Exporta a CSV real los registros actualmente visibles (respeta los filtros activos)
 function exportarHistorial() {
-  mostrarToast("📊 Exportando historial...", "info");
-  setTimeout(() => mostrarToast("Historial exportado correctamente", "success"), 1500);
+  const datos = historialVisible.length ? historialVisible : historialData;
+
+  if (!datos.length) {
+    mostrarToast("No hay registros para exportar con los filtros actuales", "error");
+    return;
+  }
+
+  mostrarToast("Preparando exportación...", "info");
+
+  const encabezados = ["ID","Impresora","Tipo","Técnico","Fecha","Duración","Resultado","Fotos"];
+  const filas = datos.map(r => [r.id, r.impresora, r.tipo, r.tecnico, r.fecha, r.duracion, r.resultado, r.fotos]);
+  const csv = [encabezados, ...filas]
+    .map(fila => fila.map(campo => `"${String(campo).replace(/"/g, '""')}"`).join(","))
+    .join("\r\n");
+
+  // BOM al inicio para que Excel muestre bien tildes y "ñ"
+  const blob = new Blob(["\uFEFF" + csv], { type: "text/csv;charset=utf-8;" });
+
+  descargarBlob(blob, "Historial_Mantenimientos.csv", "text/csv", ".csv", "Archivo CSV").then(exportado => {
+    if (exportado) mostrarToast(`${datos.length} registro(s) exportado(s)`, "success");
+  });
 }
 
-// ── GESTIONAR IMPRESORAS ──
+// NOTIFICACIONES (panel de la campana en el topbar)
+function renderizarNotificaciones() {
+  const cont = document.getElementById("notifLista");
+  if (!cont) return;
+
+  if (!notificacionesData.length) {
+    cont.innerHTML = `<div style="padding:24px;text-align:center;color:var(--text-muted);font-size:12.5px">Sin notificaciones</div>`;
+    return;
+  }
+
+  cont.innerHTML = notificacionesData.map((n, i) => `
+    <div class="notif-item ${n.leida ? '' : 'sin-leer'}" onclick="irNotificacion(${i})">
+      <div class="notif-item-ico ${n.tipo}"><i class="bi ${n.icono}"></i></div>
+      <div>
+        <div class="notif-item-texto">${n.texto}</div>
+        <div class="notif-item-tiempo">${n.tiempo}</div>
+      </div>
+    </div>
+  `).join("");
+}
+
+function actualizarBadgeNotif() {
+  const dot = document.getElementById("notifDot");
+  if (!dot) return;
+  const sinLeer = notificacionesData.filter(n => !n.leida).length;
+  if (sinLeer > 0) {
+    dot.textContent = sinLeer;
+    dot.style.display = "flex";
+  } else {
+    dot.style.display = "none";
+  }
+}
+
+function irNotificacion(i) {
+  const n = notificacionesData[i];
+  if (!n) return;
+  n.leida = true;
+  const panel = document.getElementById("notifPanel");
+  if (panel) panel.style.display = "none";
+  renderizarNotificaciones();
+  actualizarBadgeNotif();
+  if (n.seccion) irASeccion(n.seccion);
+}
+
+function marcarTodasNotifsLeidas() {
+  notificacionesData.forEach(n => n.leida = true);
+  renderizarNotificaciones();
+  actualizarBadgeNotif();
+  mostrarToast("Notificaciones marcadas como leídas", "success");
+}
+
+// GESTIONAR IMPRESORAS
 function abrirDiagnostico(num, modelo) {
   impDiagActual = num;
   const titulo = document.getElementById("modalDiagTitulo");
@@ -282,7 +412,7 @@ function guardarDiagnostico() {
 }
 
 function probarFuncionamiento(num) {
-  mostrarToast(`🖨️ Iniciando prueba de funcionamiento — Impresora #${num}`, "info");
+  mostrarToast(`Iniciando prueba de funcionamiento — Impresora #${num}`, "info");
   setTimeout(() => mostrarToast(`Impresora #${num} funcionando correctamente`, "success"), 2000);
 }
 
@@ -291,7 +421,7 @@ function cerrarModal(id) {
   if (el) el.style.display = "none";
 }
 
-// ── PERFIL ──
+// PERFIL
 function guardarPerfil() {
   const nombre   = document.getElementById("perfilNombre")?.value.trim();
   const apellido = document.getElementById("perfilApellido")?.value.trim();

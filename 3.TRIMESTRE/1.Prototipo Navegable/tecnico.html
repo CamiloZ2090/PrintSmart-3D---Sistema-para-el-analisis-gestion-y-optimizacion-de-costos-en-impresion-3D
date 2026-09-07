@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>PrintSmart 3D | Técnico</title>
+  <title>PrintSmart 3D — Técnico</title>
   <link rel="icon" type="image/jpeg" href="assets/logo2.jpeg"/>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
@@ -12,7 +12,7 @@
 </head>
 <body>
 
-<!-- SIDEBAR -->
+<!-- ══ SIDEBAR ══ -->
 <aside class="sidebar">
   <div class="sidebar-logo">
     <div class="logo-icon"><img src="assets/logo2.jpeg" alt="Logo"/></div>
@@ -50,33 +50,41 @@
   </div>
 </aside>
 
-<!-- TOPBAR -->
+<!-- ══ TOPBAR ══ -->
 <div class="topbar">
   <input type="text" class="buscador-top" id="buscadorInput" placeholder="Buscar..."/>
   <div class="topbar-der">
-    <div class="notif-wrap">
+    <div class="notif-wrap" id="notifWrap" onclick="toggleNotificaciones(event)">
       <i class="bi bi-bell" style="font-size:18px; color:var(--text-mid)"></i>
-      <span class="notif-dot">2</span>
+      <span class="notif-dot" id="notifDot">2</span>
+
+      <div class="notif-panel" id="notifPanel" style="display:none" onclick="event.stopPropagation()">
+        <div class="notif-panel-head">
+          <span>Notificaciones</span>
+          <a onclick="marcarTodasNotifsLeidas()">Marcar todas como leídas</a>
+        </div>
+        <div class="notif-panel-lista" id="notifLista"></div>
+      </div>
     </div>
-    <div class="topbar-usuario">
+    <div class="topbar-usuario" onclick="irAPerfil()" title="Ir a Mi Perfil">
       <div class="topbar-avatar" id="topbarAvatar">JR</div>
       <div>
-        <div class="topbar-nombre" id="topbarNombre">Eilin Martin</div>
+        <div class="topbar-nombre" id="topbarNombre">Juan Rodríguez</div>
         <div class="topbar-rol"    id="topbarRol">TÉCNICO</div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- CONTENIDO PRINCIPAL -->
+<!-- ══ CONTENIDO PRINCIPAL ══ -->
 <main class="main-content">
 
-  <!-- DASHBOARD -->
+  <!-- ── DASHBOARD ── -->
   <section id="sec-dashboard">
     <div class="page-header">
       <div>
         <h1 class="page-titulo">Dashboard</h1>
-        <p class="page-sub">Resumen de tu jornada</p>
+        <p class="page-sub">Resumen de tu jornada 👋</p>
       </div>
     </div>
 
@@ -178,7 +186,7 @@
     </div>
   </section>
 
-  <!-- REGISTRAR MANTENIMIENTO -->
+  <!-- ── REGISTRAR MANTENIMIENTO ── -->
   <section id="sec-registro" style="display:none">
     <div class="page-header">
       <div>
@@ -222,12 +230,12 @@
           <label class="campo-lbl">Impresora <span class="req">*</span></label>
           <select class="inp" id="regImpresora" onchange="actualizarPreview()">
             <option value="">— Seleccionar impresora —</option>
-            <option value="imp1">Impresora #1 </option>
-            <option value="imp2">Impresora #2 </option>
-            <option value="imp3">Impresora #3 </option>
-            <option value="imp5">Impresora #5 </option>
-            <option value="imp7">Impresora #7 </option>
-            <option value="imp8">Impresora #8 </option>
+            <option value="imp1">Impresora #1 — Prusa MK4</option>
+            <option value="imp2">Impresora #2 — Bambu X1C</option>
+            <option value="imp3">Impresora #3 — Creality K1</option>
+            <option value="imp5">Impresora #5 — Bambu P1S</option>
+            <option value="imp7">Impresora #7 — Voron 2.4</option>
+            <option value="imp8">Impresora #8 — Prusa XL</option>
           </select>
         </div>
 
@@ -240,10 +248,10 @@
         <div class="campo-g">
           <label class="campo-lbl">Resultado</label>
           <select class="inp" id="regResultado" onchange="actualizarPreview()">
-            <option value="ok">Funcionando correctamente</option>
-            <option value="parcial">Requiere seguimiento</option>
-            <option value="falla">Falla grave | Fuera de servicio</option>
-            <option value="reparado">Reparado exitosamente</option>
+            <option value="ok">✅ Funcionando correctamente</option>
+            <option value="parcial">⚠️ Requiere seguimiento</option>
+            <option value="falla">❌ Falla grave — Fuera de servicio</option>
+            <option value="reparado">🔧 Reparado exitosamente</option>
           </select>
         </div>
 
@@ -316,7 +324,7 @@
     </div>
   </section>
 
-  <!-- HISTORIAL -->
+  <!-- ── HISTORIAL ── -->
   <section id="sec-historial" style="display:none">
     <div class="page-header">
       <div>
@@ -338,11 +346,11 @@
           <option value="correctivo">Correctivo</option>
           <option value="diagnostico">Diagnóstico</option>
         </select>
-        <select class="inp" style="max-width:160px">
-          <option>Este mes</option>
-          <option>Últimos 3 meses</option>
-          <option>Este año</option>
-          <option>Todo el historial</option>
+        <select class="inp" style="max-width:160px" onchange="filtrarHistorialFecha(this.value)">
+          <option value="mes">Este mes</option>
+          <option value="3meses">Últimos 3 meses</option>
+          <option value="anio">Este año</option>
+          <option value="todo">Todo el historial</option>
         </select>
       </div>
     </div>
@@ -360,7 +368,7 @@
     </div>
   </section>
 
-  <!-- GESTIONAR IMPRESORAS -->
+  <!-- ── GESTIONAR IMPRESORAS ── -->
   <section id="sec-impresoras" style="display:none">
     <div class="page-header">
       <div>
@@ -375,7 +383,7 @@
         <div class="imp-head">
           <div class="imp-ico ok"><i class="bi bi-printer-fill"></i></div>
           <div style="flex:1">
-            <div class="imp-nombre">Impresora #1 <span style="font-weight:400;color:var(--text-muted)"></span></div>
+            <div class="imp-nombre">Impresora #1 <span style="font-weight:400;color:var(--text-muted)">— Prusa MK4</span></div>
           </div>
           <span class="badge-est ok">Operativa</span>
         </div>
@@ -395,7 +403,7 @@
         <div class="imp-head">
           <div class="imp-ico ok"><i class="bi bi-printer-fill"></i></div>
           <div style="flex:1">
-            <div class="imp-nombre">Impresora #2 <span style="font-weight:400;color:var(--text-muted)"></span></div>
+            <div class="imp-nombre">Impresora #2 <span style="font-weight:400;color:var(--text-muted)">— Bambu X1C</span></div>
           </div>
           <span class="badge-est ok">Operativa</span>
         </div>
@@ -415,7 +423,7 @@
         <div class="imp-head">
           <div class="imp-ico err"><i class="bi bi-printer-fill"></i></div>
           <div style="flex:1">
-            <div class="imp-nombre">Impresora #3 <span style="font-weight:400;color:var(--text-muted)"></span></div>
+            <div class="imp-nombre">Impresora #3 <span style="font-weight:400;color:var(--text-muted)">— Creality K1</span></div>
           </div>
           <span class="badge-est err">Falla</span>
         </div>
@@ -439,7 +447,7 @@
         <div class="imp-head">
           <div class="imp-ico ok"><i class="bi bi-printer-fill"></i></div>
           <div style="flex:1">
-            <div class="imp-nombre">Impresora #5 <span style="font-weight:400;color:var(--text-muted)"></span></div>
+            <div class="imp-nombre">Impresora #5 <span style="font-weight:400;color:var(--text-muted)">— Bambu P1S</span></div>
           </div>
           <span class="badge-est ok">Operativa</span>
         </div>
@@ -459,7 +467,7 @@
         <div class="imp-head">
           <div class="imp-ico warn"><i class="bi bi-printer-fill"></i></div>
           <div style="flex:1">
-            <div class="imp-nombre">Impresora #7 <span style="font-weight:400;color:var(--text-muted)"></span></div>
+            <div class="imp-nombre">Impresora #7 <span style="font-weight:400;color:var(--text-muted)">— Voron 2.4</span></div>
           </div>
           <span class="badge-est pend">Diagnóstico</span>
         </div>
@@ -483,7 +491,7 @@
         <div class="imp-head">
           <div class="imp-ico ok"><i class="bi bi-printer-fill"></i></div>
           <div style="flex:1">
-            <div class="imp-nombre">Impresora #8 <span style="font-weight:400;color:var(--text-muted)"></span></div>
+            <div class="imp-nombre">Impresora #8 <span style="font-weight:400;color:var(--text-muted)">— Prusa XL</span></div>
           </div>
           <span class="badge-est ok">Operativa</span>
         </div>
@@ -518,9 +526,9 @@
           <div class="campo-g">
             <label class="campo-lbl">Nivel de Severidad</label>
             <select class="inp" id="diagSeveridad">
-              <option value="baja">Baja | Puede seguir operando</option>
-              <option value="media">Media | Requiere atención pronto</option>
-              <option value="alta">Alta | Fuera de servicio</option>
+              <option value="baja">🟢 Baja — Puede seguir operando</option>
+              <option value="media">🟡 Media — Requiere atención pronto</option>
+              <option value="alta">🔴 Alta — Fuera de servicio</option>
             </select>
           </div>
           <div class="campo-g">
@@ -542,7 +550,7 @@
     </div>
   </section>
 
-  <!-- MI PERFIL -->
+  <!-- ── MI PERFIL ── -->
   <section id="sec-perfil" style="display:none">
     <div class="page-header">
       <div>
@@ -557,23 +565,23 @@
 
         <div style="text-align:center;margin-bottom:24px">
           <div class="perfil-avatar" id="perfilAvatar">JR</div>
-          <div class="perfil-nombre-disp" id="perfilNombreDisplay">Eilin Martin</div>
+          <div class="perfil-nombre-disp" id="perfilNombreDisplay">Juan Rodríguez</div>
           <div style="font-size:13px;color:var(--text-muted)">Técnico de Mantenimiento</div>
         </div>
 
         <div class="fila-2">
           <div class="campo-g">
             <label class="campo-lbl">Nombre</label>
-            <input type="text" class="inp" id="perfilNombre" value="Eilin"/>
+            <input type="text" class="inp" id="perfilNombre" value="Juan"/>
           </div>
           <div class="campo-g">
             <label class="campo-lbl">Apellido</label>
-            <input type="text" class="inp" id="perfilApellido" value="Martin"/>
+            <input type="text" class="inp" id="perfilApellido" value="Rodríguez"/>
           </div>
         </div>
         <div class="campo-g">
           <label class="campo-lbl">Correo Electrónico</label>
-          <input type="email" class="inp" id="perfilEmail" value="eilin.Martin@printsmart3d.com"/>
+          <input type="email" class="inp" id="perfilEmail" value="juan.rodriguez@printsmart3d.co"/>
         </div>
         <div class="campo-g">
           <label class="campo-lbl">Teléfono</label>
@@ -590,7 +598,7 @@
         </div>
         <div class="campo-g">
           <label class="campo-lbl">Años de Experiencia</label>
-          <input type="number" class="inp" id="perfilExperiencia" value="2" min="0"/>
+          <input type="number" class="inp" id="perfilExperiencia" value="4" min="0"/>
         </div>
         <div class="campo-g">
           <label class="campo-lbl">Bio / Notas</label>

@@ -1,4 +1,3 @@
-
 // APP.JS — Navegación y utilidades globales
 
 // Al cargar la página, configurar el nombre del usuario y la navegación
@@ -9,7 +8,7 @@ window.addEventListener("DOMContentLoaded", () => {
     Admin:    { nombre: "Camilo Zambrano",  iniciales: "CZ", color: "#5B21B6" },
     Operador: { nombre: "Moises Stredel", iniciales: "MS", color: "#0F766E" },
     Cliente:  { nombre: "Yesenia Montoya", iniciales: "YM", color: "#2563EB" },
-    Tecnico:  { nombre: "Eilin Martin", iniciales: "EM", color: "#0369A1" }
+    Tecnico:  { nombre: "Eilin Loaiza", iniciales: "EL", color: "#0369A1" }
   };
 
   const datos = datosRol[rol] || datosRol["Admin"];
@@ -188,4 +187,56 @@ async function exportarPDF() {
       mostrarToast("PDF descargado", "success");
     }
   }
+}
+
+// DESCARGA GENÉRICA DE ARCHIVOS (usada por CSV, PDF, etc.)
+// Intenta abrir el diálogo "Guardar como"; si el navegador no lo soporta,
+// cae automáticamente en la descarga clásica por <a download>.
+// Devuelve true si el archivo se guardó, false si el usuario canceló el diálogo.
+async function descargarBlob(blob, nombreSugerido, mimeType, extension, descripcion = "Archivo") {
+  if ("showSaveFilePicker" in window) {
+    try {
+      const fileHandle = await window.showSaveFilePicker({
+        suggestedName: nombreSugerido,
+        types: [{ description: descripcion, accept: { [mimeType]: [extension] } }]
+      });
+      const writable = await fileHandle.createWritable();
+      await writable.write(blob);
+      await writable.close();
+      return true;
+    } catch (e) {
+      if (e.name === "AbortError") return false; // el usuario cerró el diálogo, no es un error
+      // si falla por otro motivo, seguimos con el método clásico de abajo
+    }
+  }
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = nombreSugerido;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+  return true;
+}
+
+// PANEL DE NOTIFICACIONES (topbar)
+function toggleNotificaciones(event) {
+  event.stopPropagation();
+  const panel = document.getElementById("notifPanel");
+  if (!panel) return;
+  panel.style.display = (panel.style.display === "block") ? "none" : "block";
+}
+
+// Cierra el panel de notificaciones al hacer clic en cualquier otro lugar de la página
+document.addEventListener("click", () => {
+  const panel = document.getElementById("notifPanel");
+  if (panel) panel.style.display = "none";
+});
+
+// IR AL PERFIL (clic en el avatar/nombre del topbar)
+function irAPerfil() {
+  if (!document.getElementById("sec-perfil")) return; // esta página no tiene sección de perfil
+  const nav = document.getElementById("nav-perfil");
+  mostrarSeccion("perfil", nav);
 }
