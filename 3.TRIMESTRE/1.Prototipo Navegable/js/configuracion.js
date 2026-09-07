@@ -1,4 +1,3 @@
-
 // CONFIGURACION.JS — Ajustes del sistema
 
 
@@ -8,8 +7,8 @@ function alternarMantenimiento(el) {
   const activado = el.classList.contains("on");
 
   if (activado) {
-    mostrarToast("🔧 Modo Mantenimiento ACTIVADO — usuarios no-admin serán redirigidos", "error");
+    mostrarToast("Modo Mantenimiento ACTIVADO — usuarios no-admin serán redirigidos", "error");
   } else {
-    mostrarToast("✅ Sistema accesible para todos los usuarios", "success");
+    mostrarToast("Sistema accesible para todos los usuarios", "success");
   }
 }

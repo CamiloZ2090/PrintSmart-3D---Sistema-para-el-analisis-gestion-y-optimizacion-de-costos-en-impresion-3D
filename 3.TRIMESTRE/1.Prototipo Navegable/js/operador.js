@@ -1,4 +1,3 @@
-
 // OPERADOR.JS — Panel del Operario
 // PrintSmart 3D · ML Mecanizados SAS
 
@@ -150,7 +149,7 @@ function opToggleNotif() {
         ${_opNotifItem("bi-thermometer-half","Cama B4 sobre temperatura objetivo (62°C)","Hace 1h","#FEF3C7","#F59E0B")}
         <div style="padding:12px 18px;border-top:1px solid #F3F4F6;text-align:center;">
           <span style="font-size:12.5px;color:#5B21B6;font-weight:600;cursor:pointer;"
-                onclick="mostrarToastOp('📬 Cargando todas las notificaciones...','info')">
+                onclick="mostrarToastOp('Cargando todas las notificaciones...','info')">
             Ver todas →
           </span>
         </div>
@@ -221,7 +220,7 @@ function opFiltrarEstadoMat(estado) {
 
 // MATERIALES — Reponer
 function opReponer(nombre) {
-  mostrarToastOp(`🔄 Solicitud de reposición enviada: ${nombre}`, "success");
+  mostrarToastOp(`Solicitud de reposición enviada: ${nombre}`, "success");
 }
 
 // MATERIALES — Eliminar fila
@@ -646,7 +645,7 @@ function opDescartarConfig() {
   if (cfgNombre) cfgNombre.value = nombre;
   if (cfgEmail)  cfgEmail.value  = email;
 
-  mostrarToastOp("↩Cambios descartados", "info");
+  mostrarToastOp("Cambios descartados", "info");
 }
 
 // CONFIGURACIÓN — Avatar
@@ -666,7 +665,7 @@ function opCambiarAvatar(input) {
     const inner = document.getElementById("opAvatarInner");
     if (inner) { inner.innerHTML = ""; const img2 = new Image(); img2.src = src; img2.style.cssText = "width:100%;height:100%;object-fit:cover;"; inner.appendChild(img2); }
 
-    mostrarToastOp("🖼️ Foto de perfil actualizada", "success");
+    mostrarToastOp("Foto de perfil actualizada", "success");
   };
   reader.readAsDataURL(archivo);
 }
@@ -710,8 +709,7 @@ function mostrarToastOp(mensaje, tipo = "info") {
 
   const t = document.createElement("div");
   t.className = "toast-item " + tipo;
-  const ico   = { success: "✅", error: "❌", info: "ℹ️" };
-  t.innerHTML = `<span>${ico[tipo] || "ℹ️"}</span><span>${mensaje}</span>`;
+  t.innerHTML = `<span>${mensaje}</span>`;
 
   c.appendChild(t);
   setTimeout(() => {

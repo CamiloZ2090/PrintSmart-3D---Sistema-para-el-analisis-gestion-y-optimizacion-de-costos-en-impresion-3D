@@ -1,4 +1,3 @@
-
 // MATERIALES.JS — Formulario de materiales
 
 // Sincronizar el selector de color con el campo de texto

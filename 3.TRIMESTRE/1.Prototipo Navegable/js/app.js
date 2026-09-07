@@ -102,8 +102,7 @@ function mostrarToast(mensaje, tipo = "info") {
   const toast = document.createElement("div");
   toast.className = "toast-item " + tipo;
 
-  const iconos = { success: "✅", error: "❌", info: "ℹ️" };
-  toast.innerHTML = `<span>${iconos[tipo] || "ℹ️"}</span><span>${mensaje}</span>`;
+  toast.innerHTML = `<span>${mensaje}</span>`;
 
   contenedor.appendChild(toast);
 
@@ -122,7 +121,7 @@ function alternarToggle(el) {
 }
 // Exportar PDF
 async function exportarPDF() {
-  mostrarToast("📄 Preparando exportación...", "info");
+  mostrarToast("Preparando exportación...", "info");
 
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF();

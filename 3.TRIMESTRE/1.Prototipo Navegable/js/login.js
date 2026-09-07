@@ -1,4 +1,3 @@
-
 // LOGIN.JS — Landing + Modal + Recuperación
 // PrintSmart 3D · ML Mecanizados SAS
 
@@ -214,10 +213,10 @@ function registrarCliente() {
   const term    = document.getElementById("terminos")?.checked;
   const mErrReg = document.getElementById("mErrReg");
 
-  if (!nombre)              { _mostrarError(mErrReg, "⚠️ Ingresa tu nombre completo."); return; }
-  if (!email?.includes("@"))  { _mostrarError(mErrReg, "⚠️ Ingresa un correo válido."); return; }
-  if (!pass || pass.length < 6) { _mostrarError(mErrReg, "⚠️ La contraseña debe tener al menos 6 caracteres."); return; }
-  if (!term)                { _mostrarError(mErrReg, "⚠️ Acepta los términos y condiciones."); return; }
+  if (!nombre)              { _mostrarError(mErrReg, "Ingresa tu nombre completo."); return; }
+  if (!email?.includes("@"))  { _mostrarError(mErrReg, "Ingresa un correo válido."); return; }
+  if (!pass || pass.length < 6) { _mostrarError(mErrReg, "La contraseña debe tener al menos 6 caracteres."); return; }
+  if (!term)                { _mostrarError(mErrReg, "Acepta los términos y condiciones."); return; }
 
   mErrReg.style.display = "none";
 
@@ -227,7 +226,7 @@ function registrarCliente() {
   sessionStorage.setItem("rolActual", "Cliente");
 
   _mostrarSeccion("secExito");
-  mostrarToast("✅ ¡Bienvenido, " + nombre.split(" ")[0] + "!", "success");
+  mostrarToast("¡Bienvenido, " + nombre.split(" ")[0] + "!", "success");
 
   // Redirigir al portal del cliente
   setTimeout(() => { window.location.href = "cliente.html"; }, 2000);
@@ -259,7 +258,7 @@ function enviarCodigoRecuperacion() {
   codigoRecuperacion = Math.floor(100000 + Math.random() * 900000).toString();
   errRec.style.display = "none";
 
-  mostrarToast("📧 Código enviado a " + emailRec, "info");
+  mostrarToast("Código enviado a " + emailRec, "info");
   setTimeout(() => mostrarToast("Código de prueba: " + codigoRecuperacion, "success"), 1200);
 
   // Pasar al paso 2
@@ -324,8 +323,7 @@ function mostrarToast(mensaje, tipo = "info") {
   if (!c) return;
   const t = document.createElement("div");
   t.className = "ltoast " + tipo;
-  const ico = { success: "✅", error: "❌", info: "ℹ️" };
-  t.innerHTML = `<span>${ico[tipo] || "ℹ️"}</span><span>${mensaje}</span>`;
+  t.innerHTML = `<span>${mensaje}</span>`;
   c.appendChild(t);
   setTimeout(() => {
     t.style.opacity = "0"; t.style.transition = "opacity 0.35s";

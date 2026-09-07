@@ -257,7 +257,7 @@ function confirmarNuevoTrabajo() {
     return;
   }
   mostrarToast(
-    `✅ Trabajo "${modelo || "Sin título"}" creado para ${cliente}`,
+    `Trabajo "${modelo || "Sin título"}" creado para ${cliente}`,
     "success"
   );
   cerrarNuevoTrabajo();
@@ -269,7 +269,7 @@ function confirmarNuevoTrabajo() {
 
 /*4. SIDEBAR — CENTRO DE AYUDA*/
 function mostrarCentroAyuda() {
-  mostrarToast("📖 Redirigiendo al Centro de Ayuda...", "info");
+  mostrarToast("Redirigiendo al Centro de Ayuda...", "info");
 }
 
 
@@ -333,18 +333,18 @@ function opcionesInventario() {
           ["Polvo Titanio Gr5", "850 kg", "Óptimo", "12 kg/día", "71 Días"],
         ];
         _descargarCSV(datos, "inventario_dashboard.csv");
-        mostrarToast("📥 Inventario exportado", "success");
+        mostrarToast("Inventario exportado", "success");
       },
     },
     {
       icono: "bi-arrow-clockwise",
       texto: "Actualizar datos",
-      fn: () => mostrarToast("✅ Datos actualizados", "success"),
+      fn: () => mostrarToast("Datos actualizados", "success"),
     },
     {
       icono: "bi-printer",
       texto: "Imprimir tabla",
-      fn: () => { mostrarToast("🖨 Enviando a impresora...", "info"); },
+      fn: () => { mostrarToast("Enviando a impresora...", "info"); },
     },
   ]);
 }
@@ -353,7 +353,7 @@ function opcionesInventario() {
 /* 8. DASHBOARD — APLICAR OPTIMIZACIÓN*/
 function aplicarOptimizacion(btn) {
   btn.disabled = true;
-  btn.innerHTML = "⏳ Aplicando optimización...";
+  btn.innerHTML = "Aplicando optimización...";
 
   setTimeout(() => {
     // Actualizar visualmente la Unidad 04 en el dashboard
@@ -367,8 +367,8 @@ function aplicarOptimizacion(btn) {
       if (info) info.innerHTML =
         '<i class="bi bi-clock me-1"></i>Asignada • Pedido Aeroespacial A8';
     }
-    mostrarToast("✅ Unidad 04 redirigida a pedidos aeroespaciales de alta prioridad", "success");
-    btn.innerHTML = "✅ Optimización Aplicada";
+    mostrarToast("Unidad 04 redirigida a pedidos aeroespaciales de alta prioridad", "success");
+    btn.innerHTML = "Optimización Aplicada";
   }, 1600);
 }
 
@@ -427,7 +427,7 @@ function aplicarFiltroMateriales(estado) {
 
 /* 11. MATERIALES — EXPORTAR CSV*/
 function exportarMateriales() {
-  mostrarToast("📥 Generando CSV de inventario...", "info");
+  mostrarToast("Generando CSV de inventario...", "info");
   const datos = [
     ["Material", "Tipo", "Proveedor", "Stock", "Punto Re-pedido", "Precio/Kg", "Estado"],
     ["PLA Carbon Fiber 1.75mm", "PLA",      "Proto-Pasta Inc.", "12.5 kg", "5.0 kg", "$45.00",  "Óptimo"],
@@ -436,14 +436,14 @@ function exportarMateriales() {
   ];
   setTimeout(() => {
     _descargarCSV(datos, "inventario_maestro.csv");
-    mostrarToast("✅ Inventario exportado correctamente", "success");
+    mostrarToast("Inventario exportado correctamente", "success");
   }, 600);
 }
 
 
 /* 12. MATERIALES — CLIC EN FILA (ver detalle) */
 function verDetalleMaterial(nombre, proveedor, stock, precio, estado) {
-  mostrarToast(`📦 ${nombre} · ${stock} · ${precio}/kg · Estado: ${estado}`, "info");
+  mostrarToast(`${nombre} · ${stock} · ${precio}/kg · Estado: ${estado}`, "info");
 }
 
 
@@ -499,7 +499,7 @@ function aplicarFiltroPedidos(estado) {
 
 /*14. PEDIDOS — EXPORTAR CSV*/
 function exportarPedidosCSV() {
-  mostrarToast("📥 Generando CSV de pedidos...", "info");
+  mostrarToast("Generando CSV de pedidos...", "info");
   const datos = [
     ["ID Pedido","Cliente","Contacto","Modelo","Material","Costo","Precio","Margen","Estado"],
     ["#PP-9382","Industrial Tech S.A.","Juan Pérez","Engranaje Helicoidal v2","PEEK Carbon-Filled","$1,240.00","$1,760.00","42.5%","Pendiente Técnico"],
@@ -508,7 +508,7 @@ function exportarPedidosCSV() {
   ];
   setTimeout(() => {
     _descargarCSV(datos, "pedidos_pendientes.csv");
-    mostrarToast("✅ CSV descargado: pedidos_pendientes.csv", "success");
+    mostrarToast("CSV descargado: pedidos_pendientes.csv", "success");
   }, 500);
 }
 
@@ -529,7 +529,7 @@ function cambiarPeriodoReporte(btn) {
 
 /*16. REPORTES — EXPORTAR EXCEL (CSV)*/
 function exportarExcel() {
-  mostrarToast("📊 Generando hoja Excel...", "info");
+  mostrarToast("Generando hoja Excel...", "info");
   const datos = [
     ["Mes","Ingresos","Gastos","Beneficio Neto","Margen %"],
     ["Julio 2023",   "$120,000","$45,000","$75,000","62.5%"],
@@ -540,17 +540,17 @@ function exportarExcel() {
   ];
   setTimeout(() => {
     _descargarCSV(datos, "reporte_financiero_q3.csv");
-    mostrarToast("✅ Reporte Excel descargado", "success");
+    mostrarToast("Reporte Excel descargado", "success");
   }, 600);
 }
 
 
 /*17. REPORTES — EXPORTAR PDF */
 function exportarPDFReporte() {
-  mostrarToast("⏳ Generando reporte PDF...", "info");
+  mostrarToast("Generando reporte PDF...", "info");
 
   if (!window.jspdf) {
-    setTimeout(() => mostrarToast("✅ Reporte PDF descargado", "success"), 1800);
+    setTimeout(() => mostrarToast("Reporte PDF descargado", "success"), 1800);
     return;
   }
 
@@ -613,14 +613,14 @@ function exportarPDFReporte() {
   );
 
   doc.save("reporte_desempeno_q3_2023.pdf");
-  setTimeout(() => mostrarToast("✅ Reporte PDF descargado", "success"), 400);
+  setTimeout(() => mostrarToast("Reporte PDF descargado", "success"), 400);
 }
 
 
 /*18. REPORTES — CLIC EN FILA DE OPERADORES*/
 function verDetalleOperador(nombre, turno, produccion, calidad, eficiencia) {
   mostrarToast(
-    `👷 ${nombre} (${turno}) — ${produccion} · Calidad: ${calidad} · Eficiencia: ${eficiencia}`,
+    `${nombre} (${turno}) — ${produccion} · Calidad: ${calidad} · Eficiencia: ${eficiencia}`,
     "info"
   );
 }
@@ -664,7 +664,7 @@ function _actualizarFooterUsuarios() {
 function guardarRegionales() {
   const idioma = document.getElementById("selectIdioma")?.value || "Español (Colombia)";
   const zona   = document.getElementById("selectZona")?.value   || "UTC-05:00 Bogotá";
-  mostrarToast(`✅ Preferencias guardadas · ${idioma} · ${zona}`, "success");
+  mostrarToast(`Preferencias guardadas · ${idioma} · ${zona}`, "success");
 }
 
 

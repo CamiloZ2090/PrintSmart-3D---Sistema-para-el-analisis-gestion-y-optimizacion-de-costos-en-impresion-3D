@@ -1,4 +1,3 @@
-
 // CHARTS.JS — Todos los gráficos con Chart.js
 
 // Guardamos las instancias de gráficos para no duplicarlos

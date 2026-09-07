@@ -103,7 +103,7 @@ function marcarNavActivo(navEl) {
 // CERRAR SESIÓN
 function cerrarSesionCliente() {
   sessionStorage.clear();
-  mostrarToastCliente("👋 Sesión cerrada correctamente", "info");
+  mostrarToastCliente("Sesión cerrada correctamente", "info");
   setTimeout(() => { window.location.href = "index.html"; }, 1200);
 }
 
@@ -136,7 +136,7 @@ function filtrarCatalogo(categoria, btnEl) {
   ).length;
 
   mostrarToastCliente(
-    `🔍 Mostrando ${total} producto${total !== 1 ? "s" : ""}`, "info"
+    `Mostrando ${total} producto${total !== 1 ? "s" : ""}`, "info"
   );
 }
 // CATÁLOGO — Pedir producto desde catálogo
@@ -162,7 +162,7 @@ function pedirProducto(nombre, precio) {
   // Asegurarse de estar en paso 1
   resetearPasos();
 
-  mostrarToastCliente("🛒 Producto añadido al formulario de pedido", "success");
+  mostrarToastCliente("Producto añadido al formulario de pedido", "success");
 }
 
 // REALIZAR PEDIDO — Cálculo de precio
@@ -330,7 +330,7 @@ function eliminarArchivo() {
       `<i class="bi bi-image-fill"></i><span>Sin imagen cargada</span>`;
   }
 
-  mostrarToastCliente("🗑️ Archivo eliminado", "info");
+  mostrarToastCliente("Archivo eliminado", "info");
 }
 
 // REALIZAR PEDIDO — Navegación entre pasos
@@ -367,15 +367,15 @@ function finalizarPedido() {
   const direccion = document.getElementById("envDireccion")?.value.trim();
 
   if (!nombre) {
-    mostrarToastCliente("⚠️ Ingresa tu nombre completo", "error");
+    mostrarToastCliente("Ingresa tu nombre completo", "error");
     return;
   }
   if (!email?.includes("@")) {
-    mostrarToastCliente("⚠️ Ingresa un correo válido", "error");
+    mostrarToastCliente("Ingresa un correo válido", "error");
     return;
   }
   if (!direccion) {
-    mostrarToastCliente("⚠️ Ingresa tu dirección de entrega", "error");
+    mostrarToastCliente("Ingresa tu dirección de entrega", "error");
     return;
   }
 
@@ -386,7 +386,7 @@ function finalizarPedido() {
 
   pasoActual = 3;
   _renderizarPasos();
-  mostrarToastCliente("🎉 ¡Pedido confirmado! " + idPedido, "success");
+  mostrarToastCliente("¡Pedido confirmado! " + idPedido, "success");
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
@@ -508,7 +508,7 @@ function toggleNotificaciones() {
         ${_notifItem("bi-info-circle","Nuevo material disponible: Carbono SLS","Hace 1 día","#EFF6FF","#2563EB")}
         <div style="padding:12px 18px;border-top:1px solid #F3F4F6;text-align:center;">
           <span style="font-size:12.5px;color:#5B21B6;font-weight:600;cursor:pointer;"
-                onclick="mostrarToastCliente('📬 Abriendo todas las notificaciones...','info')">
+                onclick="mostrarToastCliente('Abriendo todas las notificaciones...','info')">
             Ver todas las notificaciones →
           </span>
         </div>
@@ -625,7 +625,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function enviarEvaluacion() {
   if (puntajesEstrellas[1] === 0 || puntajesEstrellas[2] === 0) {
-    mostrarToastCliente("⚠️ Por favor califica ambos criterios", "error");
+    mostrarToastCliente("Por favor califica ambos criterios", "error");
     return;
   }
 
@@ -633,7 +633,7 @@ function enviarEvaluacion() {
   const promedio   = ((puntajesEstrellas[1] + puntajesEstrellas[2]) / 2).toFixed(1);
 
   mostrarToastCliente(
-    `⭐ Evaluación enviada. Promedio: ${promedio}/5 — ¡Gracias!`,
+    `Evaluación enviada. Promedio: ${promedio}/5 — ¡Gracias!`,
     "success"
   );
 
@@ -711,7 +711,7 @@ function cambiarAvatar(input) {
       clAvatar.appendChild(img);
     }
 
-    mostrarToastCliente("🖼️ Foto de perfil actualizada", "success");
+    mostrarToastCliente("Foto de perfil actualizada", "success");
   };
   reader.readAsDataURL(archivo);
 }
@@ -724,9 +724,7 @@ function mostrarToastCliente(mensaje, tipo = "info") {
   const toast = document.createElement("div");
   toast.className = "cl-toast " + tipo;
 
-  const iconos = { success: "✅", error: "❌", info: "ℹ️" };
-  toast.innerHTML =
-    `<span>${iconos[tipo] || "ℹ️"}</span><span>${mensaje}</span>`;
+  toast.innerHTML = `<span>${mensaje}</span>`;
 
   contenedor.appendChild(toast);
 
@@ -736,10 +734,7 @@ function mostrarToastCliente(mensaje, tipo = "info") {
     setTimeout(() => toast.remove(), 350);
   }, 3500);
 }
-
-// =============================================
 // TECLA ESC — Cerrar modales internos
-// =============================================
 document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") {
     const modalEval = document.getElementById("modalEval");

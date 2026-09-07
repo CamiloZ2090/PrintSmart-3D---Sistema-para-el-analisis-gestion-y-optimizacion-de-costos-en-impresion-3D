@@ -1,4 +1,3 @@
-
 // CALCULOS.JS — Calculadora de costos
 
 // Variables internas
@@ -67,7 +66,7 @@ function cargarArchivoSTL(input) {
     return;
   }
 
-  mostrarToast("📁 Cargando archivo STL...", "info");
+  mostrarToast("Cargando archivo STL...", "info");
 
   setTimeout(() => {
     // Actualizar el texto de la zona de carga
@@ -82,7 +81,7 @@ function cargarArchivoSTL(input) {
 
 // Generar cotización oficial
 function generarCotizacion() {
-  mostrarToast("📄 Generando cotización en PDF...", "info");
+  mostrarToast("Generando cotización en PDF...", "info");
   setTimeout(() => {
     mostrarToast("Cotización enviada al cliente por email", "success");
   }, 2000);
