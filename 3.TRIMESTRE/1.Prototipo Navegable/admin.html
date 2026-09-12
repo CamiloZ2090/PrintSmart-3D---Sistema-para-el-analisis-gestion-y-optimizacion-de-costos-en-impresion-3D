@@ -24,8 +24,10 @@
   <link rel="stylesheet" href="css/layout.css"/>
   <link rel="stylesheet" href="css/components.css"/>
   <link rel="stylesheet" href="css/secciones.css"/>
+  <link rel="stylesheet" href="css/sidebar_toggle.css"/>
 </head>
 <body>
+  <script>document.body.classList.toggle('sidebar-oculto', localStorage.getItem('ps3d_sidebar_oculto') === '1');</script>
 
   <!-- CONTENEDOR DE NOTIFICACIONES (Toasts)-->
   <div id="toastContainer" class="toast-container"></div>
@@ -1305,6 +1307,7 @@
   <script src="js/usuarios.js"></script>
   <script src="js/configuracion.js"></script>
   <script src="js/admin-funciones.js"></script>
+  <script src="js/sidebar_toggle.js"></script>
 
 </body>
 </html>
