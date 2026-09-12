@@ -1,0 +1,73 @@
+/* 
+   SIDEBAR-TOGGLE.CSS
+   Botón para ocultar / mostrar el menú lateral (sidebar).
+   Funciona en Admin, Operador, Cliente y Técnico, porque cubre
+   las distintas clases que usa cada rol para su sidebar/topbar/
+   contenido (.sidebar, .cl-sidebar, .contenido-principal, etc).
+
+   IMPORTANTE: este archivo debe cargarse DESPUÉS de las demás
+   hojas de estilo de cada página (variables.css, layout.css,
+   cliente.css, tecnico.css...) para poder anular, cuando el
+   sidebar está oculto, el margen/posición que esas hojas le
+   reservan al contenido.
+ */
+
+/* Transición suave del sidebar y de los elementos junto a él */
+.sidebar,
+.cl-sidebar {
+  transition: transform 0.3s ease;
+}
+.topbar,
+.cl-topbar,
+.contenido-principal,
+.cl-main,
+.main-content {
+  transition: margin-left 0.3s ease, left 0.3s ease;
+}
+
+/* Estado "oculto": se activa agregando la clase al <body> */
+body.sidebar-oculto .sidebar,
+body.sidebar-oculto .cl-sidebar {
+  transform: translateX(-100%);
+}
+body.sidebar-oculto .topbar,
+body.sidebar-oculto .cl-topbar,
+body.sidebar-oculto .contenido-principal,
+body.sidebar-oculto .cl-main,
+body.sidebar-oculto .main-content {
+  margin-left: 0 !important;
+  left: 0 !important;
+}
+
+/* Botón flotante que muestra/oculta el sidebar.
+   sidebar-toggle.js calcula "top" y "left" según el tamaño real
+   del sidebar/topbar de cada página, así que los valores de acá
+   son sólo un punto de partida razonable. */
+.btn-toggle-sidebar {
+  position: fixed;
+  top: 28px;
+  left: 260px;
+  transform: translate(-50%, -50%);
+  z-index: 500;
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 50%;
+  background: #1F2937;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.28);
+  transition: left 0.3s ease, top 0.3s ease, background 0.2s ease;
+}
+.btn-toggle-sidebar:hover {
+  background: #374151;
+}
+.btn-toggle-sidebar:focus-visible {
+  outline: 2px solid #A78BFA;
+  outline-offset: 2px;
+}
