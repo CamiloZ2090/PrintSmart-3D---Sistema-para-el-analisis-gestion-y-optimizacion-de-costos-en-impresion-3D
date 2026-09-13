@@ -74,6 +74,18 @@ function opIrA(seccion, navEl) {
   if (buscador) buscador.placeholder = placeholders[seccion] || "Buscar...";
 
   window.scrollTo({ top: 0, behavior: "smooth" });
+  opCerrarSidebar(); // en móvil, cierra el menú lateral al navegar; no hace nada en escritorio
+}
+
+// MENÚ MÓVIL — abrir/cerrar el sidebar como panel deslizable
+function opToggleSidebar() {
+  document.querySelector(".sidebar")?.classList.toggle("abierto");
+  document.getElementById("opSidebarBackdrop")?.classList.toggle("abierto");
+}
+
+function opCerrarSidebar() {
+  document.querySelector(".sidebar")?.classList.remove("abierto");
+  document.getElementById("opSidebarBackdrop")?.classList.remove("abierto");
 }
 
 function opMostrarSeccion(id) {
@@ -129,7 +141,7 @@ function opToggleNotif() {
       panel = document.createElement("div");
       panel.id = "opNotifPanel";
       panel.style.cssText = `
-        position:fixed; top:66px; right:16px; width:320px;
+        position:fixed; top:66px; right:16px; width:320px; max-width:calc(100vw - 32px);
         background:white; border:1px solid #E5E7EB;
         border-radius:14px; box-shadow:0 10px 40px rgba(0,0,0,0.12);
         z-index:500; overflow:hidden;
@@ -364,6 +376,86 @@ function opGuardarMaterial() {
   mostrarToastOp(`Material "${nombre}" guardado correctamente`, "success");
 }
 
+// TRABAJOS — Modal Nuevo Trabajo de Impresión
+function abrirModalTrabajo() {
+  document.getElementById("trabFormCliente").value      = "";
+  document.getElementById("trabFormDescripcion").value  = "";
+  document.getElementById("trabFormMaterial").selectedIndex  = 0;
+  document.getElementById("trabFormPrioridad").selectedIndex = 1;
+  document.getElementById("trabFormMaquina").selectedIndex   = 0;
+  document.getElementById("trabFormNotas").value         = "";
+
+  document.getElementById("opModalTrabajo").classList.add("abierto");
+  document.body.style.overflow = "hidden";
+}
+
+function opCerrarModalTrabajo(event) {
+  const ov = document.getElementById("opModalTrabajo");
+  if (event && event.target !== ov) return;
+  ov.classList.remove("abierto");
+  document.body.style.overflow = "";
+}
+
+function opCrearTrabajo() {
+  const cliente     = document.getElementById("trabFormCliente").value.trim();
+  const descripcion = document.getElementById("trabFormDescripcion").value.trim();
+  const material    = document.getElementById("trabFormMaterial").value;
+  const prioridad   = document.getElementById("trabFormPrioridad").value;
+  const maquina     = document.getElementById("trabFormMaquina").value;
+
+  if (!cliente) {
+    mostrarToastOp("El cliente / empresa es obligatorio", "error");
+    document.getElementById("trabFormCliente").focus();
+    return;
+  }
+  if (!descripcion) {
+    mostrarToastOp("Describe el modelo a imprimir", "error");
+    document.getElementById("trabFormDescripcion").focus();
+    return;
+  }
+
+  // Agregar el nuevo trabajo a la Cola de Impresión del dashboard
+  const primerItem = document.querySelector("#sec-dashboard .op-cola-item");
+  if (primerItem && primerItem.parentElement) {
+    const nuevoId = "PED-" + Math.floor(1000 + Math.random() * 9000);
+    const item = document.createElement("div");
+    item.className = "op-cola-item";
+    item.setAttribute(
+      "onclick",
+      `abrirDetallePedido('${nuevoId}','${descripcion}','pendiente',0,'${material}')`
+    );
+    item.innerHTML = `
+      <span class="op-cola-id">${nuevoId}</span>
+      <div style="flex:1;min-width:0;">
+        <div class="op-cola-nombre">${descripcion}</div>
+        <div class="op-cola-mat">${material} · En cola (${maquina.split(" — ")[0]})</div>
+        <div style="height:4px;background:#EDE9FE;border-radius:4px;
+                    overflow:hidden;margin-top:5px;">
+          <div style="width:0%;height:100%;
+                      background:var(--purple-600);border-radius:4px;"></div>
+        </div>
+      </div>
+    `;
+    item.style.opacity    = "0";
+    item.style.transition = "opacity 0.3s";
+    primerItem.parentElement.insertBefore(item, primerItem);
+    requestAnimationFrame(() => { item.style.opacity = "1"; });
+
+    // Actualizar el contador "N activos"
+    const badgeActivos = document.querySelector("#sec-dashboard .badge-subida");
+    if (badgeActivos) {
+      const n = parseInt(badgeActivos.textContent) || 0;
+      badgeActivos.textContent = (n + 1) + " activos";
+    }
+  }
+
+  opCerrarModalTrabajo();
+  mostrarToastOp(
+    `Trabajo creado para ${cliente} — prioridad ${prioridad}`,
+    "success"
+  );
+}
+
 // PEDIDOS — Filtrar por estado
 function opFiltrarPedidos(filtro, btnEl) {
   document.querySelectorAll(".op-filtro-btn").forEach(b => b.classList.remove("activo"));
@@ -396,7 +488,7 @@ function abrirDetallePedido(id, nombre, estado, pct, material) {
   document.getElementById("opModalNombre").textContent  = nombre;
   document.getElementById("opModalPct").textContent     = pct + "%";
   document.getElementById("opModalBarra").style.width  = pct + "%";
-  document.getElementById("opModalMat").textContent     = material;
+  document.getElementById("opModalPedidoMaterial").textContent = material;
 
   // Badge de estado
   const badge = document.getElementById("opModalEstadoBadge");
@@ -734,7 +826,7 @@ function _setWidth(id, pct) {
 document.addEventListener("keydown", e => {
   if (e.key !== "Escape") return;
 
-  const modales = ["opModalPedido", "opModalMat"];
+  const modales = ["opModalPedido", "opModalMat", "opModalTrabajo"];
   modales.forEach(id => {
     const m = document.getElementById(id);
     if (m?.classList.contains("abierto")) {

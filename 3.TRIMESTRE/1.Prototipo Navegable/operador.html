@@ -21,6 +21,7 @@
 <script>document.body.classList.toggle("sidebar-oculto", localStorage.getItem("ps3d_sidebar_oculto") === "1");</script>
 
 <!--SIDEBAR-->
+<!--SIDEBAR-->
 <aside class="sidebar">
 
   <div class="sidebar-marca">
@@ -59,8 +60,14 @@
 
 </aside>
 
+<div class="op-sidebar-backdrop" id="opSidebarBackdrop" onclick="opCerrarSidebar()"></div>
+
 <!--TOPBAR-->
 <header class="topbar">
+
+  <button class="op-menu-toggle" onclick="opToggleSidebar()" aria-label="Abrir menu">
+    <i class="bi bi-list"></i>
+  </button>
 
   <div class="buscador">
     <i class="bi bi-search buscador-icono"></i>
@@ -100,7 +107,7 @@
         <h1 class="sec-titulo">Dashboard Operativo</h1>
         <p class="sec-subtitulo">Centro de control de producción en tiempo real.</p>
       </div>
-      <button class="btn-primario" onclick="abrirModalMaterial()">
+      <button class="btn-primario" onclick="abrirModalTrabajo()">
         <i class="bi bi-plus-lg"></i> Nuevo Trabajo
       </button>
     </div>
@@ -434,6 +441,7 @@
           </select>
         </div>
 
+        <div class="op-tabla-scroll">
         <table class="tabla-custom" id="tablaMateriales">
           <thead>
             <tr>
@@ -591,6 +599,7 @@
 
           </tbody>
         </table>
+        </div>
 
         <!-- Paginación -->
         <div style="display:flex;align-items:center;justify-content:space-between;
@@ -835,21 +844,6 @@
           </div>
           <hr style="border-color:#F3F4F6;margin:0 0 16px;"/>
 
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
-            <div>
-              <label class="campo-label">Material</label>
-              <select class="select-form" id="calcMatOp" onchange="opCalcular()">
-                <option value="450">PLA Premium (Purple)</option>
-                <option value="390">PLA Estándar</option>
-                <option value="520">PETG Tough</option>
-                <option value="480">ABS Resistente</option>
-                <option value="780">Nylon Carbon</option>
-                <option value="950">Resina Alta Resolución</option>
-                <option value="650">TPU Flexible</option>
-              </select>
-            </div>
-            <hr style="border-color:#F3F4F6;margin:0 0 16px;"/>
-
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
               <div>
                 <label class="campo-label">Material</label>
@@ -907,65 +901,6 @@
                 </div>
               </div>
             </div>
-          </div>
-
-          <!-- Configuración Energética -->
-          <div class="card-custom">
-            <div class="op-card-titulo" style="margin-bottom:14px;">
-              <i class="bi bi-lightning-charge"
-                style="color:var(--warning);margin-right:8px;"></i>Configuración Energética
-            </div>
-            <hr style="border-color:#F3F4F6;margin:0 0 16px;"/>
-
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
-              <div>
-                <label class="campo-label">Costo por kWh</label>
-                <div class="campo-prefix">
-                  <span class="prefix-simbolo">$</span>
-                  <input type="number" class="campo-form" id="calcKwhOp"
-                        value="350" min="0" oninput="opCalcular()"/>
-                </div>
-              </div>
-              <div>
-                <label class="campo-label">Consumo Impresora (Watts)</label>
-                <div style="position:relative;">
-                  <input type="number" class="campo-form" id="calcWattsOp"
-                        value="350" min="0" style="padding-right:48px;" oninput="opCalcular()"/>
-                  <span style="position:absolute;right:30px;top:50%;transform:translateY(-50%);
-                              font-size:12px;color:var(--text-muted);font-weight:600;pointer-events:none;">W</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Costos Operativos -->
-          <div class="card-custom">
-            <div class="op-card-titulo" style="margin-bottom:14px;">
-              <i class="bi bi-wallet2"
-                style="color:var(--success);margin-right:8px;"></i>Costos Operativos y Margen
-            </div>
-            <hr style="border-color:#F3F4F6;margin:0 0 16px;"/>
-
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
-              <div>
-                <label class="campo-label">Mano de Obra por Hora</label>
-                <div class="campo-prefix">
-                  <span class="prefix-simbolo">$</span>
-                  <input type="number" class="campo-form" id="calcManoObraOp"
-                        value="15000" min="0" oninput="opCalcular()"/>
-                </div>
-              </div>
-              <div>
-                <label class="campo-label">Margen de Ganancia (%)</label>
-                <div style="position:relative;">
-                  <input type="number" class="campo-form" id="calcMargenOp"
-                        value="30" min="0" max="500" readonly style="padding-right:48px;" oninput="opCalcular()"/>
-                  <span style="position:absolute;right:30px;top:50%;transform:translateY(-50%);
-                              font-size:12px;color:var(--text-muted);font-weight:600;pointer-events:none;">%</span>
-                </div>
-              </div>
-            </div>
-          </div>
 
         </div>
         <!-- Configuración Energética -->
@@ -1340,7 +1275,7 @@
           Material
         </div>
         <div style="font-size:13px;font-weight:600;color:var(--text-mid);"
-             id="opModalMat">PLA Plus Deep Black</div>
+             id="opModalPedidoMaterial">PLA Plus Deep Black</div>
       </div>
       <div style="background:#F9FAFB;border-radius:8px;padding:10px 12px;
                   border:1px solid var(--border);">
@@ -1454,6 +1389,84 @@
         <i class="bi bi-floppy"></i> Guardar Material
       </button>
     </div>
+
+  </div>
+</div>
+
+<!--MODAL: NUEVO TRABAJO DE IMPRESIÓN-->
+<div class="op-modal-ov" id="opModalTrabajo"
+     onclick="opCerrarModalTrabajo(event)">
+  <div class="op-modal-box">
+    <button class="op-modal-close" onclick="opCerrarModalTrabajo()">
+      <i class="bi bi-x"></i>
+    </button>
+
+    <div style="font-size:18px;font-weight:800;color:var(--text-dark);margin-bottom:4px;">
+      Nuevo Trabajo de Impresión
+    </div>
+    <div style="font-size:13px;color:var(--text-muted);margin-bottom:20px;">
+      Completa los datos para registrar el trabajo.
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:14px;">
+      <div>
+        <label class="campo-label">Cliente / Empresa</label>
+        <input type="text" class="campo-form" id="trabFormCliente"
+               placeholder="Ej: Industrial Tech S.A."/>
+      </div>
+
+      <div>
+        <label class="campo-label">Descripción del Modelo</label>
+        <input type="text" class="campo-form" id="trabFormDescripcion"
+               placeholder="Ej: Engranaje Helicoidal v3"/>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+        <div>
+          <label class="campo-label">Material</label>
+          <select class="select-form" id="trabFormMaterial">
+            <option>PLA Carbon Fiber</option>
+            <option>PLA Premium (Purple)</option>
+            <option>PETG Tough</option>
+            <option>ABS Reinforced</option>
+            <option>Nylon Carbon</option>
+            <option>Resina Biocompatible</option>
+          </select>
+        </div>
+        <div>
+          <label class="campo-label">Prioridad</label>
+          <select class="select-form" id="trabFormPrioridad">
+            <option>Baja</option>
+            <option selected>Normal</option>
+            <option>Alta</option>
+            <option>Urgente</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <label class="campo-label">Máquina Asignada</label>
+        <select class="select-form" id="trabFormMaquina">
+          <option>Unidad 01 — Formlabs 3B+ (en uso)</option>
+          <option>Unidad 02 — Creality K1</option>
+          <option>Unidad 03 — Bambu X1</option>
+          <option>Unidad 04 — Prusa MK4</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="campo-label">Notas / Instrucciones especiales</label>
+        <textarea class="campo-form" id="trabFormNotas" rows="3"
+                  placeholder="Tolerancias, densidad de relleno, acabados, etc."
+                  style="width:100%;resize:vertical;font-family:inherit;"></textarea>
+      </div>
+    </div>
+
+    <button class="btn-primario"
+            style="justify-content:center;width:100%;margin-top:20px;"
+            onclick="opCrearTrabajo()">
+      <i class="bi bi-plus-circle"></i> Crear Trabajo de Impresión
+    </button>
 
   </div>
 </div>
