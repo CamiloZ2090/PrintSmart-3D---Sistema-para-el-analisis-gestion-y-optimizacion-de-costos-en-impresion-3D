@@ -1,0 +1,321 @@
+/*
+   RESPONSIVE.CSS — PrintSmart 3D
+   Capa ADICIONAL de estilos responsive. No reemplaza ni edita ninguna hoja
+   de estilos existente (variables/layout/components/secciones/[rol]/
+   sidebar_toggle.css siguen intactas): este archivo solo se ENLAZA al
+   final de cada <head>, así que sus reglas ganan la cascada de forma
+   natural. Se usa !important solo puntualmente, para anular estilos
+   inline (style="...") o clases de Bootstrap que no traen su propio
+   prefijo responsive (ej: col-6, col-3 sueltos).
+
+   Breakpoints (alineados con los col-md-* que ya usa admin.html):
+     ≤991.98px  → Tablet: el sidebar pasa a panel superpuesto (drawer)
+     ≤767.98px  → Tablet chico / móvil grande: grillas a 1-2 columnas,
+                  tablas con scroll horizontal, topbar se reorganiza
+     ≤575.98px  → Móvil: ajustes finos de tipografía/espaciado
+*/
+
+
+/*1. BASE DE SEGURIDAD — las 5 páginas, todos los tamaños*/
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { max-width: 100vw; overflow-x: hidden; }
+
+img, svg, video, canvas, iframe { max-width: 100%; height: auto; }
+
+/* Botón flotante que crea sidebar_toggle.js dinámicamente: que siempre
+   quede visible por encima del resto y sea fácil de tocar */
+.btn-toggle-sidebar { z-index: 1060; min-width: 34px; min-height: 34px; }
+
+
+/* 2. TABLAS — scroll horizontal en vez de desbordar la pantalla
+   (aplica a <table> sin importar su clase: tabla-custom, cl-tabla, tabla)*/
+@media (max-width: 767.98px) {
+  table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  table td, table th { white-space: nowrap; }
+}
+
+
+/*3. SIDEBAR + TOPBAR — patrón compartido (Admin, Cliente, Técnico)
+   Estas 3 páginas solo usan sidebar_toggle.js (clase "sidebar-oculto" en
+   <body>, visible por defecto). En vez de empujar el contenido, el sidebar
+   pasa a ser un panel fijo superpuesto para no romper el layout.*/
+@media (max-width: 991.98px) {
+  .sidebar, .cl-sidebar {
+    position: fixed !important;
+    top: 0; left: 0;
+    height: 100vh !important;
+    max-width: 82vw;
+    z-index: 1050;
+    transform: translateX(0);
+    transition: transform .3s ease;
+    box-shadow: 6px 0 28px rgba(0,0,0,.22);
+    overflow-y: auto;
+  }
+  body.sidebar-oculto .sidebar,
+  body.sidebar-oculto .cl-sidebar {
+    transform: translateX(-100%);
+  }
+
+  /* El contenido ya no necesita ceder espacio: el sidebar ahora flota encima */
+  .contenido-principal, .cl-main, .main-content {
+    margin-left: 0 !important;
+    width: 100% !important;
+  }
+
+  .topbar, .cl-topbar {
+    flex-wrap: wrap;
+    row-gap: 8px;
+    padding-left: 56px; /* espacio para el botón flotante de sidebar_toggle.js */
+  }
+}
+
+
+/*4. SIDEBAR + TOPBAR — patrón propio de Operador
+   Operador ya trae su propio botón (.op-menu-toggle), su propio backdrop
+   (#opSidebarBackdrop) y su propia clase de estado (.abierto), manejados
+   por operador.js (opToggleSidebar / opCerrarSidebar). Aquí solo se
+   completa el CSS que le da vida visual a ese mecanismo: oculto por
+   defecto, visible al añadir .abierto.*/
+@media (max-width: 991.98px) {
+  body:has(#opSidebarBackdrop) .sidebar {
+    position: fixed !important;
+    top: 0; left: 0;
+    height: 100vh !important;
+    max-width: 82vw;
+    z-index: 1050;
+    transform: translateX(-100%);
+    transition: transform .3s ease;
+    box-shadow: 6px 0 28px rgba(0,0,0,.22);
+    overflow-y: auto;
+  }
+  body:has(#opSidebarBackdrop) .sidebar.abierto {
+    transform: translateX(0);
+  }
+  body:has(#opSidebarBackdrop) .contenido-principal,
+  body:has(#opSidebarBackdrop) .main-content {
+    margin-left: 0 !important;
+    width: 100% !important;
+  }
+
+  #opSidebarBackdrop {
+    display: none;
+  }
+  #opSidebarBackdrop.abierto {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 15, 20, .45);
+    z-index: 1040;
+  }
+  .op-menu-toggle {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+  }
+}
+@media (min-width: 992px) {
+  /* En escritorio el botón hamburguesa y el backdrop de Operador no hacen falta */
+  .op-menu-toggle { display: none !important; }
+  #opSidebarBackdrop { display: none !important; }
+}
+
+
+/*5. GRILLAS Y TARJETAS GENÉRICAS — nombres de clase compartidos entre roles
+   (kpi-card/kpi-grid aparecen en Operador y Técnico; card-custom en Admin
+   y Operador). Se fuerza display:grid/flex + 1 columna para que funcionen
+   sin importar si el CSS original usaba grid, flex o floats.*/
+@media (max-width: 991.98px) {
+  .kpi-grid, .op-mat-kpis, .op-dashboard-grid,
+  .cl-grid-3-1, .imp-grid, .grid-2col {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px !important;
+  }
+}
+@media (max-width: 575.98px) {
+  .kpi-grid, .op-mat-kpis, .op-dashboard-grid,
+  .cl-grid-2, .cl-grid-3-1, .imp-grid, .grid-2col, .cl-cat-grid, .mat-grid {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+}
+
+/* Bootstrap: columnas SIN prefijo responsive (col-3 / col-4 / col-6 / col-8)
+   se quedan fijas en todos los tamaños si no se anulan aquí */
+@media (max-width: 767.98px) {
+  .col-3 { width: 50% !important; }
+}
+@media (max-width: 575.98px) {
+  .col-6, .col-8, .col-4 { width: 100% !important; }
+}
+
+
+/*6. BUSCADOR / LADO DERECHO DEL TOPBAR — que se achique en vez de desbordar*/
+@media (max-width: 767.98px) {
+  .topbar-derecha, .cl-topbar-der { flex-wrap: wrap; gap: 8px; }
+  .buscador, .cl-buscador {
+    flex: 1 1 140px;
+    min-width: 0;
+  }
+  .buscador input, .buscador-input, .cl-buscador input,
+  #buscadorInput, #opBuscador, input[type="search"] {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+}
+@media (max-width: 575.98px) {
+  /* En pantallas muy chicas el buscador pasa a su propia fila */
+  .buscador, .cl-buscador { flex-basis: 100%; order: 5; }
+}
+
+/* Nombre/rol del usuario: en topbars angostos basta con el avatar */
+@media (max-width: 575.98px) {
+  .usuario-perfil > div:not(.avatar):not([id*="Avatar"]),
+  .cl-usuario-perfil > div:not(.avatar):not([id*="Avatar"]) {
+    display: none;
+  }
+}
+
+
+/*7. ADMIN — ajustes específicos
+   (el grid principal ya usa row/col-md-* de Bootstrap y se adapta solo;
+   aquí solo se cubre lo que queda fuera de ese sistema)*/
+@media (max-width: 767.98px) {
+  .card-promo { padding: 20px !important; }
+  .grupo-botones { flex-wrap: wrap; }
+}
+
+
+/* 8. OPERADOR — ajustes específicos*/
+@media (max-width: 767.98px) {
+  .op-pedido-card, .op-cola-item {
+    flex-direction: column;
+    align-items: flex-start !important;
+    gap: 8px;
+  }
+  .op-badge-estado { align-self: flex-start; }
+  .op-detalle-flujo {
+    flex-direction: column;
+    align-items: flex-start !important;
+    gap: 10px;
+  }
+}
+@media (max-width: 575.98px) {
+  .op-modal-box { width: 94vw !important; max-width: 94vw !important; }
+}
+
+
+/*9. CLIENTE — ajustes específicos*/
+@media (max-width: 767.98px) {
+  .cl-cat-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .cl-stepper { flex-wrap: wrap; row-gap: 10px; }
+  .cl-tracker { overflow-x: auto; }
+}
+@media (max-width: 575.98px) {
+  .cl-cat-grid, .cl-grid-2 { grid-template-columns: 1fr !important; }
+  .cl-modal-box { width: 94vw !important; max-width: 94vw !important; }
+}
+
+
+/* 10. TÉCNICO — ajustes específicos (única página sin Bootstrap cargado)*/
+@media (max-width: 767.98px) {
+  .page-header { flex-direction: column; align-items: flex-start !important; gap: 10px; }
+  .filtros-row { flex-wrap: wrap; row-gap: 8px; }
+  .imp-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .tarea-item { flex-direction: column; align-items: flex-start !important; gap: 8px; }
+  .topbar-der { flex-wrap: wrap; gap: 8px; }
+}
+@media (max-width: 575.98px) {
+  .imp-grid, .grid-2col { grid-template-columns: 1fr !important; }
+  .campo-g { flex-direction: column; align-items: stretch !important; }
+  .modal-box { width: 94vw !important; max-width: 94vw !important; }
+}
+
+
+/* 11. INDEX / LANDING + LOGIN — ajustes específicos*/
+@media (max-width: 991.98px) {
+  .hero-inner {
+    display: flex !important;
+    flex-direction: column !important;
+    text-align: center;
+  }
+  .hero-visual { margin: 0 auto; max-width: 420px; }
+  .prod-fila-top, .prod-fila-mid, .prod-fila-bot {
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+  }
+  .features-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .footer-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 24px !important; }
+}
+@media (max-width: 767.98px) {
+  .lnav-links {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px 16px;
+    font-size: 14px;
+  }
+  .lnav-inner { flex-wrap: wrap; row-gap: 10px; justify-content: center; }
+  .stats-bar { flex-wrap: wrap; row-gap: 16px; justify-content: center; text-align: center; }
+  .proceso-steps { flex-direction: column; }
+  .mat-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .modal-box { width: 94vw !important; max-width: 94vw !important; }
+  #modalBox .mtab-row, .mtab-row { flex-wrap: wrap; }
+}
+@media (max-width: 575.98px) {
+  .features-grid, .footer-grid, .mat-grid { grid-template-columns: 1fr !important; }
+  .hero-btns { flex-direction: column; }
+  .hero-btns > * { width: 100%; }
+  .reg-form-card { padding: 20px !important; width: 100%; }
+}
+
+
+/* 12. FORMULARIOS — genérico, las 5 páginas*/
+@media (max-width: 575.98px) {
+  .campo-form, .select-form, textarea, input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]) {
+    width: 100%;
+    max-width: 100%;
+  }
+  .row.g-2 > [class*="col-"], .row.g-3 > [class*="col-"] {
+    margin-bottom: 8px;
+  }
+}
+
+
+/*13. TOASTS Y PANEL DE NOTIFICACIONES — que no se salgan de la pantalla*/
+@media (max-width: 575.98px) {
+  #toastContainer, #clToastContainer {
+    left: 12px !important;
+    right: 12px !important;
+    width: auto !important;
+    max-width: none !important;
+  }
+  .toast-item, .cl-toast-item { width: 100% !important; }
+
+  #notifPanel, .notif-panel {
+    position: fixed !important;
+    top: 64px !important;
+    left: 12px !important;
+    right: 12px !important;
+    width: auto !important;
+    max-width: none !important;
+  }
+}
+
+
+/*14. MODALES — genérico (Bootstrap .modal-dialog y modales propios)*/
+@media (max-width: 575.98px) {
+  .modal-dialog { margin: 10px; }
+  .modal-box, .cl-modal-box, .op-modal-box {
+    width: 94vw !important;
+    max-width: 94vw !important;
+    max-height: 88vh;
+    overflow-y: auto;
+  }
+}
