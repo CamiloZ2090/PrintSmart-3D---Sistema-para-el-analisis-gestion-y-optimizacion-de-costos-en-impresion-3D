@@ -18,6 +18,7 @@
 .cv-top button:hover{color:#fff}
 .cv-top b{font-size:17px}
 .cv-wrap{max-width:1100px;margin:22px auto 60px;padding:0 16px;display:grid;grid-template-columns:1fr 340px;gap:20px;align-items:start}
+.cv-wrap.solo{grid-template-columns:minmax(0,680px);justify-content:center;align-content:center;min-height:calc(100vh - 150px)}
 .cv-card{background:#fff;border-radius:12px;box-shadow:0 1px 4px rgba(59,7,100,.1);overflow:hidden}
 .cv-h{font-size:17px;font-weight:700;margin:22px 0 10px}
 

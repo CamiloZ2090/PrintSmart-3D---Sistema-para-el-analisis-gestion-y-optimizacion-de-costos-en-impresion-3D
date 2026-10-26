@@ -123,7 +123,7 @@ const Carrito = (() => {
     }
     v.innerHTML = `<div class="cv-top"><button data-a="seguir"><i class="bi bi-arrow-left"></i> Seguir comprando</button>
       <b>${modo === "pago" ? "Finalizar compra" : modo === "ok" ? "Pedido realizado" : "Carrito" + (n ? ` (${n})` : "")}</b></div>
-      <div class="cv-wrap"><div>${izq}</div>${der}</div>`;
+      <div class="cv-wrap${der ? "" : " solo"}"><div>${izq}</div>${der}</div>`;
   }
 
   function abrir(m) {
