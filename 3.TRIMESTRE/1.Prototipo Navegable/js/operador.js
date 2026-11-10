@@ -18,15 +18,15 @@ const LABELS_ESTADO = {
 
 // INICIO — Verificar sesión y cargar datos
 document.addEventListener("DOMContentLoaded", () => {
-  const rol = sessionStorage.getItem("rolActual");
-  const nombre = sessionStorage.getItem("clienteNombre");
-  const email = sessionStorage.getItem("clienteEmail");
+  const sesion = Auth.obtenerSesion();
 
-  // Redirigir si no hay sesión o el rol no es Operador
-  if (!rol || rol !== "Operador") {
-    window.location.href = "index.html";
+  if (!sesion || sesion.rol !== "Operador") {
+    Auth.cerrarSesion();
     return;
   }
+
+  const nombre = sesion.nombre;
+  const email = sesion.email;
 
   // Cargar nombre en la UI
   if (nombre) {

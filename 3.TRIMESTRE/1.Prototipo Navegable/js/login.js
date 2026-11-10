@@ -196,8 +196,58 @@ function iniciarSesionModal() {
 
   setTimeout(() => {
     // Guardar sesión
-    sessionStorage.setItem("rolActual", rolModalActual);
-    sessionStorage.setItem("clienteEmail", email);
+
+    function iniciarSesionModal() {
+      const email = document.getElementById("mEmail")?.value.trim();
+      const pass = document.getElementById("mPass")?.value;
+      const mErr = document.getElementById("mErr");
+      const btn = document.getElementById("btnLogin");
+
+      if (!Auth.rolValido(rolModalActual)) {
+        _mostrarError(mErr, "El rol seleccionado no es válido.");
+        return;
+      }
+
+      if (!email || !pass) {
+        _mostrarError(mErr, "Completa el correo y la contraseña.");
+        return;
+      }
+
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        _mostrarError(mErr, "Ingresa un correo electrónico válido.");
+        return;
+      }
+
+      mErr.style.display = "none";
+
+      btn.disabled = true;
+      btn.innerHTML =
+        '<i class="bi bi-arrow-repeat spin-icon"></i>&nbsp; Ingresando...';
+
+      setTimeout(() => {
+        try {
+          const partes = email.split("@")[0].split(/[._]/);
+
+          const nombre = partes
+            .map((p) => p.charAt(0).toUpperCase() + p.slice(1))
+            .join(" ");
+
+          Auth.crearSesionDemo({
+            rol: rolModalActual,
+            nombre,
+            email,
+          });
+
+          window.location.replace(Auth.RUTAS[rolModalActual]);
+        } catch (error) {
+          btn.disabled = false;
+          btn.innerHTML =
+            'Iniciar Sesión &nbsp;<i class="bi bi-arrow-right"></i>';
+
+          _mostrarError(mErr, error.message);
+        }
+      }, 500);
+    }
 
     // Nombre desde el email
     const partes = email.split("@")[0].split(/[._]/);
@@ -247,9 +297,11 @@ function registrarCliente() {
   mErrReg.style.display = "none";
 
   // Guardar en sessionStorage
-  sessionStorage.setItem("clienteNombre", nombre);
-  sessionStorage.setItem("clienteEmail", email);
-  sessionStorage.setItem("rolActual", "Cliente");
+  Auth.crearSesionDemo({
+    rol: "Cliente",
+    nombre: nombre,
+    email: email,
+  });
 
   _mostrarSeccion("secExito");
   mostrarToast("¡Bienvenido, " + nombre.split(" ")[0] + "!", "success");
@@ -557,9 +609,11 @@ function registrarClienteForm() {
   mErr.style.display = "none";
 
   // Guardar sesión
-  sessionStorage.setItem("clienteNombre", nombre);
-  sessionStorage.setItem("clienteEmail", email);
-  sessionStorage.setItem("rolActual", "Cliente");
+  Auth.crearSesionDemo({
+    rol: "Cliente",
+    nombre: nombre,
+    email: email,
+  });
 
   // Cambiar botón a loading
   const btn = document.querySelector(".reg-btn");

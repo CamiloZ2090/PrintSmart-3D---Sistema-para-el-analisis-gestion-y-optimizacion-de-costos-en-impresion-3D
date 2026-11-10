@@ -5,14 +5,15 @@
 
 document.addEventListener("DOMContentLoaded", () => {
   // Verificar que haya sesión activa
-  const rol = sessionStorage.getItem("rolActual");
-  const nombre = sessionStorage.getItem("clienteNombre");
-  const email = sessionStorage.getItem("clienteEmail");
+  const sesion = Auth.obtenerSesion();
 
-  if (!rol) {
-    window.location.href = "index.html";
+  if (!sesion || sesion.rol !== "Cliente") {
+    Auth.cerrarSesion();
     return;
   }
+
+  const nombre = sesion.nombre;
+  const email = sesion.email;
 
   // Cargar datos del usuario en la UI
   if (nombre) {
