@@ -40,15 +40,15 @@ function crearGraficoIngresos() {
           label: "Ingresos 2024",
           data: [38000, 52000, 95000, 72000, 110000, 142000],
           backgroundColor: "#3B0764",
-          borderRadius: 6
+          borderRadius: 6,
         },
         {
           label: "Proyección",
           data: [42000, 58000, 88000, 80000, 125000, 155000],
           backgroundColor: "#C4B5FD",
-          borderRadius: 6
-        }
-      ]
+          borderRadius: 6,
+        },
+      ],
     },
     options: {
       responsive: true,
@@ -56,17 +56,16 @@ function crearGraficoIngresos() {
       scales: {
         y: {
           grid: { color: "#F3F4F6" },
-          ticks: { color: "#9CA3AF", font: { size: 11 } }
+          ticks: { color: "#9CA3AF", font: { size: 11 } },
         },
         x: {
           grid: { display: false },
-          ticks: { color: "#9CA3AF", font: { size: 11 } }
-        }
-      }
-    }
+          ticks: { color: "#9CA3AF", font: { size: 11 } },
+        },
+      },
+    },
   });
 }
-
 
 // GRÁFICO: Mini barras de consumo (Materiales KPI)
 
@@ -79,17 +78,19 @@ function crearGraficoMiniMat() {
     type: "bar",
     data: {
       labels: ["", "", "", ""],
-      datasets: [{
-        data: [60, 75, 85, 70],
-        backgroundColor: ["#C4B5FD", "#8B5CF6", "#5B21B6", "#8B5CF6"],
-        borderRadius: 3
-      }]
+      datasets: [
+        {
+          data: [60, 75, 85, 70],
+          backgroundColor: ["#C4B5FD", "#8B5CF6", "#5B21B6", "#8B5CF6"],
+          borderRadius: 3,
+        },
+      ],
     },
     options: {
       responsive: true,
       plugins: { legend: { display: false }, tooltip: { enabled: false } },
-      scales: { y: { display: false }, x: { display: false } }
-    }
+      scales: { y: { display: false }, x: { display: false } },
+    },
   });
 }
 
@@ -109,24 +110,30 @@ function crearGraficoConsumo() {
           label: "Stock Real",
           data: [20, 35, 55, 40],
           backgroundColor: "#3B0764",
-          borderRadius: 4
+          borderRadius: 4,
         },
         {
           label: "Proyección",
           data: [25, 40, 60, 50],
           backgroundColor: "#C4B5FD",
-          borderRadius: 4
-        }
-      ]
+          borderRadius: 4,
+        },
+      ],
     },
     options: {
       responsive: true,
       plugins: { legend: { display: false } },
       scales: {
-        y: { grid: { color: "#F9FAFB" }, ticks: { color: "#9CA3AF", font: { size: 10 } } },
-        x: { grid: { display: false }, ticks: { color: "#9CA3AF", font: { size: 10 } } }
-      }
-    }
+        y: {
+          grid: { color: "#F9FAFB" },
+          ticks: { color: "#9CA3AF", font: { size: 10 } },
+        },
+        x: {
+          grid: { display: false },
+          ticks: { color: "#9CA3AF", font: { size: 10 } },
+        },
+      },
+    },
   });
 }
 
@@ -146,24 +153,30 @@ function crearGraficoReporte() {
           label: "Ingresos",
           data: [120000, 145000, 98000, 189000],
           backgroundColor: "#1E0A3C",
-          borderRadius: 6
+          borderRadius: 6,
         },
         {
           label: "Gastos",
           data: [45000, 58000, 38000, 72000],
           backgroundColor: "#8B5CF6",
-          borderRadius: 6
-        }
-      ]
+          borderRadius: 6,
+        },
+      ],
     },
     options: {
       responsive: true,
       plugins: { legend: { display: false } },
       scales: {
-        y: { grid: { color: "#F3F4F6" }, ticks: { color: "#9CA3AF", font: { size: 11 } } },
-        x: { grid: { display: false }, ticks: { color: "#9CA3AF", font: { size: 11 } } }
-      }
-    }
+        y: {
+          grid: { color: "#F3F4F6" },
+          ticks: { color: "#9CA3AF", font: { size: 11 } },
+        },
+        x: {
+          grid: { display: false },
+          ticks: { color: "#9CA3AF", font: { size: 11 } },
+        },
+      },
+    },
   });
 }
 
@@ -178,16 +191,18 @@ function crearGraficoDesp() {
     type: "doughnut",
     data: {
       labels: ["Calibración", "Errores", "Corte"],
-      datasets: [{
-        data: [65, 25, 10],
-        backgroundColor: ["#3B0764", "#8B5CF6", "#C4B5FD"],
-        borderWidth: 0
-      }]
+      datasets: [
+        {
+          data: [65, 25, 10],
+          backgroundColor: ["#3B0764", "#8B5CF6", "#C4B5FD"],
+          borderWidth: 0,
+        },
+      ],
     },
     options: {
       responsive: false,
       plugins: { legend: { display: false } },
-      cutout: "65%"
-    }
+      cutout: "65%",
+    },
   });
 }

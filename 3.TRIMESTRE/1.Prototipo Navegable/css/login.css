@@ -3,7 +3,7 @@
 /* Fondo con gradiente suave */
 .login-page {
   min-height: 100vh;
-  background: linear-gradient(135deg, #F5F3FF 0%, #ffffff 60%, #EDE9FE 100%);
+  background: linear-gradient(135deg, #f5f3ff 0%, #ffffff 60%, #ede9fe 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -130,7 +130,7 @@
 /* Input del login */
 .campo-input {
   width: 100%;
-  border: 1px solid #E5E7EB;
+  border: 1px solid #e5e7eb;
   border-radius: 10px;
   padding: 10px 14px 10px 40px;
   font-size: 14px;
@@ -163,7 +163,9 @@
   text-decoration: none;
 }
 
-.link-olvide:hover { text-decoration: underline; }
+.link-olvide:hover {
+  text-decoration: underline;
+}
 
 /* Checkbox */
 .check-custom {
@@ -191,7 +193,9 @@
   font-weight: 600;
   font-family: var(--fuente);
   cursor: pointer;
-  transition: background 0.2s, transform 0.1s;
+  transition:
+    background 0.2s,
+    transform 0.1s;
 }
 
 .btn-login:hover {
@@ -199,7 +203,9 @@
   transform: translateY(-1px);
 }
 
-.btn-login:active { transform: translateY(0); }
+.btn-login:active {
+  transform: translateY(0);
+}
 
 /* Texto inferior */
 .texto-soporte {
@@ -214,4 +220,6 @@
   text-decoration: none;
 }
 
-.link-soporte:hover { text-decoration: underline; }
+.link-soporte:hover {
+  text-decoration: underline;
+}

@@ -1,33 +1,110 @@
 // TECNICO.JS — Lógica del panel Técnico
 
-// DATOS SIMULADOS DEL HISTORIAL 
+// DATOS SIMULADOS DEL HISTORIAL
 let historialData = [
-  { id:"MNT-089", impresora:"Impresora #5", tipo:"preventivo",  tecnico:"Eilin Martin", fecha:"27/08/2026", duracion:"2h",   resultado:"ok",      fotos:3 },
-  { id:"MNT-088", impresora:"Impresora #2", tipo:"correctivo",  tecnico:"Eilin Martin", fecha:"25/08/2026", duracion:"3.5h", resultado:"reparado", fotos:5 },
-  { id:"MNT-087", impresora:"Impresora #7", tipo:"diagnostico", tecnico:"Eilin Martin", fecha:"24/08/2026", duracion:"1h",   resultado:"parcial",  fotos:2 },
-  { id:"MNT-086", impresora:"Impresora #1", tipo:"preventivo",  tecnico:"Eilin Martin", fecha:"22/08/2026", duracion:"2h",   resultado:"ok",      fotos:0 },
-  { id:"MNT-085", impresora:"Impresora #8", tipo:"preventivo",  tecnico:"Eilin Martin", fecha:"20/08/2026", duracion:"1.5h", resultado:"ok",      fotos:1 },
-  { id:"MNT-084", impresora:"Impresora #3", tipo:"correctivo",  tecnico:"Eilin Martin", fecha:"15/08/2026", duracion:"4h",   resultado:"reparado", fotos:7 },
+  {
+    id: "MNT-089",
+    impresora: "Impresora #5",
+    tipo: "preventivo",
+    tecnico: "Eilin Martin",
+    fecha: "27/08/2026",
+    duracion: "2h",
+    resultado: "ok",
+    fotos: 3,
+  },
+  {
+    id: "MNT-088",
+    impresora: "Impresora #2",
+    tipo: "correctivo",
+    tecnico: "Eilin Martin",
+    fecha: "25/08/2026",
+    duracion: "3.5h",
+    resultado: "reparado",
+    fotos: 5,
+  },
+  {
+    id: "MNT-087",
+    impresora: "Impresora #7",
+    tipo: "diagnostico",
+    tecnico: "Eilin Martin",
+    fecha: "24/08/2026",
+    duracion: "1h",
+    resultado: "parcial",
+    fotos: 2,
+  },
+  {
+    id: "MNT-086",
+    impresora: "Impresora #1",
+    tipo: "preventivo",
+    tecnico: "Eilin Martin",
+    fecha: "22/08/2026",
+    duracion: "2h",
+    resultado: "ok",
+    fotos: 0,
+  },
+  {
+    id: "MNT-085",
+    impresora: "Impresora #8",
+    tipo: "preventivo",
+    tecnico: "Eilin Martin",
+    fecha: "20/08/2026",
+    duracion: "1.5h",
+    resultado: "ok",
+    fotos: 1,
+  },
+  {
+    id: "MNT-084",
+    impresora: "Impresora #3",
+    tipo: "correctivo",
+    tecnico: "Eilin Martin",
+    fecha: "15/08/2026",
+    duracion: "4h",
+    resultado: "reparado",
+    fotos: 7,
+  },
 ];
 
 let fotosRegistro = [];
 let tipoMantActual = "preventivo";
-let impDiagActual  = null;
+let impDiagActual = null;
 
 // FILTROS DEL HISTORIAL (texto + tipo + fecha; se combinan entre sí)
 let filtroTexto = "";
-let filtroTipo  = "all";
-let filtroRango = "mes";           // debe coincidir con la 1ª opción del <select> de fecha
+let filtroTipo = "all";
+let filtroRango = "mes"; // debe coincidir con la 1ª opción del <select> de fecha
 let historialVisible = historialData; // último resultado filtrado (lo usa Exportar)
 
-// NOTIFICACIONES SIMULADAS (panel de la campana) 
+// NOTIFICACIONES SIMULADAS (panel de la campana)
 let notificacionesData = [
-  { icono:"bi-thermometer-high", tipo:"err",  texto:"Impresora #7 — temperatura del hotend inestable, requiere diagnóstico", tiempo:"Hace 20 min",     seccion:"impresoras", leida:false },
-  { icono:"bi-tools",            tipo:"warn", texto:"Mantenimiento correctivo pendiente — Impresora #3 (falla en extrusor)",   tiempo:"Hace 1 h",        seccion:"registro",   leida:false },
-  { icono:"bi-shield-check",     tipo:"ok",   texto:"Mantenimiento preventivo completado — Impresoras #1 y #2",               tiempo:"Ayer, 4:30 p.m.", seccion:"historial",  leida:true  },
+  {
+    icono: "bi-thermometer-high",
+    tipo: "err",
+    texto:
+      "Impresora #7 — temperatura del hotend inestable, requiere diagnóstico",
+    tiempo: "Hace 20 min",
+    seccion: "impresoras",
+    leida: false,
+  },
+  {
+    icono: "bi-tools",
+    tipo: "warn",
+    texto:
+      "Mantenimiento correctivo pendiente — Impresora #3 (falla en extrusor)",
+    tiempo: "Hace 1 h",
+    seccion: "registro",
+    leida: false,
+  },
+  {
+    icono: "bi-shield-check",
+    tipo: "ok",
+    texto: "Mantenimiento preventivo completado — Impresoras #1 y #2",
+    tiempo: "Ayer, 4:30 p.m.",
+    seccion: "historial",
+    leida: true,
+  },
 ];
 
-// INIT 
+// INIT
 document.addEventListener("DOMContentLoaded", () => {
   // Fecha/hora por defecto en el formulario
   const ahora = new Date();
@@ -46,9 +123,11 @@ document.addEventListener("DOMContentLoaded", () => {
   actualizarBadgeNotif();
 });
 
-// NAVEGACIÓN 
+// NAVEGACIÓN
 function irASeccion(id) {
-  const nav = document.getElementById("nav-" + id) || document.querySelector(`[data-seccion="${id}"]`);
+  const nav =
+    document.getElementById("nav-" + id) ||
+    document.querySelector(`[data-seccion="${id}"]`);
   mostrarSeccion(id, nav);
 }
 
@@ -59,7 +138,10 @@ function irARegistro(tipo, impresora) {
     if (tab) setTipoMant(tipo, tab);
     if (impresora) {
       const sel = document.getElementById("regImpresora");
-      if (sel) { sel.value = impresora; actualizarPreview(); }
+      if (sel) {
+        sel.value = impresora;
+        actualizarPreview();
+      }
     }
   }, 80);
 }
@@ -67,11 +149,14 @@ function irARegistro(tipo, impresora) {
 // TIPO DE MANTENIMIENTO
 function setTipoMant(tipo, boton) {
   tipoMantActual = tipo;
-  document.querySelectorAll(".tipo-tab").forEach(b => b.classList.remove("activo"));
+  document
+    .querySelectorAll(".tipo-tab")
+    .forEach((b) => b.classList.remove("activo"));
   boton.classList.add("activo");
 
   const checklist = document.getElementById("checklistWrap");
-  if (checklist) checklist.style.display = tipo === "preventivo" ? "block" : "none";
+  if (checklist)
+    checklist.style.display = tipo === "preventivo" ? "block" : "none";
 
   actualizarPreview();
 }
@@ -82,7 +167,7 @@ function cargarFotos(input) {
   if (!archivos.length) return;
 
   let cargadas = 0;
-  archivos.forEach(archivo => {
+  archivos.forEach((archivo) => {
     if (!archivo.type.startsWith("image/")) {
       mostrarToast("Solo se permiten imágenes (JPG, PNG, WEBP)", "error");
       return;
@@ -92,7 +177,7 @@ function cargarFotos(input) {
       return;
     }
     const reader = new FileReader();
-    reader.onload = e => {
+    reader.onload = (e) => {
       fotosRegistro.push({ nombre: archivo.name, src: e.target.result });
       cargadas++;
       renderizarGaleria();
@@ -107,19 +192,24 @@ function cargarFotos(input) {
 
 function renderizarGaleria() {
   const galeria = document.getElementById("galeriaFotos");
-  const lbl     = document.getElementById("lblConteoFotos");
+  const lbl = document.getElementById("lblConteoFotos");
   if (!galeria) return;
 
-  galeria.innerHTML = fotosRegistro.map((foto, i) => `
+  galeria.innerHTML = fotosRegistro
+    .map(
+      (foto, i) => `
     <div class="foto-mini">
       <img src="${foto.src}" alt="${foto.nombre}" title="${foto.nombre}"/>
       <button class="foto-del" onclick="eliminarFoto(${i})"><i class="bi bi-x"></i></button>
     </div>
-  `).join("");
+  `,
+    )
+    .join("");
 
-  if (lbl) lbl.textContent = fotosRegistro.length
-    ? `${fotosRegistro.length} foto(s) cargada(s)`
-    : "Sin fotos aún";
+  if (lbl)
+    lbl.textContent = fotosRegistro.length
+      ? `${fotosRegistro.length} foto(s) cargada(s)`
+      : "Sin fotos aún";
 }
 
 function eliminarFoto(idx) {
@@ -138,63 +228,78 @@ function dragFuera(e) {
 function soltarFotos(e) {
   e.preventDefault();
   document.getElementById("zonaImg")?.classList.remove("sobre");
-  const dt    = new DataTransfer();
+  const dt = new DataTransfer();
   const files = Array.from(e.dataTransfer.files);
-  files.forEach(f => dt.items.add(f));
+  files.forEach((f) => dt.items.add(f));
   const input = document.getElementById("inputFotos");
   input.files = dt.files;
   cargarFotos(input);
 }
 
-// PREVIEW EN TIEMPO REAL 
+// PREVIEW EN TIEMPO REAL
 function actualizarPreview() {
-  const tecnico  = document.getElementById("regTecnico")?.value || "—";
-  const sel      = document.getElementById("regImpresora");
-  const imp      = sel ? (sel.options[sel.selectedIndex]?.text || "—") : "—";
+  const tecnico = document.getElementById("regTecnico")?.value || "—";
+  const sel = document.getElementById("regImpresora");
+  const imp = sel ? sel.options[sel.selectedIndex]?.text || "—" : "—";
   const resultado = document.getElementById("regResultado")?.value || "ok";
 
   const mapRes = {
-    ok:      "Funcionando",
+    ok: "Funcionando",
     parcial: "Requiere seguimiento",
-    falla:   "Falla grave",
-    reparado:"Reparado"
+    falla: "Falla grave",
+    reparado: "Reparado",
   };
 
-  const set = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+  const set = (id, val) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = val;
+  };
 
-  set("prev-tecnico",   tecnico || "—");
+  set("prev-tecnico", tecnico || "—");
   set("prev-impresora", imp === "— Seleccionar impresora —" ? "—" : imp);
-  set("prev-tipo",      tipoMantActual.charAt(0).toUpperCase() + tipoMantActual.slice(1));
+  set(
+    "prev-tipo",
+    tipoMantActual.charAt(0).toUpperCase() + tipoMantActual.slice(1),
+  );
   set("prev-resultado", mapRes[resultado] || "—");
-  set("prev-fotos",     fotosRegistro.length + " imagen(es)");
+  set("prev-fotos", fotosRegistro.length + " imagen(es)");
 }
 
 // GUARDAR MANTENIMIENTO
 function guardarMantenimiento() {
-  const tecnico     = document.getElementById("regTecnico")?.value.trim();
-  const impresora   = document.getElementById("regImpresora")?.value;
+  const tecnico = document.getElementById("regTecnico")?.value.trim();
+  const impresora = document.getElementById("regImpresora")?.value;
   const descripcion = document.getElementById("regDescripcion")?.value.trim();
 
-  if (!tecnico)     { mostrarToast("El nombre del técnico es obligatorio", "error"); return; }
-  if (!impresora)   { mostrarToast("Debes seleccionar una impresora", "error"); return; }
-  if (!descripcion) { mostrarToast("La descripción es obligatoria", "error"); return; }
+  if (!tecnico) {
+    mostrarToast("El nombre del técnico es obligatorio", "error");
+    return;
+  }
+  if (!impresora) {
+    mostrarToast("Debes seleccionar una impresora", "error");
+    return;
+  }
+  if (!descripcion) {
+    mostrarToast("La descripción es obligatoria", "error");
+    return;
+  }
 
   // Guardar nombre del técnico en sesión para auto-rellenar
   sessionStorage.setItem("tecnicoNombre", tecnico);
 
-  const sel   = document.getElementById("regImpresora");
+  const sel = document.getElementById("regImpresora");
   const impNombre = sel.options[sel.selectedIndex].text.split(" —")[0];
-  const nuevoId   = "MNT-0" + String(historialData.length + 90).padStart(2, "0");
+  const nuevoId = "MNT-0" + String(historialData.length + 90).padStart(2, "0");
 
   historialData.unshift({
-    id:        nuevoId,
+    id: nuevoId,
     impresora: impNombre,
-    tipo:      tipoMantActual,
-    tecnico:   tecnico,
-    fecha:     new Date().toLocaleDateString("es-CO"),
-    duracion:  document.getElementById("regDuracion")?.value + "h",
+    tipo: tipoMantActual,
+    tecnico: tecnico,
+    fecha: new Date().toLocaleDateString("es-CO"),
+    duracion: document.getElementById("regDuracion")?.value + "h",
     resultado: document.getElementById("regResultado")?.value || "ok",
-    fotos:     fotosRegistro.length,
+    fotos: fotosRegistro.length,
   });
 
   mostrarToast(`${nuevoId} registrado correctamente`, "success");
@@ -207,32 +312,40 @@ function guardarMantenimiento() {
 }
 
 function limpiarFormMant() {
-  const ids = ["regTecnico","regDescripcion"];
-  ids.forEach(id => { const el = document.getElementById(id); if (el) el.value = ""; });
-  const sel = document.getElementById("regImpresora"); if (sel) sel.value = "";
-  const dur = document.getElementById("regDuracion");  if (dur) dur.value = "1";
-  const res = document.getElementById("regResultado"); if (res) res.value = "ok";
-  document.querySelectorAll("#checklistWrap input[type=checkbox]").forEach(c => c.checked = false);
+  const ids = ["regTecnico", "regDescripcion"];
+  ids.forEach((id) => {
+    const el = document.getElementById(id);
+    if (el) el.value = "";
+  });
+  const sel = document.getElementById("regImpresora");
+  if (sel) sel.value = "";
+  const dur = document.getElementById("regDuracion");
+  if (dur) dur.value = "1";
+  const res = document.getElementById("regResultado");
+  if (res) res.value = "ok";
+  document
+    .querySelectorAll("#checklistWrap input[type=checkbox]")
+    .forEach((c) => (c.checked = false));
   fotosRegistro = [];
   renderizarGaleria();
   actualizarPreview();
 }
 
-// HISTORIAL 
+// HISTORIAL
 function renderizarHistorial(datos) {
   const tbody = document.getElementById("cuerpoHistorial");
   if (!tbody) return;
 
   const mapTipo = {
-    preventivo:  '<span class="badge-tipo preventivo">Preventivo</span>',
-    correctivo:  '<span class="badge-tipo correctivo">Correctivo</span>',
-    diagnostico: '<span class="badge-tipo diagnostico">Diagnóstico</span>'
+    preventivo: '<span class="badge-tipo preventivo">Preventivo</span>',
+    correctivo: '<span class="badge-tipo correctivo">Correctivo</span>',
+    diagnostico: '<span class="badge-tipo diagnostico">Diagnóstico</span>',
   };
   const mapRes = {
-    ok:      '<span class="badge-est ok">OK</span>',
-    reparado:'<span class="badge-est ok">Reparado</span>',
+    ok: '<span class="badge-est ok">OK</span>',
+    reparado: '<span class="badge-est ok">Reparado</span>',
     parcial: '<span class="badge-est pend">Seguimiento</span>',
-    falla:   '<span class="badge-est err">Falla</span>'
+    falla: '<span class="badge-est err">Falla</span>',
   };
 
   if (!datos.length) {
@@ -240,7 +353,9 @@ function renderizarHistorial(datos) {
     return;
   }
 
-  tbody.innerHTML = datos.map(r => `
+  tbody.innerHTML = datos
+    .map(
+      (r) => `
     <tr>
       <td><strong>${r.id}</strong></td>
       <td>${r.impresora}</td>
@@ -256,7 +371,9 @@ function renderizarHistorial(datos) {
         </button>
       </td>
     </tr>
-  `).join("");
+  `,
+    )
+    .join("");
 }
 
 // Convierte "DD/MM/YYYY" (formato usado en historialData) a un objeto Date
@@ -269,30 +386,38 @@ function parsearFechaES(str) {
 // de fecha, así "Este mes" siempre muestra los datos vigentes del prototipo
 // aunque el reloj real del equipo esté en un mes distinto al de los datos.
 function obtenerFechaReferencia() {
-  const fechas = historialData.map(r => parsearFechaES(r.fecha));
+  const fechas = historialData.map((r) => parsearFechaES(r.fecha));
   return new Date(Math.max(...fechas));
 }
 
 // Aplica los 3 filtros juntos (texto + tipo + fecha) sobre historialData
 function aplicarFiltrosHistorial() {
   const q = filtroTexto.toLowerCase();
-  let datos = historialData.filter(r =>
-    r.id.toLowerCase().includes(q) ||
-    r.impresora.toLowerCase().includes(q) ||
-    r.tecnico.toLowerCase().includes(q)
+  let datos = historialData.filter(
+    (r) =>
+      r.id.toLowerCase().includes(q) ||
+      r.impresora.toLowerCase().includes(q) ||
+      r.tecnico.toLowerCase().includes(q),
   );
 
   if (filtroTipo !== "all") {
-    datos = datos.filter(r => r.tipo === filtroTipo);
+    datos = datos.filter((r) => r.tipo === filtroTipo);
   }
 
   if (filtroRango !== "todo") {
     const ref = obtenerFechaReferencia();
-    datos = datos.filter(r => {
+    datos = datos.filter((r) => {
       const f = parsearFechaES(r.fecha);
-      if (filtroRango === "mes")    return f.getFullYear() === ref.getFullYear() && f.getMonth() === ref.getMonth();
-      if (filtroRango === "3meses") return f >= new Date(ref.getFullYear(), ref.getMonth() - 2, 1) && f <= ref;
-      if (filtroRango === "anio")   return f.getFullYear() === ref.getFullYear();
+      if (filtroRango === "mes")
+        return (
+          f.getFullYear() === ref.getFullYear() &&
+          f.getMonth() === ref.getMonth()
+        );
+      if (filtroRango === "3meses")
+        return (
+          f >= new Date(ref.getFullYear(), ref.getMonth() - 2, 1) && f <= ref
+        );
+      if (filtroRango === "anio") return f.getFullYear() === ref.getFullYear();
       return true;
     });
   }
@@ -321,23 +446,53 @@ function exportarHistorial() {
   const datos = historialVisible.length ? historialVisible : historialData;
 
   if (!datos.length) {
-    mostrarToast("No hay registros para exportar con los filtros actuales", "error");
+    mostrarToast(
+      "No hay registros para exportar con los filtros actuales",
+      "error",
+    );
     return;
   }
 
   mostrarToast("Preparando exportación...", "info");
 
-  const encabezados = ["ID","Impresora","Tipo","Técnico","Fecha","Duración","Resultado","Fotos"];
-  const filas = datos.map(r => [r.id, r.impresora, r.tipo, r.tecnico, r.fecha, r.duracion, r.resultado, r.fotos]);
+  const encabezados = [
+    "ID",
+    "Impresora",
+    "Tipo",
+    "Técnico",
+    "Fecha",
+    "Duración",
+    "Resultado",
+    "Fotos",
+  ];
+  const filas = datos.map((r) => [
+    r.id,
+    r.impresora,
+    r.tipo,
+    r.tecnico,
+    r.fecha,
+    r.duracion,
+    r.resultado,
+    r.fotos,
+  ]);
   const csv = [encabezados, ...filas]
-    .map(fila => fila.map(campo => `"${String(campo).replace(/"/g, '""')}"`).join(","))
+    .map((fila) =>
+      fila.map((campo) => `"${String(campo).replace(/"/g, '""')}"`).join(","),
+    )
     .join("\r\n");
 
   // BOM al inicio para que Excel muestre bien tildes y "ñ"
   const blob = new Blob(["\uFEFF" + csv], { type: "text/csv;charset=utf-8;" });
 
-  descargarBlob(blob, "Historial_Mantenimientos.csv", "text/csv", ".csv", "Archivo CSV").then(exportado => {
-    if (exportado) mostrarToast(`${datos.length} registro(s) exportado(s)`, "success");
+  descargarBlob(
+    blob,
+    "Historial_Mantenimientos.csv",
+    "text/csv",
+    ".csv",
+    "Archivo CSV",
+  ).then((exportado) => {
+    if (exportado)
+      mostrarToast(`${datos.length} registro(s) exportado(s)`, "success");
   });
 }
 
@@ -351,21 +506,25 @@ function renderizarNotificaciones() {
     return;
   }
 
-  cont.innerHTML = notificacionesData.map((n, i) => `
-    <div class="notif-item ${n.leida ? '' : 'sin-leer'}" onclick="irNotificacion(${i})">
+  cont.innerHTML = notificacionesData
+    .map(
+      (n, i) => `
+    <div class="notif-item ${n.leida ? "" : "sin-leer"}" onclick="irNotificacion(${i})">
       <div class="notif-item-ico ${n.tipo}"><i class="bi ${n.icono}"></i></div>
       <div>
         <div class="notif-item-texto">${n.texto}</div>
         <div class="notif-item-tiempo">${n.tiempo}</div>
       </div>
     </div>
-  `).join("");
+  `,
+    )
+    .join("");
 }
 
 function actualizarBadgeNotif() {
   const dot = document.getElementById("notifDot");
   if (!dot) return;
-  const sinLeer = notificacionesData.filter(n => !n.leida).length;
+  const sinLeer = notificacionesData.filter((n) => !n.leida).length;
   if (sinLeer > 0) {
     dot.textContent = sinLeer;
     dot.style.display = "flex";
@@ -386,7 +545,7 @@ function irNotificacion(i) {
 }
 
 function marcarTodasNotifsLeidas() {
-  notificacionesData.forEach(n => n.leida = true);
+  notificacionesData.forEach((n) => (n.leida = true));
   renderizarNotificaciones();
   actualizarBadgeNotif();
   mostrarToast("Notificaciones marcadas como leídas", "success");
@@ -396,24 +555,40 @@ function marcarTodasNotifsLeidas() {
 function abrirDiagnostico(num, modelo) {
   impDiagActual = num;
   const titulo = document.getElementById("modalDiagTitulo");
-  if (titulo) titulo.textContent = `Diagnóstico — Impresora #${num} (${modelo})`;
+  if (titulo)
+    titulo.textContent = `Diagnóstico — Impresora #${num} (${modelo})`;
   const modal = document.getElementById("modalDiag");
   if (modal) modal.style.display = "flex";
 }
 
 function guardarDiagnostico() {
   const sintoma = document.getElementById("diagSintoma")?.value.trim();
-  if (!sintoma) { mostrarToast("Describe el síntoma observado", "error"); return; }
-  mostrarToast(`Diagnóstico guardado para Impresora #${impDiagActual}`, "success");
+  if (!sintoma) {
+    mostrarToast("Describe el síntoma observado", "error");
+    return;
+  }
+  mostrarToast(
+    `Diagnóstico guardado para Impresora #${impDiagActual}`,
+    "success",
+  );
   cerrarModal("modalDiag");
   // Limpiar campos del modal
-  ["diagSintoma","diagCausa"].forEach(id => { const el = document.getElementById(id); if (el) el.value = ""; 
+  ["diagSintoma", "diagCausa"].forEach((id) => {
+    const el = document.getElementById(id);
+    if (el) el.value = "";
   });
 }
 
 function probarFuncionamiento(num) {
-  mostrarToast(`Iniciando prueba de funcionamiento — Impresora #${num}`, "info");
-  setTimeout(() => mostrarToast(`Impresora #${num} funcionando correctamente`, "success"), 2000);
+  mostrarToast(
+    `Iniciando prueba de funcionamiento — Impresora #${num}`,
+    "info",
+  );
+  setTimeout(
+    () =>
+      mostrarToast(`Impresora #${num} funcionando correctamente`, "success"),
+    2000,
+  );
 }
 
 function cerrarModal(id) {
@@ -423,16 +598,22 @@ function cerrarModal(id) {
 
 // PERFIL
 function guardarPerfil() {
-  const nombre   = document.getElementById("perfilNombre")?.value.trim();
+  const nombre = document.getElementById("perfilNombre")?.value.trim();
   const apellido = document.getElementById("perfilApellido")?.value.trim();
 
-  if (!nombre || !apellido) { mostrarToast("El nombre es obligatorio", "error"); return; }
+  if (!nombre || !apellido) {
+    mostrarToast("El nombre es obligatorio", "error");
+    return;
+  }
 
   const nombreCompleto = `${nombre} ${apellido}`;
-  const iniciales      = (nombre[0] + apellido[0]).toUpperCase();
+  const iniciales = (nombre[0] + apellido[0]).toUpperCase();
 
   // Actualizar elementos del DOM
-  const set = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+  const set = (id, val) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = val;
+  };
   set("perfilNombreDisplay", nombreCompleto);
   set("topbarNombre", nombreCompleto);
 

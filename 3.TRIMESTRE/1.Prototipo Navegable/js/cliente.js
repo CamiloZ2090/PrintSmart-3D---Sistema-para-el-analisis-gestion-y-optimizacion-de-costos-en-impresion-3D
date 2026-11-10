@@ -1,15 +1,13 @@
 // CLIENTE.JS — Portal del Cliente
 // PrintSmart 3D · ML Mecanizados SAS
 
-
-
 // INICIO — Verificar sesión y cargar datos
 
 document.addEventListener("DOMContentLoaded", () => {
   // Verificar que haya sesión activa
-  const rol    = sessionStorage.getItem("rolActual");
+  const rol = sessionStorage.getItem("rolActual");
   const nombre = sessionStorage.getItem("clienteNombre");
-  const email  = sessionStorage.getItem("clienteEmail");
+  const email = sessionStorage.getItem("clienteEmail");
 
   if (!rol) {
     window.location.href = "index.html";
@@ -19,8 +17,12 @@ document.addEventListener("DOMContentLoaded", () => {
   // Cargar datos del usuario en la UI
   if (nombre) {
     const primerNombre = nombre.split(" ")[0];
-    const iniciales    = nombre.split(" ")
-      .map(p => p[0]).join("").toUpperCase().slice(0, 2);
+    const iniciales = nombre
+      .split(" ")
+      .map((p) => p[0])
+      .join("")
+      .toUpperCase()
+      .slice(0, 2);
 
     // Topbar
     const topNombre = document.getElementById("clNombreTopbar");
@@ -36,27 +38,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Configuración — nombre y email
     const cfgNombre = document.getElementById("cfgNombre");
-    const cfgEmail  = document.getElementById("cfgEmail");
-    const cnNombre  = document.getElementById("configNombre");
-    const cnEmail   = document.getElementById("configEmail");
+    const cfgEmail = document.getElementById("cfgEmail");
+    const cnNombre = document.getElementById("configNombre");
+    const cnEmail = document.getElementById("configEmail");
     const avatarBig = document.getElementById("avatarBig");
 
-    if (cfgNombre) cfgNombre.value     = nombre;
-    if (cfgEmail  && email) cfgEmail.value = email;
+    if (cfgNombre) cfgNombre.value = nombre;
+    if (cfgEmail && email) cfgEmail.value = email;
     if (cnNombre) cnNombre.textContent = nombre;
-    if (cnEmail   && email) cnEmail.textContent = email;
+    if (cnEmail && email) cnEmail.textContent = email;
     if (avatarBig) avatarBig.childNodes[0].textContent = iniciales;
 
     // Dirección de envío en Estado del Pedido
     const dir = document.getElementById("estadoDireccion");
-    if (dir) dir.innerHTML =
-      `<strong>${nombre}</strong><br/>Calle de la Innovación, 42<br/>Bogotá, Colombia`;
+    if (dir)
+      dir.innerHTML = `<strong>${nombre}</strong><br/>Calle de la Innovación, 42<br/>Bogotá, Colombia`;
 
     // Rellenar campos de envío con nombre y email
     const envNombre = document.getElementById("envNombre");
-    const envEmail  = document.getElementById("envEmail");
+    const envEmail = document.getElementById("envEmail");
     if (envNombre) envNombre.value = nombre;
-    if (envEmail  && email) envEmail.value = email;
+    if (envEmail && email) envEmail.value = email;
   }
 
   // Mostrar sección inicial
@@ -72,11 +74,11 @@ function irA(seccion, navEl) {
   // Actualizar placeholder del buscador
   const placeholders = {
     dashboard: "Buscar pedidos o facturas...",
-    catalogo:  "Buscar productos del catálogo...",
-    realizar:  "Buscar materiales o modelos...",
-    pedidos:   "Buscar por ID o nombre de pedido...",
-    estado:    "Buscar pedido por ID...",
-    config:    "Buscar ajustes..."
+    catalogo: "Buscar productos del catálogo...",
+    realizar: "Buscar materiales o modelos...",
+    pedidos: "Buscar por ID o nombre de pedido...",
+    estado: "Buscar pedido por ID...",
+    config: "Buscar ajustes...",
   };
   const buscador = document.getElementById("clBuscador");
   if (buscador) buscador.placeholder = placeholders[seccion] || "Buscar...";
@@ -86,7 +88,7 @@ function irA(seccion, navEl) {
 }
 
 function mostrarSeccion(id) {
-  document.querySelectorAll(".cl-main > section").forEach(sec => {
+  document.querySelectorAll(".cl-main > section").forEach((sec) => {
     sec.style.display = "none";
   });
   const target = document.getElementById("sec-" + id);
@@ -94,7 +96,7 @@ function mostrarSeccion(id) {
 }
 
 function marcarNavActivo(navEl) {
-  document.querySelectorAll(".cl-nav-item").forEach(btn => {
+  document.querySelectorAll(".cl-nav-item").forEach((btn) => {
     btn.classList.remove("activo");
   });
   if (navEl) navEl.classList.add("activo");
@@ -104,14 +106,17 @@ function marcarNavActivo(navEl) {
 function cerrarSesionCliente() {
   sessionStorage.clear();
   mostrarToastCliente("Sesión cerrada correctamente", "info");
-  setTimeout(() => { window.location.href = "index.html"; }, 1200);
+  setTimeout(() => {
+    window.location.href = "index.html";
+  }, 1200);
 }
 
 // CATÁLOGO — Filtrar por categoría
 function filtrarCatalogo(categoria, btnEl) {
   // Actualizar botones de filtro
-  document.querySelectorAll("#sec-catalogo .cl-btn-p, #sec-catalogo .cl-btn-o")
-    .forEach(btn => {
+  document
+    .querySelectorAll("#sec-catalogo .cl-btn-p, #sec-catalogo .cl-btn-o")
+    .forEach((btn) => {
       btn.className = "cl-btn-o cl-btn-sm";
     });
 
@@ -120,23 +125,23 @@ function filtrarCatalogo(categoria, btnEl) {
   }
 
   // Mostrar u ocultar tarjetas
-  document.querySelectorAll(".cl-cat-card").forEach(card => {
+  document.querySelectorAll(".cl-cat-card").forEach((card) => {
     if (categoria === "todos") {
       card.style.display = "";
     } else {
-      card.style.display =
-        card.dataset.cat === categoria ? "" : "none";
+      card.style.display = card.dataset.cat === categoria ? "" : "none";
     }
   });
 
   const total = document.querySelectorAll(
     categoria === "todos"
       ? ".cl-cat-card"
-      : `.cl-cat-card[data-cat="${categoria}"]`
+      : `.cl-cat-card[data-cat="${categoria}"]`,
   ).length;
 
   mostrarToastCliente(
-    `Mostrando ${total} producto${total !== 1 ? "s" : ""}`, "info"
+    `Mostrando ${total} producto${total !== 1 ? "s" : ""}`,
+    "info",
   );
 }
 // CATÁLOGO — Pedir producto desde catálogo
@@ -147,7 +152,7 @@ function pedirProducto(nombre, precio) {
 
   // Actualizar precio estimado
   const precioNum = parseInt(precio.replace(/\D/g, "")) / 1000;
-  const precioEl  = document.getElementById("precioEstimado");
+  const precioEl = document.getElementById("precioEstimado");
   if (precioEl) precioEl.textContent = "$" + precioNum.toFixed(2);
 
   // Actualizar resumen
@@ -167,22 +172,26 @@ function pedirProducto(nombre, precio) {
 
 // REALIZAR PEDIDO — Cálculo de precio
 const preciosMaterial = {
-  pla:    45000,
-  petg:   58000,
-  abs:    52000,
-  tpu:    65000,
+  pla: 45000,
+  petg: 58000,
+  abs: 52000,
+  tpu: 65000,
   resina: 95000,
-  nylon:  120000
+  nylon: 120000,
 };
 
 function calcularPrecio() {
-  const material  = document.getElementById("pedMaterial")?.value || "pla";
-  const densidad  = parseInt(document.getElementById("pedDensidad")?.value || "50");
-  const cantidad  = parseInt(document.getElementById("pedCantidad")?.value || "1");
+  const material = document.getElementById("pedMaterial")?.value || "pla";
+  const densidad = parseInt(
+    document.getElementById("pedDensidad")?.value || "50",
+  );
+  const cantidad = parseInt(
+    document.getElementById("pedCantidad")?.value || "1",
+  );
 
-  const base      = preciosMaterial[material] || 45000;
+  const base = preciosMaterial[material] || 45000;
   const factorDen = densidad / 50;
-  const precio    = Math.round(base * factorDen * cantidad);
+  const precio = Math.round(base * factorDen * cantidad);
 
   const precioEl = document.getElementById("precioEstimado");
   if (precioEl) precioEl.textContent = _formatCOP(precio);
@@ -191,29 +200,31 @@ function calcularPrecio() {
 }
 
 function actualizarResumen() {
-  const nombre   = document.getElementById("pedNombre")?.value || "Mi Pedido 3D";
+  const nombre = document.getElementById("pedNombre")?.value || "Mi Pedido 3D";
   const material = document.getElementById("pedMaterial");
-  const matTexto = material?.options[material.selectedIndex]?.text || "PLA — Estándar";
+  const matTexto =
+    material?.options[material.selectedIndex]?.text || "PLA — Estándar";
 
   // Leer precio directamente del texto ya formateado en COP
-  const precioTxt = document.getElementById("precioEstimado")?.textContent || "$45.000";
-  const num       = parseInt(precioTxt.replace(/\D/g, "")) || 45000;
-  const iva       = Math.round(num * 0.19);
-  const total     = num + iva;
+  const precioTxt =
+    document.getElementById("precioEstimado")?.textContent || "$45.000";
+  const num = parseInt(precioTxt.replace(/\D/g, "")) || 45000;
+  const iva = Math.round(num * 0.19);
+  const total = num + iva;
 
-  const rNombre   = document.getElementById("resumenNombreItem");
-  const rMat      = document.getElementById("resumenMatItem");
+  const rNombre = document.getElementById("resumenNombreItem");
+  const rMat = document.getElementById("resumenMatItem");
   const rSubtotal = document.getElementById("resumenSubtotal");
-  const rIva      = document.getElementById("resumenIva");
-  const rTotal    = document.getElementById("resumenTotal");
-  const rPrecio   = document.getElementById("resumenPrecioItem");
+  const rIva = document.getElementById("resumenIva");
+  const rTotal = document.getElementById("resumenTotal");
+  const rPrecio = document.getElementById("resumenPrecioItem");
 
-  if (rNombre)   rNombre.textContent   = nombre || "Mi Pedido 3D";
-  if (rMat)      rMat.textContent      = matTexto;
+  if (rNombre) rNombre.textContent = nombre || "Mi Pedido 3D";
+  if (rMat) rMat.textContent = matTexto;
   if (rSubtotal) rSubtotal.textContent = _formatCOP(num);
-  if (rIva)      rIva.textContent      = _formatCOP(iva);
-  if (rTotal)    rTotal.textContent    = _formatCOP(total);
-  if (rPrecio)   rPrecio.textContent   = _formatCOP(num);
+  if (rIva) rIva.textContent = _formatCOP(iva);
+  if (rTotal) rTotal.textContent = _formatCOP(total);
+  if (rPrecio) rPrecio.textContent = _formatCOP(num);
 }
 
 // REALIZAR PEDIDO — Carga de archivo
@@ -255,11 +266,11 @@ function cargarArchivo(input) {
 
       // Preview en panel derecho
       const previewRefBody = document.getElementById("previewRefBody");
-      const previewRefImg  = document.getElementById("previewRefImg");
+      const previewRefImg = document.getElementById("previewRefImg");
       if (previewRefBody) {
         previewRefBody.innerHTML = "";
         const img = document.createElement("img");
-        img.src   = e.target.result;
+        img.src = e.target.result;
         img.style.cssText =
           "width:100%;max-height:200px;object-fit:contain;display:block;";
         previewRefBody.appendChild(img);
@@ -269,17 +280,16 @@ function cargarArchivo(input) {
   } else {
     // STL — solo mostrar nombre
     const uploadPreview = document.getElementById("uploadPreview");
-    const uploadZone    = document.getElementById("uploadZone");
-    const previewImg    = document.getElementById("previewImg");
+    const uploadZone = document.getElementById("uploadZone");
+    const previewImg = document.getElementById("previewImg");
 
     if (uploadPreview) uploadPreview.style.display = "block";
-    if (uploadZone)    uploadZone.style.display    = "none";
-    if (previewImg)    previewImg.style.display     = "none";
+    if (uploadZone) uploadZone.style.display = "none";
+    if (previewImg) previewImg.style.display = "none";
 
     const previewRefBody = document.getElementById("previewRefBody");
     if (previewRefBody) {
-      previewRefBody.innerHTML =
-        `<i class="bi bi-file-earmark-code" style="font-size:40px;color:#8B5CF6;opacity:0.7;"></i>
+      previewRefBody.innerHTML = `<i class="bi bi-file-earmark-code" style="font-size:40px;color:#8B5CF6;opacity:0.7;"></i>
          <span style="font-size:13px;color:#374151;font-weight:600;">${archivo.name}</span>
          <span style="font-size:11px;color:#9CA3AF;">${tamañoMB} MB · Archivo STL</span>`;
     }
@@ -315,19 +325,18 @@ function dropArchivo(e) {
 }
 
 function eliminarArchivo() {
-  const fileInput     = document.getElementById("fileInput");
+  const fileInput = document.getElementById("fileInput");
   const uploadPreview = document.getElementById("uploadPreview");
-  const uploadZone    = document.getElementById("uploadZone");
+  const uploadZone = document.getElementById("uploadZone");
   const previewRefBody = document.getElementById("previewRefBody");
-  const previewImg    = document.getElementById("previewImg");
+  const previewImg = document.getElementById("previewImg");
 
-  if (fileInput)      fileInput.value = "";
-  if (uploadPreview)  uploadPreview.style.display = "none";
-  if (uploadZone)     uploadZone.style.display    = "";
-  if (previewImg)     previewImg.src = "";
+  if (fileInput) fileInput.value = "";
+  if (uploadPreview) uploadPreview.style.display = "none";
+  if (uploadZone) uploadZone.style.display = "";
+  if (previewImg) previewImg.src = "";
   if (previewRefBody) {
-    previewRefBody.innerHTML =
-      `<i class="bi bi-image-fill"></i><span>Sin imagen cargada</span>`;
+    previewRefBody.innerHTML = `<i class="bi bi-image-fill"></i><span>Sin imagen cargada</span>`;
   }
 
   mostrarToastCliente("Archivo eliminado", "info");
@@ -362,8 +371,8 @@ function anteriorPaso() {
 
 function finalizarPedido() {
   // Validaciones básicas
-  const nombre    = document.getElementById("envNombre")?.value.trim();
-  const email     = document.getElementById("envEmail")?.value.trim();
+  const nombre = document.getElementById("envNombre")?.value.trim();
+  const email = document.getElementById("envEmail")?.value.trim();
   const direccion = document.getElementById("envDireccion")?.value.trim();
 
   if (!nombre) {
@@ -399,7 +408,7 @@ function _renderizarPasos() {
   // Mostrar u ocultar divs de paso
   for (let i = 1; i <= 3; i++) {
     const div = document.getElementById("paso" + i);
-    if (div) div.style.display = (i === pasoActual ? "block" : "none");
+    if (div) div.style.display = i === pasoActual ? "block" : "none";
   }
 
   // Actualizar clases del stepper
@@ -407,7 +416,7 @@ function _renderizarPasos() {
     const stepEl = document.getElementById("step" + i);
     if (!stepEl) continue;
     stepEl.classList.remove("activo", "completado");
-    if (i < pasoActual)      stepEl.classList.add("completado");
+    if (i < pasoActual) stepEl.classList.add("completado");
     else if (i === pasoActual) stepEl.classList.add("activo");
   }
 }
@@ -415,7 +424,7 @@ function _renderizarPasos() {
 // PAGO — Método de pago
 function selectMetodo(tipo) {
   // Resetear botones
-  ["tarjeta", "transferencia"].forEach(t => {
+  ["tarjeta", "transferencia"].forEach((t) => {
     const btn = document.getElementById("metodoPago-" + t);
     if (btn) btn.classList.remove("activo");
   });
@@ -425,15 +434,15 @@ function selectMetodo(tipo) {
   if (btnActivo) btnActivo.classList.add("activo");
 
   // Mostrar campos correspondientes
-  const camposTarjeta       = document.getElementById("camposTarjeta");
+  const camposTarjeta = document.getElementById("camposTarjeta");
   const camposTransferencia = document.getElementById("camposTransferencia");
 
   if (tipo === "tarjeta") {
-    if (camposTarjeta)       camposTarjeta.style.display       = "block";
-    if (camposTransferencia) camposTransferencia.style.display  = "none";
+    if (camposTarjeta) camposTarjeta.style.display = "block";
+    if (camposTransferencia) camposTransferencia.style.display = "none";
   } else {
-    if (camposTarjeta)       camposTarjeta.style.display       = "none";
-    if (camposTransferencia) camposTransferencia.style.display  = "block";
+    if (camposTarjeta) camposTarjeta.style.display = "none";
+    if (camposTransferencia) camposTransferencia.style.display = "block";
   }
 }
 
@@ -455,22 +464,27 @@ function buscarEnSeccion(termino) {
   const term = termino.toLowerCase().trim();
 
   // En catálogo: filtrar por nombre
-  const esCatalogo = document.getElementById("sec-catalogo")?.style.display !== "none";
+  const esCatalogo =
+    document.getElementById("sec-catalogo")?.style.display !== "none";
   if (esCatalogo) {
-    document.querySelectorAll(".cl-cat-card").forEach(card => {
-      const nombre = card.querySelector(".cl-cat-nombre")?.textContent.toLowerCase() || "";
-      card.style.display = (!term || nombre.includes(term)) ? "" : "none";
+    document.querySelectorAll(".cl-cat-card").forEach((card) => {
+      const nombre =
+        card.querySelector(".cl-cat-nombre")?.textContent.toLowerCase() || "";
+      card.style.display = !term || nombre.includes(term) ? "" : "none";
     });
     return;
   }
 
   // En mis pedidos: filtrar filas de tabla
-  const esPedidos = document.getElementById("sec-pedidos")?.style.display !== "none";
+  const esPedidos =
+    document.getElementById("sec-pedidos")?.style.display !== "none";
   if (esPedidos) {
-    document.querySelectorAll("#sec-pedidos .cl-tabla tbody tr").forEach(fila => {
-      const texto = fila.textContent.toLowerCase();
-      fila.style.display = (!term || texto.includes(term)) ? "" : "none";
-    });
+    document
+      .querySelectorAll("#sec-pedidos .cl-tabla tbody tr")
+      .forEach((fila) => {
+        const texto = fila.textContent.toLowerCase();
+        fila.style.display = !term || texto.includes(term) ? "" : "none";
+      });
   }
 }
 
@@ -502,10 +516,10 @@ function toggleNotificaciones() {
                   style="background:none;border:none;font-size:18px;
                          color:#9CA3AF;cursor:pointer;line-height:1;">×</button>
         </div>
-        ${_notifItem("bi-printer","Pedido #SP-9824 al 68% de impresión","Hace 2 min","#EDE9FE","#5B21B6")}
-        ${_notifItem("bi-check-circle","Pedido #SP-9412 entregado exitosamente","Hace 1 hora","#DCFCE7","#16A34A")}
-        ${_notifItem("bi-star","¡Evalúa tu último pedido y obtén 5% de descuento!","Hace 3 horas","#FEF3C7","#D97706")}
-        ${_notifItem("bi-info-circle","Nuevo material disponible: Carbono SLS","Hace 1 día","#EFF6FF","#2563EB")}
+        ${_notifItem("bi-printer", "Pedido #SP-9824 al 68% de impresión", "Hace 2 min", "#EDE9FE", "#5B21B6")}
+        ${_notifItem("bi-check-circle", "Pedido #SP-9412 entregado exitosamente", "Hace 1 hora", "#DCFCE7", "#16A34A")}
+        ${_notifItem("bi-star", "¡Evalúa tu último pedido y obtén 5% de descuento!", "Hace 3 horas", "#FEF3C7", "#D97706")}
+        ${_notifItem("bi-info-circle", "Nuevo material disponible: Carbono SLS", "Hace 1 día", "#EFF6FF", "#2563EB")}
         <div style="padding:12px 18px;border-top:1px solid #F3F4F6;text-align:center;">
           <span style="font-size:12.5px;color:#5B21B6;font-weight:600;cursor:pointer;"
                 onclick="mostrarToastCliente('Abriendo todas las notificaciones...','info')">
@@ -545,7 +559,7 @@ function _notifItem(ico, texto, tiempo, bgColor, color) {
 // Cerrar notificaciones al hacer clic fuera
 document.addEventListener("click", (e) => {
   const panel = document.getElementById("notifPanel");
-  const btn   = e.target.closest(".cl-topbar-btn");
+  const btn = e.target.closest(".cl-topbar-btn");
   if (panel && !panel.contains(e.target) && !btn) {
     panel.style.display = "none";
     notifAbiertas = false;
@@ -558,13 +572,13 @@ function abrirEvaluacion(nombreProducto, idPedido) {
   if (!modal) return;
 
   // Rellenar datos
-  const evalId     = document.getElementById("evalIdPedido");
+  const evalId = document.getElementById("evalIdPedido");
   const evalNombre = document.getElementById("evalNombreProd");
-  if (evalId)     evalId.textContent     = idPedido;
+  if (evalId) evalId.textContent = idPedido;
   if (evalNombre) evalNombre.textContent = nombreProducto;
 
   // Resetear estrellas
-  [1, 2].forEach(g => resetStars(g));
+  [1, 2].forEach((g) => resetStars(g));
 
   // Limpiar comentario
   const comentario = document.getElementById("evalComentario");
@@ -599,12 +613,14 @@ function resetStars(grupo) {
   puntajesEstrellas[grupo] = 0;
   const container = document.getElementById("stars" + grupo);
   if (!container) return;
-  container.querySelectorAll(".cl-star").forEach(s => s.classList.remove("activa"));
+  container
+    .querySelectorAll(".cl-star")
+    .forEach((s) => s.classList.remove("activa"));
 }
 
 // Hover preview de estrellas
 document.addEventListener("DOMContentLoaded", () => {
-  [1, 2].forEach(grupo => {
+  [1, 2].forEach((grupo) => {
     const container = document.getElementById("stars" + grupo);
     if (!container) return;
 
@@ -630,11 +646,13 @@ function enviarEvaluacion() {
   }
 
   const comentario = document.getElementById("evalComentario")?.value.trim();
-  const promedio   = ((puntajesEstrellas[1] + puntajesEstrellas[2]) / 2).toFixed(1);
+  const promedio = ((puntajesEstrellas[1] + puntajesEstrellas[2]) / 2).toFixed(
+    1,
+  );
 
   mostrarToastCliente(
     `Evaluación enviada. Promedio: ${promedio}/5 — ¡Gracias!`,
-    "success"
+    "success",
   );
 
   setTimeout(() => {
@@ -649,7 +667,7 @@ function enviarEvaluacion() {
 // CONFIGURACIÓN — Guardar perfil
 function guardarPerfil() {
   const nombre = document.getElementById("cfgNombre")?.value.trim();
-  const email  = document.getElementById("cfgEmail")?.value.trim();
+  const email = document.getElementById("cfgEmail")?.value.trim();
 
   if (!nombre) {
     mostrarToastCliente("El nombre es obligatorio", "error");
@@ -662,24 +680,28 @@ function guardarPerfil() {
 
   // Actualizar sessionStorage
   sessionStorage.setItem("clienteNombre", nombre);
-  sessionStorage.setItem("clienteEmail",  email);
+  sessionStorage.setItem("clienteEmail", email);
 
   // Actualizar UI en tiempo real
   const primerNombre = nombre.split(" ")[0];
-  const iniciales    = nombre.split(" ")
-    .map(p => p[0]).join("").toUpperCase().slice(0, 2);
+  const iniciales = nombre
+    .split(" ")
+    .map((p) => p[0])
+    .join("")
+    .toUpperCase()
+    .slice(0, 2);
 
   const topNombre = document.getElementById("clNombreTopbar");
-  const avatar    = document.getElementById("clAvatar");
-  const saludo    = document.getElementById("dashSaludo");
-  const cnNombre  = document.getElementById("configNombre");
-  const cnEmail   = document.getElementById("configEmail");
+  const avatar = document.getElementById("clAvatar");
+  const saludo = document.getElementById("dashSaludo");
+  const cnNombre = document.getElementById("configNombre");
+  const cnEmail = document.getElementById("configEmail");
 
   if (topNombre) topNombre.textContent = nombre;
-  if (avatar)    avatar.textContent    = iniciales;
-  if (saludo)    saludo.textContent    = "¡Hola, " + primerNombre + "!";
-  if (cnNombre)  cnNombre.textContent  = nombre;
-  if (cnEmail)   cnEmail.textContent   = email;
+  if (avatar) avatar.textContent = iniciales;
+  if (saludo) saludo.textContent = "¡Hola, " + primerNombre + "!";
+  if (cnNombre) cnNombre.textContent = nombre;
+  if (cnEmail) cnEmail.textContent = email;
 
   mostrarToastCliente("Perfil actualizado correctamente", "success");
 }
@@ -692,7 +714,7 @@ function cambiarAvatar(input) {
   const reader = new FileReader();
   reader.onload = (e) => {
     const avatarBig = document.getElementById("avatarBig");
-    const clAvatar  = document.getElementById("clAvatar");
+    const clAvatar = document.getElementById("clAvatar");
 
     if (avatarBig) {
       // Conservar el overlay pero cambiar el fondo
@@ -729,7 +751,7 @@ function mostrarToastCliente(mensaje, tipo = "info") {
   contenedor.appendChild(toast);
 
   setTimeout(() => {
-    toast.style.opacity    = "0";
+    toast.style.opacity = "0";
     toast.style.transition = "opacity 0.35s";
     setTimeout(() => toast.remove(), 350);
   }, 3500);

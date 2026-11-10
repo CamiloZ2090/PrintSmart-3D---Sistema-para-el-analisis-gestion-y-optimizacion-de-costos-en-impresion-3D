@@ -72,7 +72,6 @@
   document.head.appendChild(style);
 })();
 
-
 /*1. TOPBAR — PANEL DE NOTIFICACIONES (campana)*/
 function toggleNotificaciones() {
   let panel = document.getElementById("panelNotificaciones");
@@ -125,7 +124,6 @@ function toggleNotificaciones() {
   _alternarPanel(panel);
 }
 
-
 /*2. TOPBAR — HISTORIAL DE ACCIONES (reloj)*/
 function toggleHistorial() {
   let panel = document.getElementById("panelHistorial");
@@ -171,7 +169,6 @@ function toggleHistorial() {
   }
   _alternarPanel(panel);
 }
-
 
 /*3. SIDEBAR — MODAL NUEVO TRABAJO DE IMPRESIÓN*/
 function abrirNuevoTrabajo() {
@@ -251,30 +248,33 @@ function cerrarNuevoTrabajo() {
 
 function confirmarNuevoTrabajo() {
   const cliente = (document.getElementById("ntCliente").value || "").trim();
-  const modelo  = (document.getElementById("ntModelo").value  || "").trim();
+  const modelo = (document.getElementById("ntModelo").value || "").trim();
   if (!cliente) {
     mostrarToast("El nombre del cliente es obligatorio", "error");
     return;
   }
   mostrarToast(
     `Trabajo "${modelo || "Sin título"}" creado para ${cliente}`,
-    "success"
+    "success",
   );
   cerrarNuevoTrabajo();
   document.getElementById("ntCliente").value = "";
-  document.getElementById("ntModelo").value  = "";
-  document.getElementById("ntNotas").value   = "";
+  document.getElementById("ntModelo").value = "";
+  document.getElementById("ntNotas").value = "";
 }
-
 
 /*4. SIDEBAR — CENTRO DE AYUDA*/
 function mostrarCentroAyuda() {
   mostrarToast("Redirigiendo al Centro de Ayuda...", "info");
 }
 
-
 /*5. DASHBOARD — CAMBIAR PERÍODO (Últimos 30 Días)*/
-const _periodos = ["Últimos 7 Días", "Últimos 30 Días", "Últimos 90 Días", "Este Año"];
+const _periodos = [
+  "Últimos 7 Días",
+  "Últimos 30 Días",
+  "Últimos 90 Días",
+  "Este Año",
+];
 let _indicePeriodo = 1;
 
 function cambiarPeriodo(btn) {
@@ -282,7 +282,6 @@ function cambiarPeriodo(btn) {
   btn.innerHTML = `<i class="bi bi-calendar3"></i> ${_periodos[_indicePeriodo]}`;
   mostrarToast(`Período actualizado: ${_periodos[_indicePeriodo]}`, "info");
 }
-
 
 /* 6. DASHBOARD — FILTRAR INVENTARIO RÁPIDO (embudo)*/
 let _filtroInvEstado = 0; // 0=todos, 1=Óptimo, 2=Crítico
@@ -293,7 +292,7 @@ function filtrarInventarioRapido() {
 
   // Actúa sobre la tabla del dashboard (sec-dashboard)
   const filas = document.querySelectorAll(
-    "#sec-dashboard .tabla-custom tbody tr"
+    "#sec-dashboard .tabla-custom tbody tr",
   );
   filas.forEach((fila) => {
     if (estados[_filtroInvEstado] === "todos") {
@@ -301,7 +300,9 @@ function filtrarInventarioRapido() {
     } else {
       const badge = fila.querySelector('[class*="badge-"]');
       const txt = badge ? badge.textContent.trim() : "";
-      fila.style.display = txt.includes(estados[_filtroInvEstado]) ? "" : "none";
+      fila.style.display = txt.includes(estados[_filtroInvEstado])
+        ? ""
+        : "none";
     }
   });
 
@@ -312,7 +313,6 @@ function filtrarInventarioRapido() {
   ];
   mostrarToast(etiquetas[_filtroInvEstado], "info");
 }
-
 
 /*7. DASHBOARD — MENÚ OPCIONES INVENTARIO (tres puntos)*/
 function opcionesInventario() {
@@ -328,8 +328,20 @@ function opcionesInventario() {
       fn: () => {
         const datos = [
           ["Material", "Cantidad", "Estado", "Consumo Diario", "Previsión"],
-          ["Resina Industrial Gris V4", "142 L", "Óptimo", "4.2 L/día", "34 Días"],
-          ["Nylon 12 Fibra Carbono", "12 kg", "Crítico", "1.5 kg/día", "8 Días"],
+          [
+            "Resina Industrial Gris V4",
+            "142 L",
+            "Óptimo",
+            "4.2 L/día",
+            "34 Días",
+          ],
+          [
+            "Nylon 12 Fibra Carbono",
+            "12 kg",
+            "Crítico",
+            "1.5 kg/día",
+            "8 Días",
+          ],
           ["Polvo Titanio Gr5", "850 kg", "Óptimo", "12 kg/día", "71 Días"],
         ];
         _descargarCSV(datos, "inventario_dashboard.csv");
@@ -344,11 +356,12 @@ function opcionesInventario() {
     {
       icono: "bi-printer",
       texto: "Imprimir tabla",
-      fn: () => { mostrarToast("Enviando a impresora...", "info"); },
+      fn: () => {
+        mostrarToast("Enviando a impresora...", "info");
+      },
     },
   ]);
 }
-
 
 /* 8. DASHBOARD — APLICAR OPTIMIZACIÓN*/
 function aplicarOptimizacion(btn) {
@@ -359,25 +372,33 @@ function aplicarOptimizacion(btn) {
     // Actualizar visualmente la Unidad 04 en el dashboard
     const cards = document.querySelectorAll("#sec-dashboard .maquina-card");
     if (cards[3]) {
-      const pct  = cards[3].querySelector(".maquina-pct");
+      const pct = cards[3].querySelector(".maquina-pct");
       const fill = cards[3].querySelector(".barra-fill");
       const info = cards[3].querySelector(".maquina-info");
-      if (pct)  { pct.textContent = "35%"; pct.className = "maquina-pct amarillo"; }
-      if (fill) { fill.style.width = "35%"; fill.classList.add("amarillo"); }
-      if (info) info.innerHTML =
-        '<i class="bi bi-clock me-1"></i>Asignada • Pedido Aeroespacial A8';
+      if (pct) {
+        pct.textContent = "35%";
+        pct.className = "maquina-pct amarillo";
+      }
+      if (fill) {
+        fill.style.width = "35%";
+        fill.classList.add("amarillo");
+      }
+      if (info)
+        info.innerHTML =
+          '<i class="bi bi-clock me-1"></i>Asignada • Pedido Aeroespacial A8';
     }
-    mostrarToast("Unidad 04 redirigida a pedidos aeroespaciales de alta prioridad", "success");
+    mostrarToast(
+      "Unidad 04 redirigida a pedidos aeroespaciales de alta prioridad",
+      "success",
+    );
     btn.innerHTML = "Optimización Aplicada";
   }, 1600);
 }
-
 
 /*9. DASHBOARD — VER TODA LA ACTIVIDAD*/
 function verTodaActividad() {
   mostrarSeccion("pedidos", document.getElementById("nav-pedidos"));
 }
-
 
 /*10. MATERIALES — PANEL DE FILTROS*/
 function filtrarMateriales() {
@@ -391,17 +412,25 @@ function filtrarMateriales() {
     panel.innerHTML = `
       <div class="fw-700 mb-3" style="font-size:14px;">Filtrar Materiales</div>
       <div class="etiqueta-seccion mb-2">ESTADO</div>
-      ${["Todos","Óptimo","Suficiente","Crítico"].map((e) => `
+      ${["Todos", "Óptimo", "Suficiente", "Crítico"]
+        .map(
+          (e) => `
         <label style="cursor:pointer;font-size:13px;display:flex;gap:6px;margin-bottom:6px;align-items:center;">
-          <input type="radio" name="rfMat" value="${e}" ${e==="Todos"?"checked":""}
+          <input type="radio" name="rfMat" value="${e}" ${e === "Todos" ? "checked" : ""}
                  onchange="aplicarFiltroMateriales('${e}')"> ${e}
-        </label>`).join("")}
+        </label>`,
+        )
+        .join("")}
       <div class="etiqueta-seccion mb-2 mt-3">TIPO</div>
-      ${["Todos","PLA","PETG","Resina SLA","Nylon"].map((t) => `
+      ${["Todos", "PLA", "PETG", "Resina SLA", "Nylon"]
+        .map(
+          (t) => `
         <label style="cursor:pointer;font-size:13px;display:flex;gap:6px;margin-bottom:6px;align-items:center;">
-          <input type="radio" name="rfTipo" value="${t}" ${t==="Todos"?"checked":""}
+          <input type="radio" name="rfTipo" value="${t}" ${t === "Todos" ? "checked" : ""}
                  onchange="mostrarToast('Tipo: ${t}','info')"> ${t}
-        </label>`).join("")}
+        </label>`,
+        )
+        .join("")}
       <button class="btn-outline w-100 justify-content-center mt-3"
               style="font-size:12px;padding:6px;"
               onclick="aplicarFiltroMateriales('Todos');
@@ -414,25 +443,63 @@ function filtrarMateriales() {
 }
 
 function aplicarFiltroMateriales(estado) {
-  const filas = document.querySelectorAll("#sec-materiales .tabla-custom tbody tr");
+  const filas = document.querySelectorAll(
+    "#sec-materiales .tabla-custom tbody tr",
+  );
   filas.forEach((fila) => {
-    if (estado === "Todos") { fila.style.display = ""; return; }
+    if (estado === "Todos") {
+      fila.style.display = "";
+      return;
+    }
     const badge = fila.querySelector('[class*="badge-"]');
     const txt = badge ? badge.textContent.trim() : "";
-    fila.style.display = txt.toLowerCase().includes(estado.toLowerCase()) ? "" : "none";
+    fila.style.display = txt.toLowerCase().includes(estado.toLowerCase())
+      ? ""
+      : "none";
   });
   if (estado !== "Todos") mostrarToast(`Filtro aplicado: ${estado}`, "info");
 }
-
 
 /* 11. MATERIALES — EXPORTAR CSV*/
 function exportarMateriales() {
   mostrarToast("Generando CSV de inventario...", "info");
   const datos = [
-    ["Material", "Tipo", "Proveedor", "Stock", "Punto Re-pedido", "Precio/Kg", "Estado"],
-    ["PLA Carbon Fiber 1.75mm", "PLA",      "Proto-Pasta Inc.", "12.5 kg", "5.0 kg", "$45.00",  "Óptimo"],
-    ["PETG Neon Orange 2.85mm", "PETG",     "Filamentum",       "2.1 kg",  "3.0 kg", "$32.50",  "Crítico"],
-    ["Tough Resin V4 SLA",      "Resina",   "Formlabs",         "5.0 L",   "2.0 L",  "$175.00", "Suficiente"],
+    [
+      "Material",
+      "Tipo",
+      "Proveedor",
+      "Stock",
+      "Punto Re-pedido",
+      "Precio/Kg",
+      "Estado",
+    ],
+    [
+      "PLA Carbon Fiber 1.75mm",
+      "PLA",
+      "Proto-Pasta Inc.",
+      "12.5 kg",
+      "5.0 kg",
+      "$45.00",
+      "Óptimo",
+    ],
+    [
+      "PETG Neon Orange 2.85mm",
+      "PETG",
+      "Filamentum",
+      "2.1 kg",
+      "3.0 kg",
+      "$32.50",
+      "Crítico",
+    ],
+    [
+      "Tough Resin V4 SLA",
+      "Resina",
+      "Formlabs",
+      "5.0 L",
+      "2.0 L",
+      "$175.00",
+      "Suficiente",
+    ],
   ];
   setTimeout(() => {
     _descargarCSV(datos, "inventario_maestro.csv");
@@ -440,12 +507,13 @@ function exportarMateriales() {
   }, 600);
 }
 
-
 /* 12. MATERIALES — CLIC EN FILA (ver detalle) */
 function verDetalleMaterial(nombre, proveedor, stock, precio, estado) {
-  mostrarToast(`${nombre} · ${stock} · ${precio}/kg · Estado: ${estado}`, "info");
+  mostrarToast(
+    `${nombre} · ${stock} · ${precio}/kg · Estado: ${estado}`,
+    "info",
+  );
 }
-
 
 /* 13. PEDIDOS — PANEL DE FILTROS */
 function filtrarPedidos(btn) {
@@ -459,17 +527,25 @@ function filtrarPedidos(btn) {
     panel.innerHTML = `
       <div class="fw-700 mb-3" style="font-size:14px;">Filtrar Pedidos</div>
       <div class="etiqueta-seccion mb-2">ESTADO</div>
-      ${["Todos","Pendiente Técnico","Pendiente Finanzas"].map((e) => `
+      ${["Todos", "Pendiente Técnico", "Pendiente Finanzas"]
+        .map(
+          (e) => `
         <label style="cursor:pointer;font-size:13px;display:flex;gap:6px;margin-bottom:6px;align-items:center;">
-          <input type="radio" name="rfPed" value="${e}" ${e==="Todos"?"checked":""}
+          <input type="radio" name="rfPed" value="${e}" ${e === "Todos" ? "checked" : ""}
                  onchange="aplicarFiltroPedidos('${e}')"> ${e}
-        </label>`).join("")}
+        </label>`,
+        )
+        .join("")}
       <div class="etiqueta-seccion mb-2 mt-3">MARGEN</div>
-      ${["Todos","Alto >30%","Bajo ≤30%"].map((m) => `
+      ${["Todos", "Alto >30%", "Bajo ≤30%"]
+        .map(
+          (m) => `
         <label style="cursor:pointer;font-size:13px;display:flex;gap:6px;margin-bottom:6px;align-items:center;">
-          <input type="radio" name="rfMargen" value="${m}" ${m==="Todos"?"checked":""}
+          <input type="radio" name="rfMargen" value="${m}" ${m === "Todos" ? "checked" : ""}
                  onchange="mostrarToast('Filtro margen: ${m}','info')"> ${m}
-        </label>`).join("")}
+        </label>`,
+        )
+        .join("")}
       <button class="btn-outline w-100 justify-content-center mt-3"
               style="font-size:12px;padding:6px;"
               onclick="aplicarFiltroPedidos('Todos');
@@ -483,12 +559,17 @@ function filtrarPedidos(btn) {
 
 function aplicarFiltroPedidos(estado) {
   const mapa = {
-    "Pendiente Técnico":  "PENDIENTE TÉCNICO",
+    "Pendiente Técnico": "PENDIENTE TÉCNICO",
     "Pendiente Finanzas": "PENDIENTE FINANZAS",
   };
-  const filas = document.querySelectorAll("#sec-pedidos .tabla-custom tbody tr");
+  const filas = document.querySelectorAll(
+    "#sec-pedidos .tabla-custom tbody tr",
+  );
   filas.forEach((fila) => {
-    if (estado === "Todos") { fila.style.display = ""; return; }
+    if (estado === "Todos") {
+      fila.style.display = "";
+      return;
+    }
     const badge = fila.querySelector('[class*="badge-pend"]');
     const txt = badge ? badge.textContent.trim() : "";
     fila.style.display = txt === (mapa[estado] || estado) ? "" : "none";
@@ -496,15 +577,54 @@ function aplicarFiltroPedidos(estado) {
   if (estado !== "Todos") mostrarToast(`Filtro activo: ${estado}`, "info");
 }
 
-
 /*14. PEDIDOS — EXPORTAR CSV*/
 function exportarPedidosCSV() {
   mostrarToast("Generando CSV de pedidos...", "info");
   const datos = [
-    ["ID Pedido","Cliente","Contacto","Modelo","Material","Costo","Precio","Margen","Estado"],
-    ["#PP-9382","Industrial Tech S.A.","Juan Pérez","Engranaje Helicoidal v2","PEEK Carbon-Filled","$1,240.00","$1,760.00","42.5%","Pendiente Técnico"],
-    ["#PP-9383","BioLab Medical","Laura Gómez","Soporte Micro-fluídico","Resina Biocompatible","$890.00","$1,050.00","18.2%","Pendiente Finanzas"],
-    ["#PP-9384","AutoParts Nord","Roberto Díaz","Prototipo Carcasa E1","Nylon 12 CF","$1,100.00","$1,485.00","35.0%","Pendiente Técnico"],
+    [
+      "ID Pedido",
+      "Cliente",
+      "Contacto",
+      "Modelo",
+      "Material",
+      "Costo",
+      "Precio",
+      "Margen",
+      "Estado",
+    ],
+    [
+      "#PP-9382",
+      "Industrial Tech S.A.",
+      "Juan Pérez",
+      "Engranaje Helicoidal v2",
+      "PEEK Carbon-Filled",
+      "$1,240.00",
+      "$1,760.00",
+      "42.5%",
+      "Pendiente Técnico",
+    ],
+    [
+      "#PP-9383",
+      "BioLab Medical",
+      "Laura Gómez",
+      "Soporte Micro-fluídico",
+      "Resina Biocompatible",
+      "$890.00",
+      "$1,050.00",
+      "18.2%",
+      "Pendiente Finanzas",
+    ],
+    [
+      "#PP-9384",
+      "AutoParts Nord",
+      "Roberto Díaz",
+      "Prototipo Carcasa E1",
+      "Nylon 12 CF",
+      "$1,100.00",
+      "$1,485.00",
+      "35.0%",
+      "Pendiente Técnico",
+    ],
   ];
   setTimeout(() => {
     _descargarCSV(datos, "pedidos_pendientes.csv");
@@ -512,11 +632,12 @@ function exportarPedidosCSV() {
   }, 500);
 }
 
-
 /* 15. REPORTES — CAMBIAR PERÍODO */
 const _periodosRep = [
-  "01 Ene – 31 Mar", "01 Abr – 30 Jun",
-  "01 Jul – 30 Sep", "01 Oct – 31 Dic",
+  "01 Ene – 31 Mar",
+  "01 Abr – 30 Jun",
+  "01 Jul – 30 Sep",
+  "01 Oct – 31 Dic",
 ];
 let _idxPeriodoRep = 2;
 
@@ -526,24 +647,22 @@ function cambiarPeriodoReporte(btn) {
   mostrarToast(`Período de reporte: ${_periodosRep[_idxPeriodoRep]}`, "info");
 }
 
-
 /*16. REPORTES — EXPORTAR EXCEL (CSV)*/
 function exportarExcel() {
   mostrarToast("Generando hoja Excel...", "info");
   const datos = [
-    ["Mes","Ingresos","Gastos","Beneficio Neto","Margen %"],
-    ["Julio 2023",   "$120,000","$45,000","$75,000","62.5%"],
-    ["Agosto 2023",  "$145,000","$58,000","$87,000","60.0%"],
-    ["Septiembre 2023","$98,000","$38,000","$60,000","61.2%"],
-    ["Octubre 2023", "$189,000","$72,000","$117,000","61.9%"],
-    ["TOTAL Q3/Q4",  "$552,000","$213,000","$339,000","61.4%"],
+    ["Mes", "Ingresos", "Gastos", "Beneficio Neto", "Margen %"],
+    ["Julio 2023", "$120,000", "$45,000", "$75,000", "62.5%"],
+    ["Agosto 2023", "$145,000", "$58,000", "$87,000", "60.0%"],
+    ["Septiembre 2023", "$98,000", "$38,000", "$60,000", "61.2%"],
+    ["Octubre 2023", "$189,000", "$72,000", "$117,000", "61.9%"],
+    ["TOTAL Q3/Q4", "$552,000", "$213,000", "$339,000", "61.4%"],
   ];
   setTimeout(() => {
     _descargarCSV(datos, "reporte_financiero_q3.csv");
     mostrarToast("Reporte Excel descargado", "success");
   }, 600);
 }
-
 
 /*17. REPORTES — EXPORTAR PDF */
 function exportarPDFReporte() {
@@ -562,7 +681,9 @@ function exportarPDFReporte() {
   doc.rect(0, 0, 210, 32, "F");
   doc.setTextColor(255, 255, 255);
   doc.setFontSize(17);
-  doc.text("PrintSmart 3D — Análisis de Desempeño", 105, 14, { align: "center" });
+  doc.text("PrintSmart 3D — Análisis de Desempeño", 105, 14, {
+    align: "center",
+  });
   doc.setFontSize(10);
   doc.text("Período: 01 Jul – 30 Sep 2023", 105, 24, { align: "center" });
 
@@ -573,10 +694,10 @@ function exportarPDFReporte() {
   doc.setFontSize(10);
   doc.setTextColor(80);
   const kpis = [
-    ["Ingresos Totales",        "$452,800",  "+12.5%"],
-    ["ROI Promedio Impresoras", "2.4x",       "Estable"],
-    ["Tasa de Desperdicio",     "3.15%",      "-4.2%"],
-    ["Eficiencia Operativa",    "94.2%",      "+8.1%"],
+    ["Ingresos Totales", "$452,800", "+12.5%"],
+    ["ROI Promedio Impresoras", "2.4x", "Estable"],
+    ["Tasa de Desperdicio", "3.15%", "-4.2%"],
+    ["Eficiencia Operativa", "94.2%", "+8.1%"],
   ];
   let y = 56;
   kpis.forEach(([k, v, b]) => {
@@ -595,8 +716,8 @@ function exportarPDFReporte() {
   doc.setTextColor(80);
   const ops = [
     ["Roberto Castillo", "Mañana", "1,240 pzs", "99.2%", "98.5%"],
-    ["Marta López",      "Tarde",  "1,105 pzs", "98.8%", "96.2%"],
-    ["Samuel Jiménez",   "Noche",  "980 pzs",   "94.5%", "89.4%"],
+    ["Marta López", "Tarde", "1,105 pzs", "98.8%", "96.2%"],
+    ["Samuel Jiménez", "Noche", "980 pzs", "94.5%", "89.4%"],
   ];
   y += 24;
   ops.forEach(([n, t, p, c, e]) => {
@@ -609,26 +730,26 @@ function exportarPDFReporte() {
   doc.setTextColor(150);
   doc.text(
     "PrintSmart 3D · Generado: " + new Date().toLocaleString("es-CO"),
-    105, 285, { align: "center" }
+    105,
+    285,
+    { align: "center" },
   );
 
   doc.save("reporte_desempeno_q3_2023.pdf");
   setTimeout(() => mostrarToast("Reporte PDF descargado", "success"), 400);
 }
 
-
 /*18. REPORTES — CLIC EN FILA DE OPERADORES*/
 function verDetalleOperador(nombre, turno, produccion, calidad, eficiencia) {
   mostrarToast(
     `${nombre} (${turno}) — ${produccion} · Calidad: ${calidad} · Eficiencia: ${eficiencia}`,
-    "info"
+    "info",
   );
 }
 
-
 /*19. USUARIOS — PAGINACIÓN*/
-let _paginaActual  = 1;
-const _totalUsers  = 1284;
+let _paginaActual = 1;
+const _totalUsers = 1284;
 const _usersPagina = 4;
 
 function paginaAnterior() {
@@ -654,25 +775,24 @@ function _actualizarFooterUsuarios() {
   const footer = document.querySelector(".tabla-footer-usuarios span");
   if (!footer) return;
   const inicio = (_paginaActual - 1) * _usersPagina + 1;
-  const fin    = Math.min(_paginaActual * _usersPagina, _totalUsers);
+  const fin = Math.min(_paginaActual * _usersPagina, _totalUsers);
   footer.textContent = `Mostrando ${inicio}–${fin} de ${_totalUsers.toLocaleString("es-CO")} usuarios`;
   mostrarToast(`Página ${_paginaActual}`, "info");
 }
 
-
 /*20. CONFIGURACIÓN — GUARDAR PREFERENCIAS REGIONALES*/
 function guardarRegionales() {
-  const idioma = document.getElementById("selectIdioma")?.value || "Español (Colombia)";
-  const zona   = document.getElementById("selectZona")?.value   || "UTC-05:00 Bogotá";
+  const idioma =
+    document.getElementById("selectIdioma")?.value || "Español (Colombia)";
+  const zona =
+    document.getElementById("selectZona")?.value || "UTC-05:00 Bogotá";
   mostrarToast(`Preferencias guardadas · ${idioma} · ${zona}`, "success");
 }
-
 
 /*21. CÁLCULOS — VER MATERIALES ALTERNATIVOS*/
 function verMaterialesAlternativos() {
   mostrarSeccion("materiales", document.getElementById("nav-materiales"));
 }
-
 
 /*UTILIDADES PRIVADAS */
 
@@ -686,8 +806,10 @@ function _alternarPanel(panel) {
 /** Cierra todos los paneles flotantes */
 function _cerrarTodosLosPaneles() {
   [
-    "panelNotificaciones", "panelHistorial",
-    "panelFiltroMateriales", "panelFiltrosPedidos",
+    "panelNotificaciones",
+    "panelHistorial",
+    "panelFiltroMateriales",
+    "panelFiltrosPedidos",
   ].forEach((id) => {
     const el = document.getElementById(id);
     if (el) el.style.display = "none";
@@ -703,8 +825,8 @@ function _descargarCSV(filas, nombreArchivo) {
     type: "text/csv;charset=utf-8;",
   });
   const url = URL.createObjectURL(blob);
-  const a   = document.createElement("a");
-  a.href     = url;
+  const a = document.createElement("a");
+  a.href = url;
   a.download = nombreArchivo;
   document.body.appendChild(a);
   a.click();
@@ -732,15 +854,21 @@ function _mostrarMenuContextual(opciones) {
     const item = document.createElement("div");
     item.className = "menu-item";
     item.innerHTML = `<i class="bi ${op.icono}"></i> ${op.texto}`;
-    item.addEventListener("click", () => { op.fn(); menu.remove(); });
+    item.addEventListener("click", () => {
+      op.fn();
+      menu.remove();
+    });
     menu.appendChild(item);
   });
 
   // Posicionar cerca del clic sin salirse de la ventana
-  const x = Math.min(_lastClick.x, window.innerWidth  - 200);
-  const y = Math.min(_lastClick.y, window.innerHeight - opciones.length * 38 - 10);
+  const x = Math.min(_lastClick.x, window.innerWidth - 200);
+  const y = Math.min(
+    _lastClick.y,
+    window.innerHeight - opciones.length * 38 - 10,
+  );
   menu.style.left = x + "px";
-  menu.style.top  = y + "px";
+  menu.style.top = y + "px";
   document.body.appendChild(menu);
 
   setTimeout(() => {

@@ -14,7 +14,9 @@ function setAlturaCapa(valor, boton) {
   alturaCapa = valor;
 
   // Quitar 'activo' de todos los botones
-  document.querySelectorAll(".btn-toggle").forEach(b => b.classList.remove("activo"));
+  document
+    .querySelectorAll(".btn-toggle")
+    .forEach((b) => b.classList.remove("activo"));
   boton.classList.add("activo");
 
   calcularCosto();
@@ -23,29 +25,40 @@ function setAlturaCapa(valor, boton) {
 // Recalcular el costo total según los parámetros
 function calcularCosto() {
   // Leer valores de los controles
-  const precioPorG  = parseFloat(document.getElementById("calcMaterial").value) || 0.42;
-  const densidad    = parseInt(document.getElementById("sliderDensidad").value) || 45;
-  const horasMobra  = parseFloat(document.getElementById("horasMobra").value) || 0;
+  const precioPorG =
+    parseFloat(document.getElementById("calcMaterial").value) || 0.42;
+  const densidad =
+    parseInt(document.getElementById("sliderDensidad").value) || 45;
+  const horasMobra =
+    parseFloat(document.getElementById("horasMobra").value) || 0;
 
   // Cálculos
-  const gramajeBase    = 124.5;
-  const gramajeAjust   = gramajeBase * (densidad / 45);
-  const costeMaterial  = (gramajeAjust * precioPorG).toFixed(2);
-  const costeMaquina   = 18.50;
-  const costeElec      = 3.12;
-  const costeMobra     = (horasMobra * 35).toFixed(2);
+  const gramajeBase = 124.5;
+  const gramajeAjust = gramajeBase * (densidad / 45);
+  const costeMaterial = (gramajeAjust * precioPorG).toFixed(2);
+  const costeMaquina = 18.5;
+  const costeElec = 3.12;
+  const costeMobra = (horasMobra * 35).toFixed(2);
 
-  const subtotal = parseFloat(costeMaterial) + costeMaquina + costeElec + parseFloat(costeMobra);
-  const margen   = (subtotal * 0.25).toFixed(2);
-  const total    = (subtotal + parseFloat(margen)).toFixed(2);
+  const subtotal =
+    parseFloat(costeMaterial) +
+    costeMaquina +
+    costeElec +
+    parseFloat(costeMobra);
+  const margen = (subtotal * 0.25).toFixed(2);
+  const total = (subtotal + parseFloat(margen)).toFixed(2);
 
   // Actualizar la interfaz
-  document.getElementById("valMaterial").textContent = "$" + parseFloat(costeMaterial).toFixed(2);
-  document.getElementById("subMaterial").textContent = Math.round(gramajeAjust) + "g @ $" + precioPorG.toFixed(2) + "/g";
-  document.getElementById("valMobra").textContent    = "$" + parseFloat(costeMobra).toFixed(2);
-  document.getElementById("subMobra").textContent    = horasMobra + "h Nivel Técnico 2";
-  document.getElementById("valMargen").textContent   = "+$" + margen;
-  document.getElementById("valorTotal").textContent  = "$" + total;
+  document.getElementById("valMaterial").textContent =
+    "$" + parseFloat(costeMaterial).toFixed(2);
+  document.getElementById("subMaterial").textContent =
+    Math.round(gramajeAjust) + "g @ $" + precioPorG.toFixed(2) + "/g";
+  document.getElementById("valMobra").textContent =
+    "$" + parseFloat(costeMobra).toFixed(2);
+  document.getElementById("subMobra").textContent =
+    horasMobra + "h Nivel Técnico 2";
+  document.getElementById("valMargen").textContent = "+$" + margen;
+  document.getElementById("valorTotal").textContent = "$" + total;
 }
 
 // Simular carga de un archivo STL

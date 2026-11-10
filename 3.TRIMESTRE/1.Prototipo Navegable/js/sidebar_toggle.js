@@ -10,9 +10,9 @@
 
 const PS3D_CLAVE_SIDEBAR = "ps3d_sidebar_oculto";
 
-let ps3dSidebar      = null;
-let ps3dTopbar       = null;
-let ps3dBoton        = null;
+let ps3dSidebar = null;
+let ps3dTopbar = null;
+let ps3dBoton = null;
 let ps3dAnchoSidebar = null; // se mide una sola vez, mientras está visible
 
 window.addEventListener("DOMContentLoaded", inicializarToggleSidebar);
@@ -58,8 +58,9 @@ function aplicarEstadoSidebar(ocultar) {
   // ocultarlo solo con transform dejaría un hueco en blanco (el
   // transform no libera el espacio reservado en el flujo normal).
   // En ese caso lo ocultamos también con display.
-  const posicion   = getComputedStyle(ps3dSidebar).position;
-  const esFlotante = posicion === "fixed" || posicion === "absolute" || posicion === "sticky";
+  const posicion = getComputedStyle(ps3dSidebar).position;
+  const esFlotante =
+    posicion === "fixed" || posicion === "absolute" || posicion === "sticky";
   if (!esFlotante) {
     ps3dSidebar.style.display = ocultar ? "none" : "";
   }
@@ -83,11 +84,11 @@ function posicionarBotonToggle() {
     ps3dAnchoSidebar = ps3dSidebar.getBoundingClientRect().width;
   }
 
-  ps3dBoton.style.left = (oculto ? 0 : (ps3dAnchoSidebar || 260)) + "px";
+  ps3dBoton.style.left = (oculto ? 0 : ps3dAnchoSidebar || 260) + "px";
 
   if (ps3dTopbar) {
     const rect = ps3dTopbar.getBoundingClientRect();
-    ps3dBoton.style.top = (rect.top + rect.height / 2) + "px";
+    ps3dBoton.style.top = rect.top + rect.height / 2 + "px";
   } else {
     ps3dBoton.style.top = "32px";
   }

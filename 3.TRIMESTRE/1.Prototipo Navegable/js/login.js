@@ -2,34 +2,34 @@
 // PrintSmart 3D · ML Mecanizados SAS
 
 const rolesDisponibles = {
-  Admin:    true,
+  Admin: true,
   Operador: true,
-  Cliente:  true,
+  Cliente: true,
   Tecnico: true,
 };
 
 const datosRol = {
   Admin: {
     desc: "Acceso total: usuarios, configuración, reportes financieros y control de toda la operación.",
-    descBloqueado: null
+    descBloqueado: null,
   },
   Operador: {
     desc: "Gestión de cola de impresión, inventario de materiales y mantenimiento técnico.",
-    descBloqueado: null
+    descBloqueado: null,
   },
   Cliente: {
     desc: "Registra tu cuenta para hacer pedidos, ver cotizaciones y seguimiento en tiempo real.",
-    descBloqueado: null
+    descBloqueado: null,
   },
-  Tecnico: {                                                             
+  Tecnico: {
     desc: "Panel de mantenimiento: diagnóstico, reparación e historial de intervenciones.",
-    descBloqueado: null
-  }
+    descBloqueado: null,
+  },
 };
 
-let rolModalActual      = "Admin";
-let productoActual      = null;
-let codigoRecuperacion  = null;
+let rolModalActual = "Admin";
+let productoActual = null;
+let codigoRecuperacion = null;
 
 // NAVBAR — scroll + link activo
 window.addEventListener("scroll", () => {
@@ -40,10 +40,10 @@ window.addEventListener("scroll", () => {
 window.addEventListener("scroll", () => {
   const secciones = document.querySelectorAll("section[id]");
   let actual = "";
-  secciones.forEach(sec => {
+  secciones.forEach((sec) => {
     if (window.scrollY >= sec.offsetTop - 120) actual = sec.getAttribute("id");
   });
-  document.querySelectorAll(".lnav-links a").forEach(a => {
+  document.querySelectorAll(".lnav-links a").forEach((a) => {
     a.classList.remove("lnav-active");
     if (a.getAttribute("href") === "#" + actual) a.classList.add("lnav-active");
   });
@@ -52,10 +52,15 @@ window.addEventListener("scroll", () => {
 // DOM LISTO
 document.addEventListener("DOMContentLoaded", () => {
   // Fade-up observer
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add("visible"); });
-  }, { threshold: 0.12 });
-  document.querySelectorAll(".fade-up").forEach(el => obs.observe(el));
+  const obs = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) e.target.classList.add("visible");
+      });
+    },
+    { threshold: 0.12 },
+  );
+  document.querySelectorAll(".fade-up").forEach((el) => obs.observe(el));
 
   // Tab Admin activo por defecto
   const tabAdmin = document.getElementById("tab-Admin");
@@ -90,7 +95,7 @@ function cerrarModalClick(event) {
   if (event.target === document.getElementById("modalOv")) cerrarModal();
 }
 
-document.addEventListener("keydown", e => {
+document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") cerrarModal();
 });
 
@@ -98,22 +103,24 @@ document.addEventListener("keydown", e => {
 function selectModalRol(rol, tabEl) {
   rolModalActual = rol;
 
-  document.querySelectorAll(".mtab").forEach(t => t.classList.remove("activo"));
+  document
+    .querySelectorAll(".mtab")
+    .forEach((t) => t.classList.remove("activo"));
   if (tabEl) tabEl.classList.add("activo");
 
-  const rolBox  = document.getElementById("mRolBox");
-  const rolIco  = document.getElementById("mRolIcono");
-  const rolTxt  = document.getElementById("mRolTexto");
-  const titulo  = document.getElementById("mTitulo");
-  const subtit  = document.getElementById("mSubtitulo");
-  const errLog  = document.getElementById("mErr");
+  const rolBox = document.getElementById("mRolBox");
+  const rolIco = document.getElementById("mRolIcono");
+  const rolTxt = document.getElementById("mRolTexto");
+  const titulo = document.getElementById("mTitulo");
+  const subtit = document.getElementById("mSubtitulo");
+  const errLog = document.getElementById("mErr");
 
   if (errLog) errLog.style.display = "none";
 
   if (rol === "Cliente") {
     _mostrarSeccion("secLogin");
-    titulo.textContent  = "Bienvenido, Cliente";
-    subtit.textContent  = "Inicia sesión en tu cuenta";
+    titulo.textContent = "Bienvenido, Cliente";
+    subtit.textContent = "Inicia sesión en tu cuenta";
     rolBox.classList.remove("bloqueado");
     rolIco.className = "bi bi-person-check";
     rolTxt.textContent = datosRol.Cliente.desc;
@@ -122,7 +129,6 @@ function selectModalRol(rol, tabEl) {
       btn.disabled = false;
       btn.innerHTML = 'Iniciar Sesión &nbsp;<i class="bi bi-arrow-right"></i>';
     }
-
   } else if (!rolesDisponibles[rol]) {
     _mostrarSeccion("secLogin");
     titulo.textContent = "PrintSmart 3D";
@@ -131,8 +137,10 @@ function selectModalRol(rol, tabEl) {
     rolIco.className = "bi bi-lock-fill";
     rolTxt.textContent = datosRol[rol].descBloqueado;
     const btn = document.getElementById("btnLogin");
-    if (btn) { btn.disabled = true; btn.innerHTML = '<i class="bi bi-lock-fill"></i> Acceso No Disponible'; }
-
+    if (btn) {
+      btn.disabled = true;
+      btn.innerHTML = '<i class="bi bi-lock-fill"></i> Acceso No Disponible';
+    }
   } else {
     _mostrarSeccion("secLogin");
     titulo.textContent = "PrintSmart 3D";
@@ -141,7 +149,10 @@ function selectModalRol(rol, tabEl) {
     rolIco.className = "bi bi-info-circle";
     rolTxt.textContent = datosRol[rol].desc;
     const btn = document.getElementById("btnLogin");
-    if (btn) { btn.disabled = false; btn.innerHTML = 'Iniciar Sesión &nbsp;<i class="bi bi-arrow-right"></i>'; }
+    if (btn) {
+      btn.disabled = false;
+      btn.innerHTML = 'Iniciar Sesión &nbsp;<i class="bi bi-arrow-right"></i>';
+    }
   }
 }
 
@@ -165,9 +176,9 @@ function togglePassReg() {
 // INICIAR SESIÓN (Admin / Operario)
 function iniciarSesionModal() {
   const email = document.getElementById("mEmail")?.value.trim();
-  const pass  = document.getElementById("mPass")?.value.trim();
-  const mErr  = document.getElementById("mErr");
-  const btn   = document.getElementById("btnLogin");
+  const pass = document.getElementById("mPass")?.value.trim();
+  const mErr = document.getElementById("mErr");
+  const btn = document.getElementById("btnLogin");
 
   if (!rolesDisponibles[rolModalActual]) {
     _mostrarError(mErr, "Este rol aún no está configurado.");
@@ -180,7 +191,8 @@ function iniciarSesionModal() {
 
   mErr.style.display = "none";
   btn.disabled = true;
-  btn.innerHTML = '<i class="bi bi-arrow-repeat spin-icon"></i>&nbsp; Ingresando...';
+  btn.innerHTML =
+    '<i class="bi bi-arrow-repeat spin-icon"></i>&nbsp; Ingresando...';
 
   setTimeout(() => {
     // Guardar sesión
@@ -189,34 +201,48 @@ function iniciarSesionModal() {
 
     // Nombre desde el email
     const partes = email.split("@")[0].split(/[._]/);
-    const nombre = partes.map(p => p.charAt(0).toUpperCase() + p.slice(1)).join(" ");
+    const nombre = partes
+      .map((p) => p.charAt(0).toUpperCase() + p.slice(1))
+      .join(" ");
     sessionStorage.setItem("clienteNombre", nombre);
 
     // Redirigir según rol
     if (rolModalActual === "Cliente") {
-        window.location.href = "cliente.html";
-      } else if (rolModalActual === "Operador") {
-        window.location.href = "operador.html";
-      } else if (rolModalActual === "Tecnico") {  
-        window.location.href = "tecnico.html";     
-      } else {
-        window.location.href = "admin.html";
-      }
-    }, 900);
-  }   
+      window.location.href = "cliente.html";
+    } else if (rolModalActual === "Operador") {
+      window.location.href = "operador.html";
+    } else if (rolModalActual === "Tecnico") {
+      window.location.href = "tecnico.html";
+    } else {
+      window.location.href = "admin.html";
+    }
+  }, 900);
+}
 
 // REGISTRAR CLIENTE
 function registrarCliente() {
-  const nombre  = document.getElementById("rNombre")?.value.trim();
-  const email   = document.getElementById("rEmail")?.value.trim();
-  const pass    = document.getElementById("rPass")?.value.trim();
-  const term    = document.getElementById("terminos")?.checked;
+  const nombre = document.getElementById("rNombre")?.value.trim();
+  const email = document.getElementById("rEmail")?.value.trim();
+  const pass = document.getElementById("rPass")?.value.trim();
+  const term = document.getElementById("terminos")?.checked;
   const mErrReg = document.getElementById("mErrReg");
 
-  if (!nombre)              { _mostrarError(mErrReg, "Ingresa tu nombre completo."); return; }
-  if (!email?.includes("@"))  { _mostrarError(mErrReg, "Ingresa un correo válido."); return; }
-  if (!pass || pass.length < 6) { _mostrarError(mErrReg, "La contraseña debe tener al menos 6 caracteres."); return; }
-  if (!term)                { _mostrarError(mErrReg, "Acepta los términos y condiciones."); return; }
+  if (!nombre) {
+    _mostrarError(mErrReg, "Ingresa tu nombre completo.");
+    return;
+  }
+  if (!email?.includes("@")) {
+    _mostrarError(mErrReg, "Ingresa un correo válido.");
+    return;
+  }
+  if (!pass || pass.length < 6) {
+    _mostrarError(mErrReg, "La contraseña debe tener al menos 6 caracteres.");
+    return;
+  }
+  if (!term) {
+    _mostrarError(mErrReg, "Acepta los términos y condiciones.");
+    return;
+  }
 
   mErrReg.style.display = "none";
 
@@ -229,25 +255,28 @@ function registrarCliente() {
   mostrarToast("¡Bienvenido, " + nombre.split(" ")[0] + "!", "success");
 
   // Redirigir al portal del cliente
-  setTimeout(() => { window.location.href = "cliente.html"; }, 2000);
+  setTimeout(() => {
+    window.location.href = "cliente.html";
+  }, 2000);
 }
 
 // RECUPERACIÓN — Paso 1: pedir email
 function mostrarRecuperacion() {
   // Ocultar tabs y caja de rol
   document.querySelector(".modal-tabs").style.display = "none";
-  document.getElementById("mRolBox").style.display   = "none";
+  document.getElementById("mRolBox").style.display = "none";
 
   _mostrarSeccion("secRecuperar");
 
-  document.getElementById("mTitulo").textContent  = "Recuperar contraseña";
-  document.getElementById("mSubtitulo").textContent = "Te enviaremos un código a tu correo";
+  document.getElementById("mTitulo").textContent = "Recuperar contraseña";
+  document.getElementById("mSubtitulo").textContent =
+    "Te enviaremos un código a tu correo";
 }
 
 // RECUPERACIÓN — Paso 2: enviar código
 function enviarCodigoRecuperacion() {
   const emailRec = document.getElementById("emailRecuperar")?.value.trim();
-  const errRec   = document.getElementById("mErrRec");
+  const errRec = document.getElementById("mErrRec");
 
   if (!emailRec?.includes("@")) {
     _mostrarError(errRec, "Ingresa un correo válido.");
@@ -259,7 +288,10 @@ function enviarCodigoRecuperacion() {
   errRec.style.display = "none";
 
   mostrarToast("Código enviado a " + emailRec, "info");
-  setTimeout(() => mostrarToast("Código de prueba: " + codigoRecuperacion, "success"), 1200);
+  setTimeout(
+    () => mostrarToast("Código de prueba: " + codigoRecuperacion, "success"),
+    1200,
+  );
 
   // Pasar al paso 2
   document.getElementById("rec-paso1").style.display = "none";
@@ -268,9 +300,9 @@ function enviarCodigoRecuperacion() {
 
 // RECUPERACIÓN — Paso 3: verificar código
 function verificarCodigo() {
-  const codigo  = document.getElementById("codigoIngresado")?.value.trim();
-  const pass1   = document.getElementById("nuevaPass")?.value.trim();
-  const pass2   = document.getElementById("confirmarPass")?.value.trim();
+  const codigo = document.getElementById("codigoIngresado")?.value.trim();
+  const pass1 = document.getElementById("nuevaPass")?.value.trim();
+  const pass2 = document.getElementById("confirmarPass")?.value.trim();
   const errRec2 = document.getElementById("mErrRec2");
 
   if (codigo !== codigoRecuperacion) {
@@ -297,8 +329,9 @@ function volverAlLogin() {
   _restaurarTabsYRol();
   codigoRecuperacion = null;
   _mostrarSeccion("secLogin");
-  document.getElementById("mTitulo").textContent  = "PrintSmart 3D";
-  document.getElementById("mSubtitulo").textContent = "Selecciona tu perfil de acceso";
+  document.getElementById("mTitulo").textContent = "PrintSmart 3D";
+  document.getElementById("mSubtitulo").textContent =
+    "Selecciona tu perfil de acceso";
   // Reset pasos
   const p1 = document.getElementById("rec-paso1");
   const p2 = document.getElementById("rec-paso2");
@@ -312,9 +345,12 @@ function volverAlLogin() {
 function mostrarInteres(nombreProducto) {
   productoActual = nombreProducto;
   abrirModal("Cliente");
-  const box    = document.getElementById("prodInteresBox");
+  const box = document.getElementById("prodInteresBox");
   const nombre = document.getElementById("prodInteresNombre");
-  if (box && nombre) { nombre.textContent = nombreProducto; box.style.display = "block"; }
+  if (box && nombre) {
+    nombre.textContent = nombreProducto;
+    box.style.display = "block";
+  }
 }
 
 // TOASTS
@@ -326,16 +362,17 @@ function mostrarToast(mensaje, tipo = "info") {
   t.innerHTML = `<span>${mensaje}</span>`;
   c.appendChild(t);
   setTimeout(() => {
-    t.style.opacity = "0"; t.style.transition = "opacity 0.35s";
+    t.style.opacity = "0";
+    t.style.transition = "opacity 0.35s";
     setTimeout(() => t.remove(), 350);
   }, 3500);
 }
 
 // HELPERS PRIVADOS
 function _mostrarSeccion(idVisible) {
-  ["secLogin", "secRegistro", "secExito", "secRecuperar"].forEach(id => {
+  ["secLogin", "secRegistro", "secExito", "secRecuperar"].forEach((id) => {
     const el = document.getElementById(id);
-    if (el) el.style.display = (id === idVisible) ? "block" : "none";
+    if (el) el.style.display = id === idVisible ? "block" : "none";
   });
 }
 
@@ -346,19 +383,33 @@ function _mostrarError(el, msg) {
 }
 
 function _restaurarTabsYRol() {
-  const tabs   = document.querySelector(".modal-tabs");
+  const tabs = document.querySelector(".modal-tabs");
   const rolBox = document.getElementById("mRolBox");
-  if (tabs)   tabs.style.display   = "";
+  if (tabs) tabs.style.display = "";
   if (rolBox) rolBox.style.display = "";
-  document.querySelectorAll(".mtab").forEach(t => t.classList.remove("activo"));
+  document
+    .querySelectorAll(".mtab")
+    .forEach((t) => t.classList.remove("activo"));
   const tabAdmin = document.getElementById("tab-Admin");
   if (tabAdmin) tabAdmin.classList.add("activo");
 }
 
 function limpiarFormularios() {
-  ["mEmail","mPass","rNombre","rEmail","rTelefono","rPass",
-   "emailRecuperar","codigoIngresado","nuevaPass","confirmarPass"
-  ].forEach(id => { const el = document.getElementById(id); if (el) el.value = ""; });
+  [
+    "mEmail",
+    "mPass",
+    "rNombre",
+    "rEmail",
+    "rTelefono",
+    "rPass",
+    "emailRecuperar",
+    "codigoIngresado",
+    "nuevaPass",
+    "confirmarPass",
+  ].forEach((id) => {
+    const el = document.getElementById(id);
+    if (el) el.value = "";
+  });
 
   const term = document.getElementById("terminos");
   if (term) term.checked = false;
@@ -366,8 +417,9 @@ function limpiarFormularios() {
   const pbox = document.getElementById("prodInteresBox");
   if (pbox) pbox.style.display = "none";
 
-  ["mErr","mErrReg","mErrRec","mErrRec2"].forEach(id => {
-    const el = document.getElementById(id); if (el) el.style.display = "none";
+  ["mErr", "mErrReg", "mErrRec", "mErrRec2"].forEach((id) => {
+    const el = document.getElementById(id);
+    if (el) el.style.display = "none";
   });
 }
 
@@ -377,7 +429,9 @@ function _inyectarRecuperacion() {
   const modalBox = document.getElementById("modalBox");
   if (!modalBox || document.getElementById("secRecuperar")) return;
 
-  modalBox.insertAdjacentHTML("beforeend", `
+  modalBox.insertAdjacentHTML(
+    "beforeend",
+    `
     <div id="secRecuperar" style="display:none;">
 
       <!-- PASO 1: Email -->
@@ -452,7 +506,8 @@ function _inyectarRecuperacion() {
       </div>
 
     </div>
-  `);
+  `,
+  );
 }
 // REGISTRO DESDE LA SECCIÓN INFERIOR
 
@@ -468,19 +523,19 @@ function irARegistro() {
 // Toggle contraseña del formulario inferior
 function toggleRegfPass() {
   const input = document.getElementById("regfPass");
-  const ico   = document.getElementById("regfOjo");
+  const ico = document.getElementById("regfOjo");
   if (!input) return;
-  input.type    = input.type === "password" ? "text" : "password";
+  input.type = input.type === "password" ? "text" : "password";
   ico.className = input.type === "password" ? "bi bi-eye" : "bi bi-eye-slash";
 }
 
 // Registrar cliente desde el formulario de la sección
 function registrarClienteForm() {
-  const nombre   = document.getElementById("regfNombre")?.value.trim();
-  const email    = document.getElementById("regfEmail")?.value.trim();
-  const pass     = document.getElementById("regfPass")?.value.trim();
+  const nombre = document.getElementById("regfNombre")?.value.trim();
+  const email = document.getElementById("regfEmail")?.value.trim();
+  const pass = document.getElementById("regfPass")?.value.trim();
   const terminos = document.getElementById("regfTerminos")?.checked;
-  const mErr     = document.getElementById("regFormError");
+  const mErr = document.getElementById("regFormError");
 
   if (!nombre) {
     _mostrarError(mErr, "Ingresa tu nombre completo.");
@@ -503,22 +558,25 @@ function registrarClienteForm() {
 
   // Guardar sesión
   sessionStorage.setItem("clienteNombre", nombre);
-  sessionStorage.setItem("clienteEmail",  email);
-  sessionStorage.setItem("rolActual",     "Cliente");
+  sessionStorage.setItem("clienteEmail", email);
+  sessionStorage.setItem("rolActual", "Cliente");
 
   // Cambiar botón a loading
   const btn = document.querySelector(".reg-btn");
   if (btn) {
-    btn.disabled   = true;
-    btn.innerHTML  = '<i class="bi bi-arrow-repeat spin-icon"></i>&nbsp; Creando cuenta...';
+    btn.disabled = true;
+    btn.innerHTML =
+      '<i class="bi bi-arrow-repeat spin-icon"></i>&nbsp; Creando cuenta...';
   }
 
   mostrarToast(
     "¡Cuenta creada! Bienvenido, " + nombre.split(" ")[0] + "!",
-    "success"
+    "success",
   );
 
-  setTimeout(() => { window.location.href = "cliente.html"; }, 1600);
+  setTimeout(() => {
+    window.location.href = "cliente.html";
+  }, 1600);
 }
 
 // CSS del spinner

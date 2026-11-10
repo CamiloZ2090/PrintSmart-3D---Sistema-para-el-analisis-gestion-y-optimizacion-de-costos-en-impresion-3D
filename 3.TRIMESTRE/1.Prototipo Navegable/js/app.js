@@ -5,31 +5,32 @@ window.addEventListener("DOMContentLoaded", () => {
   const rol = sessionStorage.getItem("rolActual") || "Admin";
 
   const datosRol = {
-    Admin:    { nombre: "Camilo Zambrano",  iniciales: "CZ", color: "#5B21B6" },
+    Admin: { nombre: "Camilo Zambrano", iniciales: "CZ", color: "#5B21B6" },
     Operador: { nombre: "Moises Stredel", iniciales: "MS", color: "#0F766E" },
-    Cliente:  { nombre: "Yesenia Montoya", iniciales: "YM", color: "#2563EB" },
-    Tecnico:  { nombre: "Eilin Martin", iniciales: "EL", color: "#0369A1" }
+    Cliente: { nombre: "Yesenia Montoya", iniciales: "YM", color: "#2563EB" },
+    Tecnico: { nombre: "Eilin Martin", iniciales: "EL", color: "#0369A1" },
   };
 
   const datos = datosRol[rol] || datosRol["Admin"];
 
   const elNombre = document.getElementById("topbarNombre");
-  const elRol    = document.getElementById("topbarRol");
+  const elRol = document.getElementById("topbarRol");
   const elAvatar = document.getElementById("topbarAvatar");
 
   if (elNombre) elNombre.textContent = datos.nombre;
-  if (elRol)    elRol.textContent    = rol.toUpperCase();
+  if (elRol) elRol.textContent = rol.toUpperCase();
   if (elAvatar) {
     elAvatar.textContent = datos.iniciales;
     elAvatar.style.background = datos.color;
   }
 
   // CONECTAR CLICS DEL MENÚ AUTOMÁTICAMENTE
-  document.querySelectorAll(".sidebar-nav .nav-item").forEach(item => {
+  document.querySelectorAll(".sidebar-nav .nav-item").forEach((item) => {
     item.addEventListener("click", (e) => {
       e.preventDefault();
       // Lee el atributo data-seccion o extrae el ID del elemento
-      const idSeccion = item.getAttribute("data-seccion") || item.id.replace("nav-", "");
+      const idSeccion =
+        item.getAttribute("data-seccion") || item.id.replace("nav-", "");
       if (idSeccion) {
         mostrarSeccion(idSeccion, item);
       }
@@ -37,17 +38,19 @@ window.addEventListener("DOMContentLoaded", () => {
   });
 
   // Mostrar sección inicial
-  const navInicial = document.getElementById("nav-dashboard") || document.querySelector('.nav-item[data-seccion="dashboard"]');
+  const navInicial =
+    document.getElementById("nav-dashboard") ||
+    document.querySelector('.nav-item[data-seccion="dashboard"]');
   mostrarSeccion("dashboard", navInicial);
 });
 
 // NAVEGACIÓN: muestra una sección y oculta el resto
 
-let graficosCreados = {};  // Para no crear gráficos duplicados
+let graficosCreados = {}; // Para no crear gráficos duplicados
 
 function mostrarSeccion(idSeccion, navEl) {
   // 1. Ocultar TODAS las secciones
-  document.querySelectorAll("[id^='sec-']").forEach(sec => {
+  document.querySelectorAll("[id^='sec-']").forEach((sec) => {
     sec.style.display = "none";
   });
 
@@ -56,21 +59,21 @@ function mostrarSeccion(idSeccion, navEl) {
   if (seccionTarget) seccionTarget.style.display = "block";
 
   // 3. Actualizar qué ítem del menú está activo
-  document.querySelectorAll(".nav-item").forEach(item => {
+  document.querySelectorAll(".nav-item").forEach((item) => {
     item.classList.remove("activo");
   });
   if (navEl) navEl.classList.add("activo");
 
   // 4. Actualizar el placeholder del buscador
   const textosBuscador = {
-    dashboard:     "Buscar pedidos, materiales o telemetría...",
-    materiales:    "Buscar materiales, lotes o proveedores...",
-    pedidos:       "Buscar pedidos, clientes o ID...",
-    calculos:      "Buscar proyectos o cálculos...",
-    informes:      "Buscar reportes, transacciones o datos...",
-    reportes:      "Buscar reportes, transacciones o datos...",
-    usuarios:      "Buscar usuarios del sistema...",
-    configuracion: "Buscar ajustes..."
+    dashboard: "Buscar pedidos, materiales o telemetría...",
+    materiales: "Buscar materiales, lotes o proveedores...",
+    pedidos: "Buscar pedidos, clientes o ID...",
+    calculos: "Buscar proyectos o cálculos...",
+    informes: "Buscar reportes, transacciones o datos...",
+    reportes: "Buscar reportes, transacciones o datos...",
+    usuarios: "Buscar usuarios del sistema...",
+    configuracion: "Buscar ajustes...",
   };
   const buscador = document.getElementById("buscadorInput");
   if (buscador) buscador.placeholder = textosBuscador[idSeccion] || "Buscar...";
@@ -157,7 +160,9 @@ async function exportarPDF() {
 
   // Pie de página
   doc.setFontSize(8);
-  doc.text("PrintSmart 3D — Sistemas de Impresión de Precisión", 105, 285, { align: "center" });
+  doc.text("PrintSmart 3D — Sistemas de Impresión de Precisión", 105, 285, {
+    align: "center",
+  });
 
   const pdfBlob = doc.output("blob");
 
@@ -166,10 +171,12 @@ async function exportarPDF() {
     if ("showSaveFilePicker" in window) {
       const fileHandle = await window.showSaveFilePicker({
         suggestedName: "PrintSmart_Dashboard.pdf",
-        types: [{
-          description: "Documento PDF",
-          accept: { "application/pdf": [".pdf"] }
-        }]
+        types: [
+          {
+            description: "Documento PDF",
+            accept: { "application/pdf": [".pdf"] },
+          },
+        ],
       });
       const writable = await fileHandle.createWritable();
       await writable.write(pdfBlob);
@@ -192,12 +199,20 @@ async function exportarPDF() {
 // Intenta abrir el diálogo "Guardar como"; si el navegador no lo soporta,
 // cae automáticamente en la descarga clásica por <a download>.
 // Devuelve true si el archivo se guardó, false si el usuario canceló el diálogo.
-async function descargarBlob(blob, nombreSugerido, mimeType, extension, descripcion = "Archivo") {
+async function descargarBlob(
+  blob,
+  nombreSugerido,
+  mimeType,
+  extension,
+  descripcion = "Archivo",
+) {
   if ("showSaveFilePicker" in window) {
     try {
       const fileHandle = await window.showSaveFilePicker({
         suggestedName: nombreSugerido,
-        types: [{ description: descripcion, accept: { [mimeType]: [extension] } }]
+        types: [
+          { description: descripcion, accept: { [mimeType]: [extension] } },
+        ],
       });
       const writable = await fileHandle.createWritable();
       await writable.write(blob);
@@ -224,7 +239,7 @@ function toggleNotificaciones(event) {
   event.stopPropagation();
   const panel = document.getElementById("notifPanel");
   if (!panel) return;
-  panel.style.display = (panel.style.display === "block") ? "none" : "block";
+  panel.style.display = panel.style.display === "block" ? "none" : "block";
 }
 
 // Cierra el panel de notificaciones al hacer clic en cualquier otro lugar de la página

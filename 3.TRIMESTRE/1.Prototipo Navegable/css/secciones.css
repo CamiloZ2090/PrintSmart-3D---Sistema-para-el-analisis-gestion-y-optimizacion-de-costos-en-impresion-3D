@@ -1,17 +1,41 @@
 /*ESTILOS ESPECÍFICOS DE CADA SECCIÓN */
 
 /* PEDIDOS */
-.badge-pend-tech { background: var(--purple-100); color: var(--purple-700);
-  padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+.badge-pend-tech {
+  background: var(--purple-100);
+  color: var(--purple-700);
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
 
-.badge-pend-fin  { background: #FEF3C7; color: #D97706;
-  padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+.badge-pend-fin {
+  background: #fef3c7;
+  color: #d97706;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
 
-.badge-margen-alto { background: #DCFCE7; color: #16A34A;
-  padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 700; }
+.badge-margen-alto {
+  background: #dcfce7;
+  color: #16a34a;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+}
 
-.badge-margen-bajo { background: #FEE2E2; color: #DC2626;
-  padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 700; }
+.badge-margen-bajo {
+  background: #fee2e2;
+  color: #dc2626;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+}
 
 /* Estado vacío del panel de pedidos */
 .estado-vacio {
@@ -20,18 +44,24 @@
   align-items: center;
   justify-content: center;
   min-height: 300px;
-  color: #D1D5DB;
+  color: #d1d5db;
   text-align: center;
   gap: 12px;
 }
 
-.estado-vacio i { font-size: 48px; }
-.estado-vacio p { font-size: 14px; font-weight: 600; color: var(--text-muted); }
+.estado-vacio i {
+  font-size: 48px;
+}
+.estado-vacio p {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-muted);
+}
 
 /* Vista previa del modelo 3D */
 .modelo-preview {
   height: 140px;
-  background: linear-gradient(135deg, #F3F4F6, #E5E7EB);
+  background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
   border-radius: 12px;
   display: flex;
   align-items: center;
@@ -45,7 +75,7 @@
   display: flex;
   align-items: flex-start;
   gap: 10px;
-  background: #F9FAFB;
+  background: #f9fafb;
   border-radius: 10px;
   padding: 12px;
   font-size: 12.5px;
@@ -53,7 +83,8 @@
 }
 
 .hist-avatar {
-  width: 28px; height: 28px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   background: var(--purple-600);
   color: white;
@@ -75,7 +106,9 @@
   border-radius: 6px;
 }
 
-.btn-cerrar:hover { background: #F3F4F6; }
+.btn-cerrar:hover {
+  background: #f3f4f6;
+}
 
 /* CÁLCULOS */
 .etiqueta-seccion {
@@ -88,7 +121,7 @@
 
 /* Zona de carga STL */
 .zona-carga {
-  border: 2px dashed #D1D5DB;
+  border: 2px dashed #d1d5db;
   border-radius: 12px;
   padding: 40px 20px;
   text-align: center;
@@ -103,7 +136,9 @@
   color: var(--purple-600);
 }
 
-.icono-grande { font-size: 32px; }
+.icono-grande {
+  font-size: 32px;
+}
 
 /* Slider / Rango */
 .rango {
@@ -113,11 +148,14 @@
 }
 
 /* Grupo de botones toggle (0.05 / 0.10 / 0.20) */
-.grupo-botones { display: flex; gap: 4px; }
+.grupo-botones {
+  display: flex;
+  gap: 4px;
+}
 
 .btn-toggle {
   flex: 1;
-  border: 1px solid #E5E7EB;
+  border: 1px solid #e5e7eb;
   background: white;
   color: var(--text-mid);
   padding: 7px 0;
@@ -128,7 +166,9 @@
   transition: all 0.2s;
 }
 
-.btn-toggle:hover { border-color: var(--purple-400); }
+.btn-toggle:hover {
+  border-color: var(--purple-400);
+}
 .btn-toggle.activo {
   background: var(--purple-700);
   color: white;
@@ -138,7 +178,7 @@
 /* Vista previa 3D */
 .preview-3d {
   height: 160px;
-  background: linear-gradient(135deg, #F8F9FA, #E9ECEF);
+  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
   border-radius: 10px;
   display: flex;
   flex-direction: column;
@@ -149,7 +189,10 @@
   font-size: 13px;
 }
 
-.preview-3d i { font-size: 52px; color: #C4B5FD; }
+.preview-3d i {
+  font-size: 52px;
+  color: #c4b5fd;
+}
 
 /* Desglose de costos */
 .costo-fila {
@@ -157,12 +200,22 @@
   justify-content: space-between;
   align-items: center;
   padding: 8px 0;
-  border-bottom: 1px solid #F9FAFB;
+  border-bottom: 1px solid #f9fafb;
 }
 
-.costo-concepto { font-size: 13px; color: var(--text-mid); }
-.costo-sub      { font-size: 11px; color: var(--text-muted); }
-.costo-valor    { font-size: 14px; font-weight: 600; color: var(--text-dark); }
+.costo-concepto {
+  font-size: 13px;
+  color: var(--text-mid);
+}
+.costo-sub {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+.costo-valor {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-dark);
+}
 
 /* Caja total */
 .caja-total {
@@ -174,9 +227,21 @@
   margin: 14px 0;
 }
 
-.total-label { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; opacity: 0.8; }
-.total-valor { font-size: 32px; font-weight: 900; }
-.total-sub   { font-size: 12px; opacity: 0.7; margin-top: 4px; }
+.total-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.8;
+}
+.total-valor {
+  font-size: 32px;
+  font-weight: 900;
+}
+.total-sub {
+  font-size: 12px;
+  opacity: 0.7;
+  margin-top: 4px;
+}
 
 /* REPORTES */
 .roi-fila {
@@ -186,10 +251,29 @@
   margin-bottom: 12px;
 }
 
-.roi-nombre { font-size: 13px; color: var(--text-mid); width: 170px; flex-shrink: 0; }
-.roi-barra  { flex: 1; height: 6px; background: #F3F4F6; border-radius: 10px; overflow: hidden; }
-.roi-fill   { height: 100%; border-radius: 10px; background: var(--purple-700); }
-.roi-val    { font-size: 13px; font-weight: 700; width: 35px; }
+.roi-nombre {
+  font-size: 13px;
+  color: var(--text-mid);
+  width: 170px;
+  flex-shrink: 0;
+}
+.roi-barra {
+  flex: 1;
+  height: 6px;
+  background: #f3f4f6;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.roi-fill {
+  height: 100%;
+  border-radius: 10px;
+  background: var(--purple-700);
+}
+.roi-val {
+  font-size: 13px;
+  font-weight: 700;
+  width: 35px;
+}
 
 /* USUARIOS */
 .tab-filtro {
@@ -230,24 +314,37 @@
   gap: 10px;
   padding: 12px 14px;
   align-items: center;
-  border-bottom: 1px solid #F9FAFB;
+  border-bottom: 1px solid #f9fafb;
   transition: background 0.15s;
 }
 
-.fila-usuario:hover { background: #F9FAFB; }
+.fila-usuario:hover {
+  background: #f9fafb;
+}
 
-.usuario-id { display: flex; align-items: center; gap: 10px; }
+.usuario-id {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 
 /* Puntos de estado online */
 .punto {
-  width: 8px; height: 8px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
   flex-shrink: 0;
 }
 
-.punto.online     { background: var(--success); }
-.punto.ausente    { background: #D1D5DB; }
-.punto.suspendido { background: var(--danger); }
+.punto.online {
+  background: var(--success);
+}
+.punto.ausente {
+  background: #d1d5db;
+}
+.punto.suspendido {
+  background: var(--danger);
+}
 
 /* Badges de roles */
 .badge-rol {
@@ -257,9 +354,18 @@
   font-weight: 600;
 }
 
-.badge-rol.admin    { background: var(--purple-100); color: var(--purple-700); }
-.badge-rol.operador { background: #F0FDF4; color: #16A34A; }
-.badge-rol.cliente  { background: #EFF6FF; color: #2563EB; }
+.badge-rol.admin {
+  background: var(--purple-100);
+  color: var(--purple-700);
+}
+.badge-rol.operador {
+  background: #f0fdf4;
+  color: #16a34a;
+}
+.badge-rol.cliente {
+  background: #eff6ff;
+  color: #2563eb;
+}
 
 /* Footer de tabla */
 .tabla-footer-usuarios {
@@ -269,13 +375,14 @@
   padding: 12px 14px;
   font-size: 12.5px;
   color: var(--text-muted);
-  border-top: 1px solid #F9FAFB;
+  border-top: 1px solid #f9fafb;
 }
 
 .btn-pagina {
-  width: 28px; height: 28px;
+  width: 28px;
+  height: 28px;
   background: white;
-  border: 1px solid #E5E7EB;
+  border: 1px solid #e5e7eb;
   border-radius: 6px;
   cursor: pointer;
   display: flex;
@@ -294,7 +401,9 @@
 }
 
 /* CONFIGURACIÓN */
-.almac-fila { margin-bottom: 14px; }
+.almac-fila {
+  margin-bottom: 14px;
+}
 
 .almac-label {
   display: flex;
@@ -306,7 +415,7 @@
 
 .almac-barra {
   height: 8px;
-  background: #F3F4F6;
+  background: #f3f4f6;
   border-radius: 10px;
   overflow: hidden;
 }
@@ -317,9 +426,15 @@
   transition: width 0.6s ease;
 }
 
-.almac-fill.morado { background: var(--purple-600); }
-.almac-fill.azul   { background: #3B82F6; }
-.almac-fill.verde  { background: var(--success); }
+.almac-fill.morado {
+  background: var(--purple-600);
+}
+.almac-fill.azul {
+  background: #3b82f6;
+}
+.almac-fill.verde {
+  background: var(--success);
+}
 
 /* Tarjetas de info del sistema */
 .sys-card {
@@ -329,5 +444,15 @@
   padding: 14px 16px;
 }
 
-.sys-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text-muted); }
-.sys-valor { font-size: 14px; font-weight: 700; color: var(--text-dark); margin-top: 4px; }
+.sys-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--text-muted);
+}
+.sys-valor {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-top: 4px;
+}

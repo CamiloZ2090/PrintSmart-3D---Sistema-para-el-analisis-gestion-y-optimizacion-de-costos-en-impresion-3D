@@ -22,7 +22,9 @@
 .contenido-principal,
 .cl-main,
 .main-content {
-  transition: margin-left 0.3s ease, left 0.3s ease;
+  transition:
+    margin-left 0.3s ease,
+    left 0.3s ease;
 }
 
 /* Estado "oculto": se activa agregando la clase al <body> */
@@ -53,7 +55,7 @@ body.sidebar-oculto .main-content {
   height: 32px;
   border: none;
   border-radius: 50%;
-  background: #1F2937;
+  background: #1f2937;
   color: #ffffff;
   display: flex;
   align-items: center;
@@ -62,12 +64,15 @@ body.sidebar-oculto .main-content {
   line-height: 1;
   cursor: pointer;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.28);
-  transition: left 0.3s ease, top 0.3s ease, background 0.2s ease;
+  transition:
+    left 0.3s ease,
+    top 0.3s ease,
+    background 0.2s ease;
 }
 .btn-toggle-sidebar:hover {
   background: #374151;
 }
 .btn-toggle-sidebar:focus-visible {
-  outline: 2px solid #A78BFA;
+  outline: 2px solid #a78bfa;
   outline-offset: 2px;
 }
